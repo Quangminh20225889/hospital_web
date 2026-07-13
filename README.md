@@ -1,30 +1,26 @@
-# Next.js 16 Starter (RIVER)
+# Bateco-QuocAn
 
-Boilerplate frontend sẵn để clone và dựng project mới. Không phải app production — chỉ là khung chuẩn: i18n, fetch CMS, SEO Rank Math, form, UI base.
+Website frontend **Bateco Quốc An** — Next.js App Router, i18n (`vi` / `en`), tích hợp CMS / Rank Math SEO.
 
 ## Stack
 
-- **Next.js 16** (App Router) + **React 19** + **TypeScript**
+- **Next.js 16** + **React 19** + **TypeScript**
 - **Tailwind CSS 4** + shadcn/ui (Radix)
-- **next-intl** — đa ngôn ngữ (`vi` / `en`)
-- **GSAP** — scroll / animation helpers
-- **react-hook-form** + **zod** — form validation
+- **next-intl** — đa ngôn ngữ
+- **GSAP** — scroll / animation
+- **react-hook-form** + **zod** — form
 - ESLint + Prettier
-- `output: 'standalone'` — sẵn cho Docker / VPS
+- `output: 'standalone'` — deploy Docker / VPS
 
-## Quick start
+## Getting started
 
 ```bash
-# clone
-git clone <repo-url> my-project
-cd my-project
+git clone git@github-bateco:hieudam-bateco/Bateco-QA.git
+cd Bateco-QA
 
-# install (pnpm khuyến nghị)
 pnpm install
 
-# env — tạo .env.local (xem mục Environment)
-
-# run
+# tạo .env.local (xem Environment bên dưới)
 pnpm dev
 ```
 
@@ -32,7 +28,7 @@ Mở [http://localhost:3000](http://localhost:3000).
 
 ## Environment
 
-Tạo file `.env.local` ở root:
+Tạo `.env.local` ở root:
 
 ```env
 NEXT_PUBLIC_DOMAIN=https://example.com
@@ -40,11 +36,11 @@ NEXT_PUBLIC_CMS=https://cms.example.com
 NEXT_PUBLIC_API=https://cms.example.com/wp-json
 ```
 
-| Biến                 | Mục đích                           |
-| -------------------- | ---------------------------------- |
-| `NEXT_PUBLIC_DOMAIN` | Domain site (SEO / schema rewrite) |
-| `NEXT_PUBLIC_CMS`    | URL WordPress / CMS                |
-| `NEXT_PUBLIC_API`    | Base REST API                      |
+| Biến                 | Mục đích                   |
+| -------------------- | -------------------------- |
+| `NEXT_PUBLIC_DOMAIN` | Domain site (SEO / schema) |
+| `NEXT_PUBLIC_CMS`    | URL WordPress / CMS        |
+| `NEXT_PUBLIC_API`    | Base REST API              |
 
 ## Scripts
 
@@ -57,8 +53,7 @@ pnpm lint:fix        # eslint --fix
 pnpm format           # prettier --write
 pnpm format:check     # prettier --check
 
-# phân tích bundle
-ANALYZE=true pnpm build
+ANALYZE=true pnpm build   # phân tích bundle
 ```
 
 ## Cấu trúc
@@ -66,39 +61,29 @@ ANALYZE=true pnpm build
 ```text
 src/
   app/                 # App Router ([locale], layouts, robots)
-  components/          # UI / shared components
+  components/          # UI / shared
   configs/             # env, routes, endpoints
-  fetches/             # fetch CMS, Rank Math, CF7
-  i18n/                # next-intl routing / request / navigation
+  fetches/             # CMS, Rank Math, CF7
+  i18n/                # next-intl (routing / request / navigation)
   lib/                 # utils (cn, …)
-  services/            # service layer (cloud, …)
+  services/            # service layer
   utils/               # helpers (scroll, metadata, …)
   proxy.ts             # next-intl middleware (Next 16)
 messages/              # vi.json, en.json
 public/                # static assets
 ```
 
-## Có sẵn trong starter
+## Tính năng chính
 
 - Routing theo locale: `/` (vi mặc định), `/en`, …
-- Fetch wrapper + Rank Math metadata / schema helpers
-- Contact Form 7 request helper
-- Scroll helpers (window + container) bằng GSAP
-- ESLint flat config + Prettier
+- Fetch CMS + Rank Math metadata / schema
+- Contact Form 7 helper
+- Scroll helpers (window + container) — GSAP
 - Bundle analyzer (`@next/bundle-analyzer`)
 
-## Checklist khi clone project mới
+## Notes
 
-1. Đổi `name` trong `package.json`
-2. Cập nhật `.env.local` (DOMAIN / CMS / API)
-3. Chỉnh `src/i18n/routing.ts` nếu thêm/bớt locale
-4. Cập nhật `src/configs/endpoints.ts` và `routes.ts` theo CMS
-5. Thay nội dung `messages/*.json`
-6. Xóa page demo (`abc`, `bcd`, …) nếu không cần
-7. Review `next.config.ts` (`typescript.ignoreBuildErrors`, `remotePatterns`, …) trước khi lên production
-
-## Ghi chú
-
-- Package manager: **pnpm** (có `pnpm-lock.yaml`)
+- Package manager: **pnpm**
 - Path alias: `@/*` → `src/*`
+- Locale config: `src/i18n/routing.ts`
 - Strict Mode đang tắt trong `next.config.ts` (tiện GSAP / animation)
