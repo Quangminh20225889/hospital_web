@@ -1,6 +1,6 @@
-# Bateco-QuocAn
+# NEXTJS-16
 
-Website frontend **Bateco Quốc An** — Next.js App Router, i18n (`vi` / `en`), tích hợp CMS / Rank Math SEO.
+Website frontend **NEXTJS TEMPLATE** — Next.js App Router, i18n (`vi` / `en`), tích hợp CMS / Rank Math SEO.
 
 ## Stack
 
@@ -15,7 +15,7 @@ Website frontend **Bateco Quốc An** — Next.js App Router, i18n (`vi` / `en`)
 ## Getting started
 
 ```bash
-git clone git@github-bateco:hieudam-bateco/Bateco-QA.git
+git clone git@github.com:RiverNguyen/NextJS16-template.git
 cd Bateco-QA
 
 pnpm install
