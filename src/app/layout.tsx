@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { IBM_Plex_Mono, IBM_Plex_Sans } from 'next/font/google'
 import { NuqsAdapter } from 'nuqs/adapters/next/app'
 
+import { LenisProvider } from '@/components/providers/lenis-provider'
 import { QueryProvider } from '@/components/providers/query-provider'
 import '@/styles/globals.css'
 
@@ -31,7 +32,9 @@ export default function RootLayout({
     <html lang='en'>
       <body className={`${ibmPlexSans.variable} ${ibmPlexMono.variable} font-sans antialiased`}>
         <QueryProvider>
-          <NuqsAdapter>{children}</NuqsAdapter>
+          <NuqsAdapter>
+            <LenisProvider>{children}</LenisProvider>
+          </NuqsAdapter>
         </QueryProvider>
       </body>
     </html>
