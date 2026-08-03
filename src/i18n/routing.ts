@@ -1,13 +1,15 @@
 import { defineRouting } from 'next-intl/routing'
 
 export const routing = defineRouting({
-  // A list of all locales that are supported
   locales: ['vi', 'en'],
-
-  // Used when no locale matches
   defaultLocale: 'vi',
-
   localePrefix: 'as-needed',
-
   localeDetection: false,
+  pathnames: {
+    '/': '/',
+    '/gioi-thieu': {
+      vi: '/gioi-thieu',
+      en: '/about',
+    },
+  },
 })
