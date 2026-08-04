@@ -1,15 +1,19 @@
 import type { Metadata } from 'next'
-import { IBM_Plex_Mono, IBM_Plex_Sans } from 'next/font/google'
+import { IBM_Plex_Mono } from 'next/font/google'
+import localFont from 'next/font/local'
 import { NuqsAdapter } from 'nuqs/adapters/next/app'
 
 import { LenisProvider } from '@/components/providers/lenis-provider'
 import { QueryProvider } from '@/components/providers/query-provider'
 import '@/styles/globals.css'
 
-const ibmPlexSans = IBM_Plex_Sans({
-  variable: '--font-ibm-plex-sans',
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+const googleSansFlex = localFont({
+  src: '../../public/font/GoogleSansFlex-VariableFont_GRAD,ROND,opsz,slnt,wdth,wght.ttf',
+  variable: '--font-google-sans-flex',
+  display: 'swap',
+  weight: '100 900',
+  style: 'normal',
+  fallback: ['Arial', 'sans-serif'],
 })
 
 const ibmPlexMono = IBM_Plex_Mono({
@@ -30,7 +34,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={`${ibmPlexSans.variable} ${ibmPlexMono.variable} font-sans antialiased`}>
+      <body className={`${googleSansFlex.variable} ${ibmPlexMono.variable} font-sans antialiased`}>
         <QueryProvider>
           <NuqsAdapter>
             <LenisProvider>{children}</LenisProvider>
