@@ -111,3 +111,10 @@ pnpm-lock.yaml
 
 # Generated files
 *.d.ts
+
+node_modules
+.pnpm-store
+.next
+dist
+build
+coverage

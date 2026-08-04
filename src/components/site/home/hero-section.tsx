@@ -11,15 +11,13 @@ export function HeroSection() {
             Trung tâm hỗ trợ sinh sản
           </p>
 
-          <h1
-            className='max-w-[42rem] text-[2rem] font-bold leading-[1.2] text-title-blue md:text-[2.875rem]'
-          >
+          <h1 className='max-w-[42rem] text-[2rem] font-bold leading-[1.2] text-title-blue md:text-[2.875rem]'>
             Hiện thực hóa ước mơ làm cha mẹ bằng y học hiện đại
           </h1>
 
           <p className='max-w-[34rem] text-[1rem] leading-[1.8] text-text-dark-blue/85'>
-            Trang demo một trang duy nhất. Toàn bộ dữ liệu hiển thị đang dùng
-            mock data để bạn luyện tập build giao diện trước khi kết nối API.
+            Trang demo một trang duy nhất. Toàn bộ dữ liệu hiển thị đang dùng mock data để bạn luyện
+            tập build giao diện trước khi kết nối API.
           </p>
 
           <div className='flex flex-wrap gap-[0.75rem] pt-[0.25rem]'>

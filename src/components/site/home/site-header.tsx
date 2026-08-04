@@ -14,7 +14,10 @@ export function SiteHeader() {
     <>
       <header className='sticky top-0 z-40 border-b border-brand-blue/10 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/90'>
         <Container className='flex h-[5.5rem] items-center justify-between gap-[1rem]'>
-          <Link href='/' className='flex items-center gap-[0.625rem] text-[1.125rem] font-bold text-title-blue'>
+          <Link
+            href='/'
+            className='flex items-center gap-[0.625rem] text-[1.125rem] font-bold text-title-blue'
+          >
             <span className='inline-flex size-[2.5rem] items-center justify-center rounded-full bg-brand-blue text-[0.875rem] font-semibold text-white'>
               ĐT
             </span>
@@ -62,7 +65,11 @@ export function SiteHeader() {
       </header>
 
       {isOpen && (
-        <div className='fixed inset-0 z-50 bg-brand-dark/35 lg:hidden' role='presentation' onClick={() => setIsOpen(false)}>
+        <div
+          className='fixed inset-0 z-50 bg-brand-dark/35 lg:hidden'
+          role='presentation'
+          onClick={() => setIsOpen(false)}
+        >
           <div
             className='ml-auto flex h-full w-[85%] max-w-[22rem] flex-col bg-white p-[1rem]'
             role='dialog'
