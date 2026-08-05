@@ -1,57 +1,186 @@
-import { Container } from '@/components/common/container'
+import Image from 'next/image'
+import Link from 'next/link'
 
-const footerColumns = [
-  {
-    title: 'Chuyên khoa',
-    links: ['Hỗ trợ sinh sản', 'Nam khoa', 'Ngoại tổng hợp', 'Nội tổng hợp'],
-  },
-  {
-    title: 'Hỗ trợ khách hàng',
-    links: ['Đặt lịch khám', 'Bảng giá dịch vụ', 'Hướng dẫn thanh toán', 'Câu hỏi thường gặp'],
-  },
-  {
-    title: 'Liên hệ',
-    links: ['Hotline: 0946 885 885', 'Email: cskh@dongtam.vn', '7:00 - 19:00 mỗi ngày'],
-  },
-]
+import { Container } from '@/components/common/container'
+import {
+  footerContactItems,
+  footerContent,
+  footerLegalLinks,
+  footerMenuColumns,
+  footerSocialLinks,
+} from '@/content/home'
 
 export function SiteFooter() {
   return (
-    <footer className='mt-[5rem] border-t border-brand-blue/10 bg-surface-blue/40 py-[3rem]'>
-      <Container className='space-y-[2rem]'>
-        <div className='flex flex-col gap-[1.25rem]'>
-          <p className='text-[1.5rem] font-bold text-title-blue'>Bệnh viện Đồng Tâm</p>
-          <p className='max-w-[44rem] text-[1rem] leading-[1.7] text-text-dark-blue/90'>
-            Đồng hành cùng gia đình trên hành trình tìm kiếm tiếng cười trẻ thơ bằng giải pháp y
-            khoa hiện đại, minh bạch và tận tâm.
-          </p>
-        </div>
+    <footer className='mt-[5rem] w-full bg-[#1598c8] p-[1.25rem] xl:h-[39.375rem]'>
+      <Container className='h-full max-w-none px-0 sm:px-0 lg:px-0'>
+        <div className='flex h-full flex-col overflow-hidden rounded-[1.375rem] bg-white'>
+          <div className='grid xl:min-h-0 xl:flex-1 xl:grid-cols-[31.25rem_minmax(0,1fr)]'>
+            <div className='grid border-b border-[#d9e3e8] xl:min-h-0 xl:grid-rows-[15.75rem_1fr] xl:border-r xl:border-b-0'>
+              <div className='flex items-center justify-center border-b border-[#d9e3e8] px-[1.5rem] py-[1.5rem]'>
+                <Image
+                  src={footerContent.logo.src}
+                  alt={footerContent.logo.alt}
+                  width={220}
+                  height={220}
+                  priority
+                  className='h-auto w-[12.5rem] object-contain'
+                />
+              </div>
 
-        <div className='grid gap-[1.5rem] sm:grid-cols-2 lg:grid-cols-3'>
-          {footerColumns.map((column) => (
-            <div
-              key={column.title}
-              className='rounded-[1rem] border border-brand-blue/10 bg-white p-[1.25rem]'
-            >
-              <h3 className='text-[1rem] font-semibold text-title-blue'>{column.title}</h3>
-              <ul className='mt-[0.75rem] space-y-[0.5rem]'>
-                {column.links.map((link) => (
-                  <li
-                    key={link}
-                    className='text-[0.9375rem] text-text-dark-blue/90'
-                  >
-                    {link}
-                  </li>
-                ))}
-              </ul>
+              <div className='flex flex-col items-center justify-start px-[1.5rem] py-[1.5rem] sm:px-[2rem] xl:px-[3rem]'>
+                <p className='max-w-[27rem] text-center font-serif text-[2rem] leading-[1.3] italic text-[#f0b635]'>
+                  {footerContent.slogan}
+                </p>
+
+                <div className='mt-[2rem] flex flex-wrap justify-center gap-[1.5rem]'>
+                  {footerSocialLinks.map((social) => (
+                    <Link
+                      key={social.label}
+                      href={social.href}
+                      target='_blank'
+                      rel='noreferrer'
+                      aria-label={social.label}
+                      className='flex size-[4rem] shrink-0 items-center justify-center rounded-full border border-[#d4dee3] bg-white transition-colors hover:border-[#1598c8] hover:bg-[#f2fbfe]'
+                    >
+                      <Image
+                        src={social.icon}
+                        alt=''
+                        width={28}
+                        height={28}
+                        className='size-[1.75rem] object-contain'
+                      />
+                    </Link>
+                  ))}
+                </div>
+              </div>
             </div>
-          ))}
-        </div>
 
-        <p className='border-t border-brand-blue/10 pt-[1rem] text-[0.875rem] text-text-dark-blue/70'>
-          © 2026 Bệnh viện Đồng Tâm. Nội dung trên trang hiện là mock data cho mục đích luyện tập
-          giao diện.
-        </p>
+            <div className='flex min-w-0 flex-col xl:min-h-0'>
+              <div className='grid border-b border-[#d9e3e8] xl:h-[15.75rem] xl:shrink-0 xl:grid-cols-[minmax(0,1fr)_24.5rem]'>
+                <div className='px-[1.5rem] py-[1.75rem] sm:px-[2rem] xl:px-[3.5rem]'>
+                  <p className='text-[2rem] font-medium leading-[1.25] text-[#1598c8]'>
+                    {footerContent.hotline.label}:{' '}
+                    <Link
+                      href={footerContent.hotline.href}
+                      className='whitespace-nowrap hover:underline'
+                    >
+                      {footerContent.hotline.value}
+                    </Link>
+                  </p>
+
+                  <div className='mt-[1.5rem] space-y-[1rem]'>
+                    {footerContactItems.map((item) => (
+                      <div
+                        key={item.id}
+                        className='flex items-start gap-[0.75rem]'
+                      >
+                        <span className='flex size-[1.25rem] shrink-0 items-center justify-center'>
+                          <Image
+                            src={item.icon}
+                            alt=''
+                            width={20}
+                            height={20}
+                            className='size-[1.125rem] object-contain'
+                          />
+                        </span>
+
+                        <p className='text-[0.9375rem] leading-[1.55] text-[#1d4860]'>
+                          <span className='font-semibold text-[#1598c8]'>{item.label}: </span>
+
+                          {item.href ? (
+                            <Link
+                              href={item.href}
+                              className='transition-colors hover:text-[#1598c8]'
+                            >
+                              {item.value}
+                            </Link>
+                          ) : (
+                            item.value
+                          )}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className='border-t border-[#d9e3e8] p-[1rem] xl:border-t-0'>
+                  <div className='relative h-[13rem] overflow-hidden rounded-[0.75rem] xl:h-full'>
+                    <iframe
+                      src={footerContent.map.embedUrl}
+                      title='Bản đồ Bệnh viện Đồng Tâm'
+                      allowFullScreen
+                      loading='lazy'
+                      referrerPolicy='strict-origin-when-cross-origin'
+                      className='h-full w-full border-0'
+                    />
+
+                    <Link
+                      href={footerContent.map.shareUrl}
+                      target='_blank'
+                      rel='noreferrer'
+                      className='absolute bottom-[0.75rem] left-[0.75rem] rounded-[0.5rem] bg-white px-[0.875rem] py-[0.5rem] text-[0.875rem] font-medium text-[#1d4860] shadow-[0_0.25rem_1rem_rgba(0,0,0,0.12)] transition-colors hover:text-[#1598c8]'
+                    >
+                      Chỉ đường đến Bệnh viện
+                    </Link>
+                  </div>
+                </div>
+              </div>
+
+              <div className='flex-1 px-[1.5rem] py-[1.5rem] sm:px-[2rem] xl:min-h-0 xl:px-[3.5rem]'>
+                <div className='grid gap-x-[2rem] gap-y-[2rem] sm:grid-cols-2 lg:grid-cols-3'>
+                  {footerMenuColumns.map((column) => (
+                    <div key={column.title}>
+                      <h3 className='text-[0.9375rem] font-bold uppercase leading-[1.4] text-[#123f55]'>
+                        {column.title}
+                      </h3>
+
+                      <ul className='mt-[0.75rem] space-y-[0.5rem]'>
+                        {column.links.map((link) => (
+                          <li key={link.label}>
+                            <Link
+                              href={link.href}
+                              className='text-[0.875rem] leading-[1.5] text-[#5a7a89] transition-colors hover:text-[#1598c8]'
+                            >
+                              {link.label}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className='flex flex-col gap-[1rem] border-t border-[#d9e3e8] px-[1.5rem] py-[1.25rem] text-[0.8125rem] text-[#5a7a89] sm:px-[2rem] lg:flex-row lg:items-center lg:justify-between xl:h-[4rem] xl:shrink-0 xl:px-[2rem] xl:py-0'>
+            <p>{footerContent.copyright}</p>
+
+            <ul className='flex flex-wrap items-center gap-y-[0.5rem]'>
+              {footerLegalLinks.map((link, index) => (
+                <li
+                  key={link.label}
+                  className='flex items-center'
+                >
+                  {index > 0 && (
+                    <span
+                      aria-hidden='true'
+                      className='mx-[0.75rem] h-[0.875rem] w-px bg-[#a8bac3]'
+                    />
+                  )}
+
+                  <Link
+                    href={link.href}
+                    className='transition-colors hover:text-[#1598c8]'
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
       </Container>
     </footer>
   )
