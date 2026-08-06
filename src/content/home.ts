@@ -24,7 +24,14 @@ export type NewsItem = {
   id: string
   title: string
   excerpt: string
-  publishedAt: string
+  category: string
+  image: string
+  imageAlt: string
+  href: string
+  publishedAt: {
+    day: string
+    monthYear: string
+  }
 }
 
 export type NavigationItem = {
@@ -181,21 +188,131 @@ export const services: Service[] = [
 export const newsItems: NewsItem[] = [
   {
     id: 'news-01',
-    title: '7 dấu hiệu nên đi khám hiếm muộn sớm',
-    excerpt: 'Nhận biết sớm giúp rút ngắn thời gian điều trị và tăng tỷ lệ thành công.',
-    publishedAt: '12.08.2026',
+    title: 'Hai lần mất con mới biết hai vợ chồng cùng mang gen lặn gây bệnh di truyền',
+    excerpt:
+      'Mỗi ngày trôi qua, điều day dứt nhất với anh Long, chị Hà (ở Mỹ Đức, Hà Nội) không chỉ là việc đã mất hai người con, mà là câu hỏi luôn ám ảnh: “Giá như mình biết sớm…”',
+    category: 'Tin tức',
+    image: '/images/banner-dng-tam1.png',
+    imageAlt: 'Tin tức bệnh viện Đồng Tâm',
+    href: '/tin-tuc/hai-lan-mat-con-moi-biet-hai-vo-chong-cung-mang-gen-lan-gay-benh-di-truyen',
+    publishedAt: {
+      day: '05',
+      monthYear: '08/2026',
+    },
   },
   {
     id: 'news-02',
-    title: 'IVF thất bại một lần, bước tiếp theo là gì?',
-    excerpt: 'Đánh giá lại phác đồ và các chỉ số nền tảng để lên kế hoạch tối ưu hơn.',
-    publishedAt: '09.08.2026',
+    title: 'IUI, IVF: Ăn gì để tăng cơ hội?',
+    excerpt:
+      'Bài viết: Bác sĩ Nguyễn Liên Phương. Hỗ trợ sinh sản bằng các kỹ thuật như bơm tinh trùng vào buồng tử cung (IUI) và thụ tinh trong ống nghiệm (IVF) ngày càng được áp dụng rộng rãi trong điều trị vô sinh – hiếm muộn. Bên cạnh các yếu tố chuyên môn như phác đồ kích thích buồng trứng, chất lượng phôi hay kỹ thuật labo, ngày càng có nhiều bằng chứng cho thấy dinh dưỡng và lối sống đóng vai trò quan trọng trong việc cải thiện kết quả điều trị.',
+    category: 'Tin tức',
+    image: '/images/Banner-Giam-50-chi-phi-IVF-web-copy.jpg',
+    imageAlt: 'Bài viết về IUI và IVF',
+    href: '/tin-tuc/iui-ivf-an-gi-de-tang-co-hoi',
+    publishedAt: {
+      day: '04',
+      monthYear: '08/2026',
+    },
   },
   {
     id: 'news-03',
-    title: 'Chế độ sinh hoạt trước chuyển phôi',
-    excerpt: 'Những thói quen nhỏ có thể tác động lớn đến khả năng làm tổ của phôi.',
-    publishedAt: '05.08.2026',
+    title:
+      'Đổi mới phong cách, thái độ phục vụ của cán bộ y tế hướng tới sự hài lòng của người bệnh',
+    excerpt:
+      'Sáng ngày 29/7, Bệnh viện Đồng Tâm đã tổ chức buổi tập huấn “Kỹ năng giao tiếp cơ bản” dành cho toàn thể cán bộ nhân viên, người lao động trong toàn viện.',
+    category: 'Tin tức',
+    image: '/images/IMG_5948-scaled.jpg',
+    imageAlt: 'Tập huấn kỹ năng giao tiếp tại bệnh viện',
+    href: '/tin-tuc/doi-moi-phong-cach-thai-do-phuc-vu-cua-can-bo-y-te-huong-toi-su-hai-long-cua-nguoi-benh',
+    publishedAt: {
+      day: '29',
+      monthYear: '07/2026',
+    },
+  },
+  {
+    id: 'news-04',
+    title: '20 năm “vô sinh không rõ nguyên nhân” và một cái kết vượt ngoài mong đợi',
+    excerpt:
+      'Hơn 20 năm chạy chữa trong vô vọng, nhiều lần định “bỏ cuộc”, vợ chồng chị Nguyễn Thị Chanh (xã An Khánh, thành phố Hà Nội) từng tin rằng mong muốn có con của mình sẽ không bao giờ thành hiện thực. Nhưng từ một ca được đánh giá chỉ còn 10–15% cơ hội thành công, bằng sự kiên trì của người bệnh và sự đồng hành bền bỉ của Bác sĩ Nguyễn Thị Nhã – Phó Giám đốc Bệnh viện Đồng Tâm, một cái kết trọn vẹn đã được viết tiếp.',
+    category: 'Tin tức',
+    image: '/images/banner-dng-tam1.png',
+    imageAlt: 'Hành trình điều trị hiếm muộn thành công',
+    href: '/tin-tuc/20-nam-vo-sinh-khong-ro-nguyen-nhan-va-mot-cai-ket-vuot-ngoai-mong-doi',
+    publishedAt: {
+      day: '27',
+      monthYear: '07/2026',
+    },
+  },
+  {
+    id: 'news-05',
+    title: 'Hoạt động dâng hương tưởng niệm các anh hùng liệt sỹ nhân ngày 27/7',
+    excerpt:
+      'Ngày 27/7 hằng năm là dịp để mỗi người dân Việt Nam thành kính tưởng nhớ, bày tỏ lòng biết ơn sâu sắc đối với các Anh hùng liệt sỹ, thương binh, bệnh binh và những người có công với cách mạng – những người đã cống hiến, hy sinh vì độc lập, tự do của Tổ quốc và hạnh phúc của Nhân dân.',
+    category: 'Tin tức',
+    image: '/images/Banner-Giam-50-chi-phi-IVF-web-copy.jpg',
+    imageAlt: 'Hoạt động dâng hương tưởng niệm',
+    href: '/tin-tuc/hoat-dong-dang-huong-tuong-niem-cac-anh-hung-liet-sy-nhan-ngay-27-7',
+    publishedAt: {
+      day: '27',
+      monthYear: '07/2026',
+    },
+  },
+  {
+    id: 'news-06',
+    title:
+      'Tri ân người có công với cách mạng – Đồng hành cùng cán bộ, chiến sĩ trong lực lượng vũ trang trên hành trình tìm con yêu',
+    excerpt:
+      'Nhân kỷ niệm 79 năm Ngày Thương binh – Liệt sĩ (27/7/1947 – 27/7/2026), Bệnh viện Đa khoa Đồng Tâm xin bày tỏ lòng thành kính và biết ơn sâu sắc các Anh hùng liệt sĩ, thương binh, bệnh binh, người có công với cách mạng đã dũng cảm chiến đấu, anh dũng hy sinh hoặc cống hiến một phần xương máu của mình cho sự nghiệp đấu tranh giải phóng dân tộc.',
+    category: 'Tin tức',
+    image: '/images/IMG_5948-scaled.jpg',
+    imageAlt: 'Chương trình tri ân người có công với cách mạng',
+    href: '/tin-tuc/tri-an-nguoi-co-cong-voi-cach-mang-dong-hanh-cung-can-bo-chien-si-trong-luc-luong-vu-trang-tren-hanh-trinh-tim-con-yeu',
+    publishedAt: {
+      day: '27',
+      monthYear: '07/2026',
+    },
+  },
+  {
+    id: 'news-07',
+    title: 'Không khí ngày cuối của Tuần lễ khám và tư vấn vô sinh, hiếm muộn miễn phí',
+    excerpt:
+      'Trời vừa sáng. Một ngày mới bắt đầu cũng là lúc ngày cuối của Tuần lễ khám và tư vấn vô sinh, hiếm muộn miễn phí tại Bệnh viện Đồng Tâm. Những phòng khám đã sáng đèn. Những hồ sơ đầu tiên đã được mở.',
+    category: 'Tin tức',
+    image: '/images/banner-dng-tam1.png',
+    imageAlt: 'Tuần lễ khám và tư vấn vô sinh hiếm muộn miễn phí',
+    href: '/tin-tuc/khong-khi-ngay-cuoi-cua-tuan-le-kham-va-tu-van-vo-sinh-hiem-muon-mien-phi',
+    publishedAt: {
+      day: '26',
+      monthYear: '07/2026',
+    },
+  },
+  {
+    id: 'news-08',
+    title: 'Chúc mừng ngày chuyên viên phôi học thế giới 25/07',
+    excerpt:
+      'Cảm ơn những người đã góp phần viết nên những câu chuyện hạnh phúc của rất nhiều gia đình hiếm muộn.',
+    category: 'Tin tức',
+    image: '/images/Banner-Giam-50-chi-phi-IVF-web-copy.jpg',
+    imageAlt: 'Ngày chuyên viên phôi học thế giới',
+    href: '/tin-tuc/chuc-mung-ngay-chuyen-vien-phoi-hoc-the-gioi-25-07',
+    publishedAt: {
+      day: '25',
+      monthYear: '07/2026',
+    },
+  },
+  {
+    id: 'news-09',
+    title: 'Khi người trẻ trên hành trình tìm con',
+    excerpt:
+      'Vô sinh, hiếm muộn đang không chỉ xảy ra ở những cặp vợ chồng lớn tuổi. Số người trẻ tìm đến các cơ sở hỗ trợ sinh sản ngày càng tăng, trong đó nhiều trường hợp chỉ phát hiện bệnh lý sau nhiều năm mong con. Thăm khám sớm được xem là yếu tố quan trọng để giữ lại cơ hội làm cha, làm mẹ.',
+    category: 'Tin tức',
+    image: '/images/IMG_5948-scaled.jpg',
+    imageAlt: 'Người trẻ trên hành trình tìm con',
+    href: '/tin-tuc/khi-nguoi-tre-tren-hanh-trinh-tim-con',
+    publishedAt: {
+      day: '23',
+      monthYear: '07/2026',
+    },
   },
 ]
 
@@ -214,6 +331,7 @@ export type FooterContactItem = {
   value: string
   icon: string
   href?: string
+  external?: boolean
 }
 
 export type FooterMenuColumn = {
@@ -243,22 +361,22 @@ export const footerContent = {
 export const footerSocialLinks: FooterSocialLink[] = [
   {
     label: 'Facebook',
-    href: 'https://facebook.com',
+    href: 'https://www.facebook.com/benhviendongtam.vn/',
     icon: '/footer/facebook.svg',
   },
   {
     label: 'YouTube',
-    href: 'https://youtube.com',
+    href: 'https://www.youtube.com/@Benhviendongtam',
     icon: '/footer/youtube.svg',
   },
   {
     label: 'TikTok',
-    href: 'https://tiktok.com',
+    href: 'https://www.tiktok.com/@benhviendongtam',
     icon: '/footer/tiktok.svg',
   },
   {
     label: 'Instagram',
-    href: 'https://instagram.com',
+    href: 'https://benhviendongtam.vn/#',
     icon: '/footer/insta.svg',
   },
 ]
@@ -269,6 +387,8 @@ export const footerContactItems: FooterContactItem[] = [
     label: 'Trụ sở',
     value: 'Km 12, Quốc lộ 1, Xã Thanh Trì, Thành phố Hà Nội, Việt Nam',
     icon: '/footer/truso.svg',
+    href: 'https://share.google/gtN5dBaK7Zaoh6MA1',
+    external: true,
   },
   {
     id: 'email',

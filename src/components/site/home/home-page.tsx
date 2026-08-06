@@ -1,3 +1,5 @@
+import { FloatingActions } from '@/components/site/floating-actions'
+
 import { DoctorsSection } from './doctors-section'
 import { HeroSection } from './hero-section'
 import { NewsSection } from './news-section'
@@ -16,6 +18,7 @@ export function HomePage() {
         <NewsSection />
       </main>
       <SiteFooter />
+      <FloatingActions />
     </>
   )
 }

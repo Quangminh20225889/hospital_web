@@ -24,7 +24,7 @@ export function SiteFooter() {
                   width={220}
                   height={220}
                   priority
-                  className='h-auto w-[12.5rem] object-contain'
+                  className='h-auto w-[9.6875rem] object-contain'
                 />
               </div>
 
@@ -91,6 +91,8 @@ export function SiteFooter() {
                           {item.href ? (
                             <Link
                               href={item.href}
+                              target={item.external ? '_blank' : undefined}
+                              rel={item.external ? 'noreferrer' : undefined}
                               className='transition-colors hover:text-[#1598c8]'
                             >
                               {item.value}
