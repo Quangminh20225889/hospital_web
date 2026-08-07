@@ -12,7 +12,7 @@ import {
 
 export function SiteFooter() {
   return (
-    <footer className='mt-[5rem] w-full bg-[#1598c8] p-[1.25rem] xl:h-[39.375rem]'>
+    <footer className='mt-[3rem] w-full bg-[#1598c8] p-[0.75rem] lg:mt-[5rem] lg:p-[1.25rem] xl:h-[39.375rem]'>
       <Container className='h-full max-w-none px-0 sm:px-0 lg:px-0'>
         <div className='flex h-full flex-col overflow-hidden rounded-[1.375rem] bg-white'>
           <div className='grid xl:min-h-0 xl:flex-1 xl:grid-cols-[31.25rem_minmax(0,1fr)]'>
@@ -28,12 +28,12 @@ export function SiteFooter() {
                 />
               </div>
 
-              <div className='flex flex-col items-center justify-start px-[1.5rem] py-[1.5rem] sm:px-[2rem] xl:px-[3rem]'>
-                <p className='max-w-[27rem] text-center font-serif text-[2rem] leading-[1.3] italic text-[#f0b635]'>
+              <div className='flex flex-col items-center justify-start px-[1.5rem] py-[1.25rem] sm:px-[2rem] lg:py-[1.5rem] xl:px-[3rem]'>
+                <p className='max-w-[27rem] text-center font-serif text-[1.5rem] leading-[1.3] italic text-[#f0b635] lg:text-[2rem]'>
                   {footerContent.slogan}
                 </p>
 
-                <div className='mt-[2rem] flex flex-wrap justify-center gap-[1.5rem]'>
+                <div className='mt-[1.25rem] flex flex-wrap justify-center gap-[1rem] lg:mt-[2rem] lg:gap-[1.5rem]'>
                   {footerSocialLinks.map((social) => (
                     <Link
                       key={social.label}
@@ -41,14 +41,14 @@ export function SiteFooter() {
                       target='_blank'
                       rel='noreferrer'
                       aria-label={social.label}
-                      className='flex size-[4rem] shrink-0 items-center justify-center rounded-full border border-[#d4dee3] bg-white transition-colors hover:border-[#1598c8] hover:bg-[#f2fbfe]'
+                      className='flex size-[2.75rem] shrink-0 items-center justify-center rounded-full border border-transparent bg-[#1598c8] transition-colors lg:size-[4rem] lg:border-[#d4dee3] lg:bg-white lg:hover:border-[#1598c8] lg:hover:bg-[#f2fbfe]'
                     >
                       <Image
                         src={social.icon}
                         alt=''
                         width={28}
                         height={28}
-                        className='size-[1.75rem] object-contain'
+                        className='size-[1.25rem] object-contain brightness-0 invert lg:size-[1.75rem] lg:brightness-100 lg:invert-0'
                       />
                     </Link>
                   ))}
@@ -58,8 +58,8 @@ export function SiteFooter() {
 
             <div className='flex min-w-0 flex-col xl:min-h-0'>
               <div className='grid border-b border-[#d9e3e8] xl:h-[15.75rem] xl:shrink-0 xl:grid-cols-[minmax(0,1fr)_24.5rem]'>
-                <div className='px-[1.5rem] py-[1.75rem] sm:px-[2rem] xl:px-[3.5rem]'>
-                  <p className='text-[2rem] font-medium leading-[1.25] text-[#1598c8]'>
+                <div className='px-[1.5rem] py-[1.5rem] text-center sm:px-[2rem] xl:px-[3.5rem] xl:py-[1.75rem] xl:text-left'>
+                  <p className='text-[1.5rem] font-medium leading-[1.25] text-[#1598c8] lg:text-[2rem]'>
                     {footerContent.hotline.label}:{' '}
                     <Link
                       href={footerContent.hotline.href}
@@ -69,13 +69,14 @@ export function SiteFooter() {
                     </Link>
                   </p>
 
-                  <div className='mt-[1.5rem] space-y-[1rem]'>
+                  <div className='mt-[1.25rem] space-y-[0.75rem] xl:mt-[1.5rem] xl:space-y-[1rem]'>
                     {footerContactItems.map((item) => (
                       <div
                         key={item.id}
-                        className='flex items-start gap-[0.75rem]'
+                        className='flex items-start justify-center gap-[0.75rem] xl:justify-start'
                       >
-                        <span className='flex size-[1.25rem] shrink-0 items-center justify-center'>
+                        {/* Bản thiết kế mobile căn giữa và không dùng icon */}
+                        <span className='hidden size-[1.25rem] shrink-0 items-center justify-center xl:flex'>
                           <Image
                             src={item.icon}
                             alt=''
@@ -107,7 +108,7 @@ export function SiteFooter() {
                 </div>
 
                 <div className='border-t border-[#d9e3e8] p-[1rem] xl:border-t-0'>
-                  <div className='relative h-[13rem] overflow-hidden rounded-[0.75rem] xl:h-full'>
+                  <div className='relative h-[11rem] overflow-hidden rounded-[0.75rem] sm:h-[13rem] xl:h-full'>
                     <iframe
                       src={footerContent.map.embedUrl}
                       title='Bản đồ Bệnh viện Đồng Tâm'
@@ -130,7 +131,7 @@ export function SiteFooter() {
               </div>
 
               <div className='flex-1 px-[1.5rem] py-[1.5rem] sm:px-[2rem] xl:min-h-0 xl:px-[3.5rem]'>
-                <div className='grid gap-x-[2rem] gap-y-[2rem] sm:grid-cols-2 lg:grid-cols-3'>
+                <div className='grid grid-cols-2 gap-x-[1.5rem] gap-y-[1.5rem] sm:gap-x-[2rem] lg:grid-cols-3 lg:gap-y-[2rem]'>
                   {footerMenuColumns.map((column) => (
                     <div key={column.title}>
                       <h3 className='text-[0.9375rem] font-bold uppercase leading-[1.4] text-[#123f55]'>

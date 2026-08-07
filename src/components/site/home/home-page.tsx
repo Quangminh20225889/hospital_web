@@ -1,4 +1,5 @@
 import { FloatingActions } from '@/components/site/floating-actions'
+import { MobileCtaBar } from '@/components/site/mobile-cta-bar'
 
 import { DoctorsSection } from './doctors-section'
 import { HeroSection } from './hero-section'
@@ -18,7 +19,15 @@ export function HomePage() {
         <NewsSection />
       </main>
       <SiteFooter />
+
+      {/* Chừa chỗ cho thanh CTA dính đáy trên mobile */}
+      <div
+        aria-hidden='true'
+        className='h-[3rem] lg:hidden'
+      />
+
       <FloatingActions />
+      <MobileCtaBar />
     </>
   )
 }

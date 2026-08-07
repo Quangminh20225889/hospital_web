@@ -59,13 +59,34 @@
   --font-heading: var(--font-sans);
 }
 
+/*
+ * Quy đổi rem theo bề rộng bản thiết kế.
+ *
+ * Desktop (>= 1025px): bản thiết kế rộng 1600 -> 1rem = 1vw (16px ở 1600).
+ * Trần 20px để màn siêu rộng không phình chữ, sàn 12px để laptop hẹp không
+ * rơi xuống cỡ chữ 9-10px. Sàn dừng ở 12px vì cao hơn nữa thanh nav desktop
+ * (9 mục whitespace-nowrap) sẽ tràn ngang ở 1025px.
+ *
+ * Tablet (640 - 1024px): dải này dùng layout mobile (chưa tới breakpoint lg)
+ * nên khoá cỡ rem lại. Trước đây dải này không có rule nào, 1rem rơi về
+ * 6.4 - 10.24px làm cả trang bé xíu.
+ *
+ * Mobile (<= 639px): bản thiết kế rộng 375 -> 1rem = 16px, co giãn theo màn,
+ * chặn trần 20px cho máy gập / tablet dựng đứng.
+ */
 html {
-  font-size: 1vw;
+  font-size: clamp(12px, 1vw, 20px);
+}
+
+@media (max-width: 1024px) {
+  html {
+    font-size: 18px;
+  }
 }
 
 @media (max-width: 639px) {
   html {
-    font-size: 4.26666667vw;
+    font-size: min(4.26666667vw, 20px);
   }
 }
 
