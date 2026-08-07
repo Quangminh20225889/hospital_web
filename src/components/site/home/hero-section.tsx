@@ -1,5 +1,6 @@
 'use client'
 
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 import Image from 'next/image'
 import { useEffect } from 'react'
 
@@ -28,26 +29,30 @@ function BannerAutoplay() {
 function BannerNavButton({ direction }: { direction: 'prev' | 'next' }) {
   const { scrollPrev, scrollNext } = useCarousel()
 
+  const Icon = direction === 'prev' ? ChevronLeft : ChevronRight
+
   return (
     <button
       type='button'
       aria-label={direction === 'prev' ? 'Banner trước' : 'Banner tiếp'}
       onClick={direction === 'prev' ? scrollPrev : scrollNext}
       className={cn(
-        'group absolute inset-y-0 z-10 my-auto flex size-[1.75rem] sm:size-[3rem] items-center justify-center rounded-full border border-brand-blue/10 bg-brand-blue text-white shadow-[0_0.25rem_1rem_rgba(4,24,33,0.08)] transition-all duration-300',
-        'hover:border-brand-blue hover:bg-white hover:text-brand-blue',
-        direction === 'prev' ? 'left-[0.25rem] sm:left-[1.25rem]' : 'right-[0.25rem] sm:right-[1.25rem]',
+        'group absolute inset-y-0 z-10 my-auto flex items-center justify-center rounded-full transition-all duration-300',
+        // Mobile: nút nhỏ, nền trắng mờ đặt sát mép
+        'size-[1.75rem] bg-white/75 text-brand-blue backdrop-blur-[2px]',
+        // Desktop: nút tròn nền xanh như bản thiết kế web
+        'lg:size-[3rem] lg:border lg:border-brand-blue/10 lg:bg-brand-blue lg:text-white',
+        'lg:shadow-[0_0.25rem_1rem_rgba(4,24,33,0.08)]',
+        'hover:bg-white lg:hover:border-brand-blue lg:hover:bg-white lg:hover:text-brand-blue',
+        direction === 'prev'
+          ? 'left-[0.5rem] lg:left-[1.25rem]'
+          : 'right-[0.5rem] lg:right-[1.25rem]',
       )}
     >
-      <Image
-        src='/icons/next.svg'
-        alt=''
-        width={10}
-        height={18}
-        className={cn(
-          'h-[1.125rem] w-auto transition duration-300 brightness-0 invert group-hover:brightness-100 group-hover:invert-0',
-          direction === 'prev' && 'rotate-180',
-        )}
+      <Icon
+        aria-hidden='true'
+        className='size-[1.125rem] lg:size-[1.375rem]'
+        strokeWidth={2}
       />
     </button>
   )
@@ -71,7 +76,8 @@ export function HeroSection() {
               key={slide.id}
               className='pl-0'
             >
-              <div className='relative aspect-[2/1] w-full sm:aspect-[3600/1178]'>
+              {/* Tỉ lệ banner theo từng bản thiết kế: mobile 375x180, desktop 3600x1178 */}
+              <div className='relative aspect-[375/180] w-full sm:aspect-[1024/380] lg:aspect-[3600/1178]'>
                 <Image
                   src={slide.src}
                   alt={slide.alt}

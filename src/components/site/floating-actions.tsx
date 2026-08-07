@@ -81,17 +81,20 @@ export function FloatingActions() {
     <aside
       aria-label='Liên hệ nhanh'
       className={cn(
-        'fixed bottom-[1rem] right-[1rem] z-50 flex flex-col items-center gap-[0.5rem]',
+        // Mobile: nhấc lên trên thanh CTA dính đáy (cao 3rem)
+        'fixed bottom-[3.75rem] right-[0.75rem] z-40 flex flex-col items-center gap-[0.5rem]',
+        'lg:bottom-[1rem] lg:right-[1rem] lg:z-50',
         'transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
         isVisible
           ? 'translate-x-0 opacity-100'
           : 'pointer-events-none translate-x-[5rem] opacity-0',
       )}
     >
+      {/* Đặt lịch và gọi điện đã có sẵn ở thanh CTA đáy nên chỉ hiện từ lg */}
       <Button
         asChild
         className={cn(
-          'size-[3.75rem] flex-col gap-[0.1875rem] rounded-full border-0 bg-brand-yellow p-0 text-white',
+          'hidden size-[3.75rem] flex-col gap-[0.1875rem] rounded-full border-0 bg-brand-yellow p-0 text-white lg:flex',
           'shadow-[0_0.5rem_1.5rem_rgba(8,53,74,0.14)]',
           'transition-transform duration-300 hover:scale-[1.05] hover:bg-brand-yellow/90',
         )}
@@ -110,7 +113,7 @@ export function FloatingActions() {
       <Button
         asChild
         className={cn(
-          'size-[3.75rem] rounded-full border-0 bg-brand-blue p-0 text-white',
+          'hidden size-[3.75rem] rounded-full border-0 bg-brand-blue p-0 text-white lg:flex',
           'shadow-[0_0.5rem_1.5rem_rgba(8,53,74,0.14)]',
           'transition-transform duration-300 hover:scale-[1.05] hover:bg-brand-blue/90',
         )}
@@ -127,7 +130,7 @@ export function FloatingActions() {
       <Button
         asChild
         className={cn(
-          'size-[3.75rem] rounded-full border-0 bg-brand-blue p-0 text-white',
+          'size-[2.75rem] rounded-full border-0 bg-brand-blue p-0 text-white lg:size-[3.75rem]',
           'shadow-[0_0.5rem_1.5rem_rgba(8,53,74,0.14)]',
           'transition-transform duration-300 hover:scale-[1.05] hover:bg-brand-blue/90',
         )}
@@ -139,11 +142,11 @@ export function FloatingActions() {
           aria-label='Nhắn tin Messenger'
           title='Nhắn tin Messenger'
         >
-          <MessageCircleIcon className='size-[1.625rem]' />
+          <MessageCircleIcon className='size-[1.25rem] lg:size-[1.625rem]' />
         </Link>
       </Button>
 
-      <div className='relative size-[3.75rem] shrink-0'>
+      <div className='relative size-[2.75rem] shrink-0 lg:size-[3.75rem]'>
         <svg
           aria-hidden='true'
           viewBox='0 0 60 60'
@@ -178,14 +181,15 @@ export function FloatingActions() {
           aria-label={`Lên đầu trang, đã cuộn ${Math.round(scrollProgress)}%`}
           title='Lên đầu trang'
           className={cn(
-            'absolute left-1/2 top-1/2 size-[3.375rem] -translate-x-1/2 -translate-y-1/2',
+            'absolute left-1/2 top-1/2 size-[2.375rem] -translate-x-1/2 -translate-y-1/2',
+            'lg:size-[3.375rem]',
             'rounded-full border-0 bg-white p-0 text-brand-blue',
             'shadow-[0_0.5rem_1.5rem_rgba(8,53,74,0.14)]',
             'transition-all duration-300',
             'hover:scale-[1.05] hover:bg-brand-blue hover:text-white',
           )}
         >
-          <ArrowUpIcon className='size-[1.625rem]' />
+          <ArrowUpIcon className='size-[1.25rem] lg:size-[1.625rem]' />
         </Button>
       </div>
     </aside>

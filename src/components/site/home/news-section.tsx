@@ -1,6 +1,6 @@
 'use client'
 
-import { ArrowRightIcon, SparklesIcon } from 'lucide-react'
+import { ArrowRightIcon, PlusIcon } from 'lucide-react'
 import Link from 'next/link'
 import * as React from 'react'
 
@@ -18,7 +18,10 @@ import {
 } from '@/components/ui/carousel'
 import { newsItems } from '@/content/home'
 
+import { NewsCompactItem } from './news-compact-item'
 import { NewsItem } from './news-item'
+
+const [featuredItem, ...compactItems] = newsItems
 
 export function NewsSection() {
   const [carouselApi, setCarouselApi] = React.useState<CarouselApi>()
@@ -26,7 +29,7 @@ export function NewsSection() {
   const subscribe = React.useCallback(
     (onStoreChange: () => void) => {
       if (!carouselApi) {
-        return () => { }
+        return () => {}
       }
 
       carouselApi.on('select', onStoreChange)
@@ -65,8 +68,12 @@ export function NewsSection() {
       <Container className='relative z-10 max-w-[100rem]'>
         <div className='flex flex-col gap-[1.25rem] md:flex-row md:items-end md:justify-between'>
           <div>
-            <Badge className='mb-[0.75rem] h-auto rounded-full border-0 bg-brand-yellow px-[1rem] py-[0.5rem] text-[0.8125rem] font-medium normal-case tracking-normal text-white'>
-              <SparklesIcon className='size-[0.875rem]' />
+            <Badge className='mb-[0.75rem] h-auto rounded-full border-0 bg-brand-yellow px-[0.875rem] py-[0.5rem] text-[0.6875rem] font-semibold uppercase leading-none tracking-normal text-white'>
+              <PlusIcon
+                aria-hidden='true'
+                className='size-[0.75rem]'
+                strokeWidth={3}
+              />
               Kiến thức &amp; Tin tức
             </Badge>
 
@@ -77,10 +84,11 @@ export function NewsSection() {
             />
           </div>
 
+          {/* Desktop: nút cạnh tiêu đề. Mobile: nút nằm cuối danh sách */}
           <Button
             asChild
             variant='outline'
-            className='h-[2.75rem] w-fit rounded-full border-brand-blue bg-white px-[1.5rem] text-[0.875rem] font-medium text-brand-blue shadow-none transition-colors duration-300 hover:border-brand-blue hover:bg-brand-blue hover:text-white'
+            className='hidden h-[2.75rem] w-fit rounded-full border-brand-blue bg-white px-[1.5rem] text-[0.875rem] font-medium text-brand-blue shadow-none transition-colors duration-300 hover:border-brand-blue hover:bg-brand-blue hover:text-white lg:inline-flex'
           >
             <Link href='/#tin-tuc'>
               Xem tất cả
@@ -92,67 +100,102 @@ export function NewsSection() {
           </Button>
         </div>
 
-        <Carousel
-          setApi={setCarouselApi}
-          opts={{
-            align: 'start',
-            loop: false,
-            slidesToScroll: 1,
-            containScroll: 'trimSnaps',
-          }}
-          className='mt-[2rem]'
-        >
-          <CarouselContent className='-ml-[1rem]'>
-            {newsItems.map((item) => (
-              <CarouselItem
+        {/*
+         * Mobile / tablet: một tin nổi bật ở trên, các tin còn lại rút gọn
+         * thành danh sách dọc theo bản thiết kế MB.
+         */}
+        <div className='mt-[1.5rem] lg:hidden'>
+          {featuredItem ? <NewsItem item={featuredItem} /> : null}
+
+          <div className='mt-[1.25rem] flex flex-col gap-[1.125rem]'>
+            {compactItems.map((item) => (
+              <NewsCompactItem
                 key={item.id}
-                className='basis-full pl-[1rem] md:basis-1/2 lg:basis-1/3'
-              >
-                <NewsItem item={item} />
-              </CarouselItem>
+                item={item}
+              />
             ))}
-          </CarouselContent>
-
-          <CarouselPrevious
-            size='icon-lg'
-            aria-label='Xem tin trước'
-            className='left-[-4.75rem] hidden size-[2.75rem] border-brand-blue bg-white text-brand-blue shadow-none transition-colors duration-300 hover:border-brand-blue hover:bg-brand-blue hover:text-white disabled:cursor-not-allowed disabled:opacity-35 lg:inline-flex'
-          />
-
-          <CarouselNext
-            size='icon-lg'
-            aria-label='Xem tin tiếp theo'
-            className='right-[-4.75rem] hidden size-[2.75rem] border-brand-blue bg-white text-brand-blue shadow-none transition-colors duration-300 hover:border-brand-blue hover:bg-brand-blue hover:text-white disabled:cursor-not-allowed disabled:opacity-35 lg:inline-flex'
-          />
-        </Carousel>
-
-        {scrollSnaps.length > 1 && (
-          <div
-            className='mt-[2rem] flex items-center justify-center gap-[0.25rem]'
-            role='tablist'
-            aria-label='Chọn nhóm tin tức'
-          >
-            {scrollSnaps.map((_, index) => {
-              const isActive = selectedIndex === index
-
-              return (
-                <button
-                  key={index}
-                  type='button'
-                  role='tab'
-                  aria-label={`Chuyển đến nhóm tin ${index + 1}`}
-                  aria-selected={isActive}
-                  onClick={() => carouselApi?.scrollTo(index)}
-                  className={
-                    isActive
-                      ? 'h-[0.1875rem] w-[6.5rem] rounded-full bg-brand-blue transition-all duration-300'
-                      : 'h-[0.1875rem] w-[1.5rem] rounded-full bg-[#aeb8bd] transition-all duration-300 hover:bg-brand-blue/60'
-                  }
-                />
-              )
-            })}
           </div>
-        )}
+
+          <div className='mt-[1.75rem] flex justify-center'>
+            <Button
+              asChild
+              variant='outline'
+              className='h-[2.75rem] w-fit rounded-full border-brand-blue bg-white px-[1.5rem] text-[0.875rem] font-medium text-brand-blue shadow-none'
+            >
+              <Link href='/#tin-tuc'>
+                Xem tất cả
+                <ArrowRightIcon
+                  data-icon='inline-end'
+                  className='size-[1rem]'
+                />
+              </Link>
+            </Button>
+          </div>
+        </div>
+
+        <div className='hidden lg:block'>
+          <Carousel
+            setApi={setCarouselApi}
+            opts={{
+              align: 'start',
+              loop: false,
+              slidesToScroll: 1,
+              containScroll: 'trimSnaps',
+            }}
+            className='mt-[2rem]'
+          >
+            <CarouselContent className='-ml-[1rem]'>
+              {newsItems.map((item) => (
+                <CarouselItem
+                  key={item.id}
+                  className='basis-full pl-[1rem] md:basis-1/2 lg:basis-1/3'
+                >
+                  <NewsItem item={item} />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+
+            <CarouselPrevious
+              size='icon-lg'
+              aria-label='Xem tin trước'
+              className='left-[-4.75rem] hidden size-[2.75rem] border-brand-blue bg-white text-brand-blue shadow-none transition-colors duration-300 hover:border-brand-blue hover:bg-brand-blue hover:text-white disabled:cursor-not-allowed disabled:opacity-35 lg:inline-flex'
+            />
+
+            <CarouselNext
+              size='icon-lg'
+              aria-label='Xem tin tiếp theo'
+              className='right-[-4.75rem] hidden size-[2.75rem] border-brand-blue bg-white text-brand-blue shadow-none transition-colors duration-300 hover:border-brand-blue hover:bg-brand-blue hover:text-white disabled:cursor-not-allowed disabled:opacity-35 lg:inline-flex'
+            />
+          </Carousel>
+
+          {scrollSnaps.length > 1 && (
+            <div
+              className='mt-[2rem] flex items-center justify-center gap-[0.25rem]'
+              role='tablist'
+              aria-label='Chọn nhóm tin tức'
+            >
+              {scrollSnaps.map((_, index) => {
+                const isActive = selectedIndex === index
+
+                return (
+                  <button
+                    key={index}
+                    type='button'
+                    role='tab'
+                    aria-label={`Chuyển đến nhóm tin ${index + 1}`}
+                    aria-selected={isActive}
+                    onClick={() => carouselApi?.scrollTo(index)}
+                    className={
+                      isActive
+                        ? 'h-[0.1875rem] w-[6.5rem] rounded-full bg-brand-blue transition-all duration-300'
+                        : 'h-[0.1875rem] w-[1.5rem] rounded-full bg-[#aeb8bd] transition-all duration-300 hover:bg-brand-blue/60'
+                    }
+                  />
+                )
+              })}
+            </div>
+          )}
+        </div>
       </Container>
     </section>
   )

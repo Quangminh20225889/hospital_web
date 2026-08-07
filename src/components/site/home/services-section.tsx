@@ -3,6 +3,7 @@ import Link from 'next/link'
 
 import { Container } from '@/components/common/container'
 import { ServiceItem } from '@/components/site/home/service-item'
+import { ServicesMobileSlider } from '@/components/site/home/services-mobile-slider'
 import { Button } from '@/components/ui/button'
 import { services } from '@/content/home'
 
@@ -13,6 +14,17 @@ export function ServicesSection() {
       className='py-[4rem] lg:py-[6rem]'
     >
       <Container className='max-w-none'>
+        {/* Mobile: tiêu đề tách khỏi dải xanh, xuống thành 2 dòng căn giữa */}
+        <div className='text-center sm:hidden'>
+          <p className='text-[1.375rem] font-bold uppercase leading-[1.3] text-title-blue'>
+            Dịch vụ nổi bật
+          </p>
+
+          <p className='text-[1.375rem] font-bold uppercase leading-[1.3] text-title-blue'>
+            Hiệu quả điều trị
+          </p>
+        </div>
+
         <div className='relative mt-[1.5rem] h-[5.5rem] sm:h-[6.25rem] lg:h-[7.3125rem]'>
           {/* Nền xanh và hoa văn */}
           <div className='absolute inset-0 overflow-hidden rounded-[0.875rem] bg-brand-blue'>
@@ -28,12 +40,12 @@ export function ServicesSection() {
           {/* Nội dung chữ */}
           <h2 className='sr-only'>Dịch vụ nổi bật - Hiệu quả điều trị</h2>
 
-          <div className='absolute inset-0 z-20 flex flex-col items-center justify-center gap-1 sm:grid sm:grid-cols-2 sm:gap-0'>
-            <p className='text-center text-[1.25rem] font-bold uppercase leading-[1.2] text-white sm:pl-[5rem] sm:text-left sm:text-[1.375rem] lg:pl-[8rem] lg:text-[1.75rem]'>
+          <div className='absolute inset-0 z-20 hidden grid-cols-2 items-center sm:grid'>
+            <p className='pl-[1rem] text-center text-[1rem] font-bold uppercase leading-[1.2] text-white sm:pl-[5rem] sm:text-[1.375rem] lg:pl-[8rem] lg:text-[1.75rem]'>
               Dịch vụ nổi bật
             </p>
 
-            <p className='text-center text-[1.25rem] font-bold uppercase leading-[1.2] text-white sm:pr-[5rem] sm:text-right sm:text-[1.375rem] lg:pr-[8rem] lg:text-[1.75rem]'>
+            <p className='pr-[1rem] text-center text-[1rem] font-bold uppercase leading-[1.2] text-white sm:pr-[5rem] sm:text-[1.375rem] lg:pr-[8rem] lg:text-[1.75rem]'>
               Hiệu quả điều trị
             </p>
           </div>
@@ -49,8 +61,8 @@ export function ServicesSection() {
             />
           </div>
 
-          {/* Bàn tay ở giữa */}
-          <div className='pointer-events-none absolute bottom-[-1.5rem] left-1/2 z-30 block h-[7rem] w-[8rem] -translate-x-1/2 md:h-[9.75rem] md:w-[11.5rem] lg:h-[11rem] lg:w-[13rem]'>
+          {/* Bàn tay ở giữa: mobile không có ảnh hai bên nên đặt gọn trong dải xanh */}
+          <div className='pointer-events-none absolute bottom-0 left-1/2 z-30 block h-[6.5rem] w-[7.5rem] -translate-x-1/2 sm:hidden md:bottom-[-1.5rem] md:block md:h-[9.75rem] md:w-[11.5rem] lg:h-[11rem] lg:w-[13rem]'>
             <Image
               src='/images/ban-tay.png'
               alt=''
@@ -73,12 +85,16 @@ export function ServicesSection() {
         </div>
 
         <div className='mt-[2rem] w-full'>
-          {services.map((service) => (
-            <ServiceItem
-              key={service.id}
-              service={service}
-            />
-          ))}
+          <ServicesMobileSlider services={services} />
+
+          <div className='hidden lg:block'>
+            {services.map((service) => (
+              <ServiceItem
+                key={service.id}
+                service={service}
+              />
+            ))}
+          </div>
         </div>
 
         <div className='mt-[2rem] flex justify-center'>
