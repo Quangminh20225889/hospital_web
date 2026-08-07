@@ -28,12 +28,12 @@ export function ServicesSection() {
           {/* Nội dung chữ */}
           <h2 className='sr-only'>Dịch vụ nổi bật - Hiệu quả điều trị</h2>
 
-          <div className='absolute inset-0 z-20 grid grid-cols-2 items-center'>
-            <p className='pl-[1rem] text-center text-[1rem] font-bold uppercase leading-[1.2] text-white sm:pl-[5rem] sm:text-[1.375rem] lg:pl-[8rem] lg:text-[1.75rem]'>
+          <div className='absolute inset-0 z-20 flex flex-col items-center justify-center gap-1 sm:grid sm:grid-cols-2 sm:gap-0'>
+            <p className='text-center text-[1.25rem] font-bold uppercase leading-[1.2] text-white sm:pl-[5rem] sm:text-left sm:text-[1.375rem] lg:pl-[8rem] lg:text-[1.75rem]'>
               Dịch vụ nổi bật
             </p>
 
-            <p className='pr-[1rem] text-center text-[1rem] font-bold uppercase leading-[1.2] text-white sm:pr-[5rem] sm:text-[1.375rem] lg:pr-[8rem] lg:text-[1.75rem]'>
+            <p className='text-center text-[1.25rem] font-bold uppercase leading-[1.2] text-white sm:pr-[5rem] sm:text-right sm:text-[1.375rem] lg:pr-[8rem] lg:text-[1.75rem]'>
               Hiệu quả điều trị
             </p>
           </div>
@@ -50,8 +50,7 @@ export function ServicesSection() {
           </div>
 
           {/* Bàn tay ở giữa */}
-          {/* Bàn tay ở giữa */}
-          <div className='pointer-events-none absolute bottom-[-1.5rem] left-1/2 z-30 hidden h-[9.75rem] w-[11.5rem] -translate-x-1/2 md:block lg:h-[11rem] lg:w-[13rem]'>
+          <div className='pointer-events-none absolute bottom-[-1.5rem] left-1/2 z-30 block h-[7rem] w-[8rem] -translate-x-1/2 md:h-[9.75rem] md:w-[11.5rem] lg:h-[11rem] lg:w-[13rem]'>
             <Image
               src='/images/ban-tay.png'
               alt=''

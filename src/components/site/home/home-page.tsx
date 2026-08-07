@@ -9,7 +9,7 @@ import { SiteHeader } from './site-header'
 
 export function HomePage() {
   return (
-    <>
+    <div className='pb-[3.5rem] md:pb-0'>
       <SiteHeader />
       <main>
         <HeroSection />
@@ -19,6 +19,6 @@ export function HomePage() {
       </main>
       <SiteFooter />
       <FloatingActions />
-    </>
+    </div>
   )
 }

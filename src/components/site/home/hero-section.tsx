@@ -34,9 +34,9 @@ function BannerNavButton({ direction }: { direction: 'prev' | 'next' }) {
       aria-label={direction === 'prev' ? 'Banner trước' : 'Banner tiếp'}
       onClick={direction === 'prev' ? scrollPrev : scrollNext}
       className={cn(
-        'group absolute inset-y-0 z-10 my-auto flex size-[3rem] items-center justify-center rounded-full border border-brand-blue/10 bg-brand-blue text-white shadow-[0_0.25rem_1rem_rgba(4,24,33,0.08)] transition-all duration-300',
+        'group absolute inset-y-0 z-10 my-auto flex size-[1.75rem] sm:size-[3rem] items-center justify-center rounded-full border border-brand-blue/10 bg-brand-blue text-white shadow-[0_0.25rem_1rem_rgba(4,24,33,0.08)] transition-all duration-300',
         'hover:border-brand-blue hover:bg-white hover:text-brand-blue',
-        direction === 'prev' ? 'left-[1.25rem]' : 'right-[1.25rem]',
+        direction === 'prev' ? 'left-[0.25rem] sm:left-[1.25rem]' : 'right-[0.25rem] sm:right-[1.25rem]',
       )}
     >
       <Image
@@ -71,7 +71,7 @@ export function HeroSection() {
               key={slide.id}
               className='pl-0'
             >
-              <div className='relative aspect-[3600/1178] w-full'>
+              <div className='relative aspect-[2/1] w-full sm:aspect-[3600/1178]'>
                 <Image
                   src={slide.src}
                   alt={slide.alt}

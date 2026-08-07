@@ -58,8 +58,8 @@ export function SiteFooter() {
 
             <div className='flex min-w-0 flex-col xl:min-h-0'>
               <div className='grid border-b border-[#d9e3e8] xl:h-[15.75rem] xl:shrink-0 xl:grid-cols-[minmax(0,1fr)_24.5rem]'>
-                <div className='px-[1.5rem] py-[1.75rem] sm:px-[2rem] xl:px-[3.5rem]'>
-                  <p className='text-[2rem] font-medium leading-[1.25] text-[#1598c8]'>
+                <div className='flex flex-col items-center px-[1.5rem] py-[1.75rem] text-center sm:px-[2rem] xl:items-start xl:px-[3.5rem] xl:text-left'>
+                  <p className='text-[1.75rem] font-medium leading-[1.25] text-[#1598c8] sm:text-[2rem]'>
                     {footerContent.hotline.label}:{' '}
                     <Link
                       href={footerContent.hotline.href}
@@ -69,11 +69,11 @@ export function SiteFooter() {
                     </Link>
                   </p>
 
-                  <div className='mt-[1.5rem] space-y-[1rem]'>
+                  <div className='mt-[1.5rem] flex flex-col items-center space-y-[1rem] xl:items-start'>
                     {footerContactItems.map((item) => (
                       <div
                         key={item.id}
-                        className='flex items-start gap-[0.75rem]'
+                        className='flex items-start gap-[0.5rem] text-center xl:gap-[0.75rem] xl:text-left'
                       >
                         <span className='flex size-[1.25rem] shrink-0 items-center justify-center'>
                           <Image
@@ -130,7 +130,7 @@ export function SiteFooter() {
               </div>
 
               <div className='flex-1 px-[1.5rem] py-[1.5rem] sm:px-[2rem] xl:min-h-0 xl:px-[3.5rem]'>
-                <div className='grid gap-x-[2rem] gap-y-[2rem] sm:grid-cols-2 lg:grid-cols-3'>
+                <div className='grid grid-cols-2 gap-x-[1rem] gap-y-[2rem] sm:gap-x-[2rem] lg:grid-cols-3'>
                   {footerMenuColumns.map((column) => (
                     <div key={column.title}>
                       <h3 className='text-[0.9375rem] font-bold uppercase leading-[1.4] text-[#123f55]'>

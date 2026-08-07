@@ -47,7 +47,7 @@ export function ServiceItem({ service }: ServiceItemProps) {
         {/* Icon và tên dịch vụ */}
         <div
           className={[
-            'flex min-w-0 items-center gap-[1.25rem]',
+            'flex min-w-0 items-center gap-[1.25rem] order-2 lg:order-none',
             motionClassName,
             'group-hover/service:-translate-x-[0.5rem]',
           ].join(' ')}
@@ -91,6 +91,7 @@ export function ServiceItem({ service }: ServiceItemProps) {
           aria-label={`Xem dịch vụ ${service.title}`}
           className={[
             'relative block aspect-[16/9] w-full overflow-hidden rounded-[0.75rem]',
+            'order-1 lg:order-none',
             motionClassName,
             'group-hover/service:-translate-x-[0.5rem]',
             'md:aspect-[1.65/1]',
@@ -110,6 +111,7 @@ export function ServiceItem({ service }: ServiceItemProps) {
         <p
           className={[
             'min-w-0 text-[0.9375rem] leading-[1.7] text-text-dark-blue/80',
+            'order-3 lg:order-none',
             motionClassName,
             'group-hover/service:-translate-x-[0.5rem]',
             'md:col-span-2',
@@ -136,6 +138,7 @@ export function ServiceItem({ service }: ServiceItemProps) {
             'transition-transform duration-[850ms]',
             'ease-[cubic-bezier(0.22,1,0.36,1)]',
             'group-hover/service:translate-x-[0.5rem]',
+            'order-4 lg:order-none',
             'md:col-span-2 lg:col-span-1',
           ].join(' ')}
         >

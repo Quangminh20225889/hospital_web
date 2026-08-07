@@ -11,7 +11,7 @@ type NewsItemProps = {
 export function NewsItem({ item }: NewsItemProps) {
   return (
     <article className='h-full'>
-      <Card className='flex h-[22.5rem] gap-0 overflow-hidden rounded-[0.875rem] bg-white py-0 shadow-none ring-1 ring-[#e2e8ec]'>
+      <Card className='flex flex-col h-[22.5rem] gap-0 overflow-hidden rounded-[0.875rem] bg-white py-0 shadow-none ring-1 ring-[#e2e8ec]'>
         <Link
           href={item.href}
           className='group/image relative block h-[14.25rem] shrink-0 overflow-hidden'
