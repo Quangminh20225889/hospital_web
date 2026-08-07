@@ -2,22 +2,53 @@
 
 import { ChevronDown, Menu, X } from 'lucide-react'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import { navigationItems } from '@/content/home'
 import { Link } from '@/i18n/navigation'
+import { MegaMenu } from './mega-menu'
 
 const HOTLINE = '0946 885 885'
 const HOTLINE_TEL = 'tel:0946885885'
 
 export function SiteHeader() {
   const [isOpen, setIsOpen] = useState(false)
+  const [isVisible, setIsVisible] = useState(true)
+  const [isAtTop, setIsAtTop] = useState(true)
+  const [lastScrollY, setLastScrollY] = useState(0)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY
+      
+      setIsAtTop(currentScrollY < 50)
+
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setIsVisible(false) // cuộn xuống
+      } else if (currentScrollY < lastScrollY) {
+        setIsVisible(true) // cuộn lên
+      }
+      setLastScrollY(currentScrollY)
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [lastScrollY])
 
   return (
     <>
-      <header className='sticky top-0 z-40 bg-white'>
+      <header
+        className={`sticky top-0 z-40 bg-white transition-transform duration-300 ease-in-out ${
+          isVisible ? 'translate-y-0' : '-translate-y-full'
+        }`}
+      >
         {/* Top bar */}
-        <div className='flex h-[3rem] items-center justify-end bg-brand-blue px-[1rem] sm:px-[1.5rem] lg:pr-[6.25rem] lg:pl-0'>
+        <div
+          className={`overflow-hidden transition-all duration-300 ease-in-out ${
+            isAtTop ? 'h-[3rem] opacity-100' : 'h-0 opacity-0'
+          }`}
+        >
+          <div className='flex h-[3rem] items-center justify-end bg-brand-blue px-[1rem] sm:px-[1.5rem] lg:pr-[6.25rem] lg:pl-0'>
           <div className='flex items-center gap-[0.75rem]'>
             <a
               href={HOTLINE_TEL}
@@ -40,6 +71,7 @@ export function SiteHeader() {
               Liên hệ
             </Link>
           </div>
+        </div>
         </div>
 
         {/* Logo + actions */}
@@ -109,21 +141,22 @@ export function SiteHeader() {
 
         {/* Navigation */}
         <nav className='hidden border-t border-black/5 px-[1rem] sm:px-[1.5rem] lg:block lg:px-[6.25rem]'>
-          <ul className='flex items-center justify-between gap-[0.5rem] py-[0.75rem]'>
+          <ul className='flex items-center justify-between gap-[0.5rem]'>
             {navigationItems.map((item) => (
-              <li key={item.href}>
+              <li key={item.href} className={item.hasDropdown ? 'group static' : ''}>
                 <Link
                   href={item.href as any}
-                  className='inline-flex items-center gap-[0.25rem] whitespace-nowrap text-[0.9375rem] font-medium text-text-dark-blue transition-colors hover:text-brand-blue'
+                  className='inline-flex h-full items-center gap-[0.25rem] whitespace-nowrap py-[0.75rem] text-[0.9375rem] font-medium text-text-dark-blue transition-colors hover:text-brand-blue'
                 >
                   {item.label}
                   {item.hasDropdown ? (
                     <ChevronDown
-                      className='size-[0.875rem] opacity-60'
+                      className='size-[0.875rem] opacity-60 transition-transform duration-200 group-hover:rotate-180'
                       aria-hidden
                     />
                   ) : null}
                 </Link>
+                {item.hasDropdown && <MegaMenu />}
               </li>
             ))}
           </ul>

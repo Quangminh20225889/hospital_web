@@ -443,3 +443,93 @@ export const footerLegalLinks: FooterLink[] = [
   { label: 'Điều khoản sử dụng', href: '/dieu-khoan-su-dung' },
   { label: 'Quyền riêng tư', href: '/quyen-rieng-tu' },
 ]
+
+export type MegaMenuService = {
+  name: string
+  href: string
+}
+
+export type MegaMenuDepartment = {
+  id: string
+  name: string
+  services: MegaMenuService[]
+  promoImage: string
+}
+
+export const megaMenuData: MegaMenuDepartment[] = [
+  {
+    id: 'ho-tro-sinh-san',
+    name: 'Trung tâm Hỗ trợ sinh sản',
+    services: [
+      { name: 'Khám và tư vấn hiếm muộn', href: '#' },
+      { name: 'Thụ tinh nhân tạo (IUI)', href: '#' },
+      { name: 'Thụ tinh ống nghiệm IVF', href: '#' },
+      { name: 'Tiêm tinh trùng vào bào tương trứng (ICSI)', href: '#' },
+      { name: 'Công nghệ nuôi phôi Time - lapse tích hợp trí tuệ AI', href: '#' },
+      { name: 'Trữ lạnh trứng - tinh trùng - phôi', href: '#' },
+      { name: 'Sàng lọc di truyền PGT thế hệ mới', href: '#' },
+      { name: 'Kỹ thuật điều trị vô sinh nam', href: '#' },
+    ],
+    promoImage: '/images/banner-dng-tam1.png',
+  },
+  {
+    id: 'phu-san',
+    name: 'Khoa Phụ sản',
+    services: [
+      { name: 'Khám phụ khoa và điều trị các bệnh lý phụ khoa', href: '#' },
+      { name: 'Phát hiện sớm ung thư cổ tử cung', href: '#' },
+      { name: 'Các thủ thuật phụ khoa', href: '#' },
+      { name: 'Quản lí thai nghén', href: '#' },
+    ],
+    promoImage: '/images/banner-dng-tam1.png',
+  },
+  {
+    id: 'ngoai-tong-hop',
+    name: 'Khoa Ngoại tổng hợp',
+    services: [
+      { name: 'Ngoại tiêu hóa gan mật', href: '#' },
+      { name: 'Ngoại chấn thương - chỉnh hình', href: '#' },
+    ],
+    promoImage: '/images/banner-dng-tam1.png',
+  },
+  {
+    id: 'noi-tong-hop',
+    name: 'Khoa Nội tổng hợp',
+    services: [
+      { name: 'Khám nội tim mạch', href: '#' },
+      { name: 'Khám nội hô hấp', href: '#' },
+      { name: 'Khám nội tiêu hóa', href: '#' },
+    ],
+    promoImage: '/images/banner-dng-tam1.png',
+  },
+  {
+    id: 'xet-nghiem',
+    name: 'Khoa Xét nghiệm',
+    services: [],
+    promoImage: '/images/banner-dng-tam1.png',
+  },
+  {
+    id: 'chan-doan-hinh-anh',
+    name: 'Khoa Chẩn đoán hình ảnh',
+    services: [],
+    promoImage: '/images/banner-dng-tam1.png',
+  },
+  {
+    id: 'da-khoa',
+    name: 'Hệ thống Phòng khám đa khoa',
+    services: [],
+    promoImage: '/images/banner-dng-tam1.png',
+  },
+  {
+    id: 'cham-soc-suc-khoe',
+    name: 'Trung tâm Chăm sóc sức khỏe',
+    services: [],
+    promoImage: '/images/banner-dng-tam1.png',
+  },
+  {
+    id: 'dich-vu-dac-biet',
+    name: 'Dịch vụ đặc biệt',
+    services: [],
+    promoImage: '/images/banner-dng-tam1.png',
+  },
+]
