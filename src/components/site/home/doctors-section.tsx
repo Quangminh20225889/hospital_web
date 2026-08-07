@@ -319,11 +319,10 @@ export function DoctorsSection() {
                 type='button'
                 aria-label={`Chuyển đến nhóm bác sĩ ${index + 1}`}
                 onClick={() => scrollToIndex(index)}
-                className={`h-[0.125rem] rounded-full transition-all duration-300 ${
-                  activeIndex === index
+                className={`h-[0.125rem] rounded-full transition-all duration-300 ${activeIndex === index
                     ? 'w-[7.5rem] bg-brand-blue'
                     : 'w-[1.5rem] bg-text-dark-blue/30'
-                }`}
+                  }`}
               />
             ))}
           </div>

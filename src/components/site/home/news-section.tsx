@@ -26,7 +26,7 @@ export function NewsSection() {
   const subscribe = React.useCallback(
     (onStoreChange: () => void) => {
       if (!carouselApi) {
-        return () => {}
+        return () => { }
       }
 
       carouselApi.on('select', onStoreChange)
