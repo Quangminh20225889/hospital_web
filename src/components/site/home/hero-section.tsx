@@ -1,14 +1,14 @@
 'use client'
 
-import { ChevronLeft, ChevronRight } from 'lucide-react'
 import Image from 'next/image'
 import { useEffect } from 'react'
 
+import { NavChevron } from '@/components/common/nav-chevron'
 import { Carousel, CarouselContent, CarouselItem, useCarousel } from '@/components/ui/carousel'
 import { bannerSlides } from '@/content/home'
 import { cn } from '@/lib/utils'
 
-const AUTOPLAY_MS = 5000
+const AUTOPLAY_MS = 8000
 
 function BannerAutoplay() {
   const { api } = useCarousel()
@@ -29,8 +29,6 @@ function BannerAutoplay() {
 function BannerNavButton({ direction }: { direction: 'prev' | 'next' }) {
   const { scrollPrev, scrollNext } = useCarousel()
 
-  const Icon = direction === 'prev' ? ChevronLeft : ChevronRight
-
   return (
     <button
       type='button'
@@ -39,20 +37,19 @@ function BannerNavButton({ direction }: { direction: 'prev' | 'next' }) {
       className={cn(
         'group absolute inset-y-0 z-10 my-auto flex items-center justify-center rounded-full transition-all duration-300',
         // Mobile: nút nhỏ, nền trắng mờ đặt sát mép
-        'size-[1.75rem] bg-white/75 text-brand-blue backdrop-blur-[2px]',
-        // Desktop: nút tròn nền xanh như bản thiết kế web
-        'lg:size-[3rem] lg:border lg:border-brand-blue/10 lg:bg-brand-blue lg:text-white',
+        'size-[1.75rem] border border-brand-blue bg-white text-brand-blue backdrop-blur-[2px]',
+        // Desktop: nút tròn lớn hơn
+        'lg:size-[3rem]',
         'lg:shadow-[0_0.25rem_1rem_rgba(4,24,33,0.08)]',
-        'hover:bg-white lg:hover:border-brand-blue lg:hover:bg-white lg:hover:text-brand-blue',
+        'hover:bg-brand-blue hover:text-white',
         direction === 'prev'
           ? 'left-[0.5rem] lg:left-[1.25rem]'
           : 'right-[0.5rem] lg:right-[1.25rem]',
       )}
     >
-      <Icon
-        aria-hidden='true'
-        className='size-[1.125rem] lg:size-[1.375rem]'
-        strokeWidth={2}
+      <NavChevron
+        direction={direction === 'prev' ? 'left' : 'right'}
+        className='lg:h-[1.375rem] lg:w-[0.7639rem]'
       />
     </button>
   )
@@ -65,7 +62,7 @@ export function HeroSection() {
       aria-label='Banner'
     >
       <Carousel
-        opts={{ loop: true, align: 'start', duration: 30 }}
+        opts={{ loop: true, align: 'start', duration: 45 }}
         className='w-full'
       >
         <BannerAutoplay />

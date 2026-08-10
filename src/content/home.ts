@@ -192,7 +192,7 @@ export const newsItems: NewsItem[] = [
     excerpt:
       'Mỗi ngày trôi qua, điều day dứt nhất với anh Long, chị Hà (ở Mỹ Đức, Hà Nội) không chỉ là việc đã mất hai người con, mà là câu hỏi luôn ám ảnh: “Giá như mình biết sớm…”',
     category: 'Tin tức',
-    image: '/images/banner-dng-tam1.png',
+    image: '/news/new1.png',
     imageAlt: 'Tin tức bệnh viện Đồng Tâm',
     href: '/tin-tuc/hai-lan-mat-con-moi-biet-hai-vo-chong-cung-mang-gen-lan-gay-benh-di-truyen',
     publishedAt: {
@@ -206,7 +206,7 @@ export const newsItems: NewsItem[] = [
     excerpt:
       'Bài viết: Bác sĩ Nguyễn Liên Phương. Hỗ trợ sinh sản bằng các kỹ thuật như bơm tinh trùng vào buồng tử cung (IUI) và thụ tinh trong ống nghiệm (IVF) ngày càng được áp dụng rộng rãi trong điều trị vô sinh – hiếm muộn. Bên cạnh các yếu tố chuyên môn như phác đồ kích thích buồng trứng, chất lượng phôi hay kỹ thuật labo, ngày càng có nhiều bằng chứng cho thấy dinh dưỡng và lối sống đóng vai trò quan trọng trong việc cải thiện kết quả điều trị.',
     category: 'Tin tức',
-    image: '/images/Banner-Giam-50-chi-phi-IVF-web-copy.jpg',
+    image: '/news/new2.png',
     imageAlt: 'Bài viết về IUI và IVF',
     href: '/tin-tuc/iui-ivf-an-gi-de-tang-co-hoi',
     publishedAt: {
@@ -221,7 +221,7 @@ export const newsItems: NewsItem[] = [
     excerpt:
       'Sáng ngày 29/7, Bệnh viện Đồng Tâm đã tổ chức buổi tập huấn “Kỹ năng giao tiếp cơ bản” dành cho toàn thể cán bộ nhân viên, người lao động trong toàn viện.',
     category: 'Tin tức',
-    image: '/images/IMG_5948-scaled.jpg',
+    image: '/news/new3.jpeg',
     imageAlt: 'Tập huấn kỹ năng giao tiếp tại bệnh viện',
     href: '/tin-tuc/doi-moi-phong-cach-thai-do-phuc-vu-cua-can-bo-y-te-huong-toi-su-hai-long-cua-nguoi-benh',
     publishedAt: {
@@ -235,7 +235,7 @@ export const newsItems: NewsItem[] = [
     excerpt:
       'Hơn 20 năm chạy chữa trong vô vọng, nhiều lần định “bỏ cuộc”, vợ chồng chị Nguyễn Thị Chanh (xã An Khánh, thành phố Hà Nội) từng tin rằng mong muốn có con của mình sẽ không bao giờ thành hiện thực. Nhưng từ một ca được đánh giá chỉ còn 10–15% cơ hội thành công, bằng sự kiên trì của người bệnh và sự đồng hành bền bỉ của Bác sĩ Nguyễn Thị Nhã – Phó Giám đốc Bệnh viện Đồng Tâm, một cái kết trọn vẹn đã được viết tiếp.',
     category: 'Tin tức',
-    image: '/images/banner-dng-tam1.png',
+    image: '/news/new4.jpg',
     imageAlt: 'Hành trình điều trị hiếm muộn thành công',
     href: '/tin-tuc/20-nam-vo-sinh-khong-ro-nguyen-nhan-va-mot-cai-ket-vuot-ngoai-mong-doi',
     publishedAt: {
@@ -249,7 +249,7 @@ export const newsItems: NewsItem[] = [
     excerpt:
       'Ngày 27/7 hằng năm là dịp để mỗi người dân Việt Nam thành kính tưởng nhớ, bày tỏ lòng biết ơn sâu sắc đối với các Anh hùng liệt sỹ, thương binh, bệnh binh và những người có công với cách mạng – những người đã cống hiến, hy sinh vì độc lập, tự do của Tổ quốc và hạnh phúc của Nhân dân.',
     category: 'Tin tức',
-    image: '/images/Banner-Giam-50-chi-phi-IVF-web-copy.jpg',
+    image: '/news/new5.jpg',
     imageAlt: 'Hoạt động dâng hương tưởng niệm',
     href: '/tin-tuc/hoat-dong-dang-huong-tuong-niem-cac-anh-hung-liet-sy-nhan-ngay-27-7',
     publishedAt: {
@@ -264,7 +264,7 @@ export const newsItems: NewsItem[] = [
     excerpt:
       'Nhân kỷ niệm 79 năm Ngày Thương binh – Liệt sĩ (27/7/1947 – 27/7/2026), Bệnh viện Đa khoa Đồng Tâm xin bày tỏ lòng thành kính và biết ơn sâu sắc các Anh hùng liệt sĩ, thương binh, bệnh binh, người có công với cách mạng đã dũng cảm chiến đấu, anh dũng hy sinh hoặc cống hiến một phần xương máu của mình cho sự nghiệp đấu tranh giải phóng dân tộc.',
     category: 'Tin tức',
-    image: '/images/IMG_5948-scaled.jpg',
+    image: '/news/new6.jpg',
     imageAlt: 'Chương trình tri ân người có công với cách mạng',
     href: '/tin-tuc/tri-an-nguoi-co-cong-voi-cach-mang-dong-hanh-cung-can-bo-chien-si-trong-luc-luong-vu-trang-tren-hanh-trinh-tim-con-yeu',
     publishedAt: {
@@ -278,7 +278,7 @@ export const newsItems: NewsItem[] = [
     excerpt:
       'Trời vừa sáng. Một ngày mới bắt đầu cũng là lúc ngày cuối của Tuần lễ khám và tư vấn vô sinh, hiếm muộn miễn phí tại Bệnh viện Đồng Tâm. Những phòng khám đã sáng đèn. Những hồ sơ đầu tiên đã được mở.',
     category: 'Tin tức',
-    image: '/images/banner-dng-tam1.png',
+    image: '/news/new7.jpg',
     imageAlt: 'Tuần lễ khám và tư vấn vô sinh hiếm muộn miễn phí',
     href: '/tin-tuc/khong-khi-ngay-cuoi-cua-tuan-le-kham-va-tu-van-vo-sinh-hiem-muon-mien-phi',
     publishedAt: {
@@ -292,7 +292,7 @@ export const newsItems: NewsItem[] = [
     excerpt:
       'Cảm ơn những người đã góp phần viết nên những câu chuyện hạnh phúc của rất nhiều gia đình hiếm muộn.',
     category: 'Tin tức',
-    image: '/images/Banner-Giam-50-chi-phi-IVF-web-copy.jpg',
+    image: '/news/new8.jpg',
     imageAlt: 'Ngày chuyên viên phôi học thế giới',
     href: '/tin-tuc/chuc-mung-ngay-chuyen-vien-phoi-hoc-the-gioi-25-07',
     publishedAt: {
@@ -306,7 +306,7 @@ export const newsItems: NewsItem[] = [
     excerpt:
       'Vô sinh, hiếm muộn đang không chỉ xảy ra ở những cặp vợ chồng lớn tuổi. Số người trẻ tìm đến các cơ sở hỗ trợ sinh sản ngày càng tăng, trong đó nhiều trường hợp chỉ phát hiện bệnh lý sau nhiều năm mong con. Thăm khám sớm được xem là yếu tố quan trọng để giữ lại cơ hội làm cha, làm mẹ.',
     category: 'Tin tức',
-    image: '/images/IMG_5948-scaled.jpg',
+    image: '/news/new9.jpg',
     imageAlt: 'Người trẻ trên hành trình tìm con',
     href: '/tin-tuc/khi-nguoi-tre-tren-hanh-trinh-tim-con',
     publishedAt: {

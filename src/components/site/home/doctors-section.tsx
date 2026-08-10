@@ -1,11 +1,18 @@
 'use client'
 
-import { ArrowRight, Check, ChevronLeft, ChevronRight, ClipboardList, Plus } from 'lucide-react'
+import { Check } from 'lucide-react'
 import Image from 'next/image'
-import { useEffect, useRef, useState, type UIEvent } from 'react'
+import { useEffect, useRef, useState, type UIEvent, type WheelEvent } from 'react'
 
+import { ActionArrow } from '@/components/common/action-arrow'
+import { NavChevron } from '@/components/common/nav-chevron'
 import { doctors } from '@/content/home'
 import { cn } from '@/lib/utils'
+
+const stopWheelPropagation = (event: WheelEvent<HTMLDivElement>) => {
+  event.stopPropagation()
+}
+
 export function DoctorsSection() {
   const sliderRef = useRef<HTMLDivElement>(null)
 
@@ -122,10 +129,13 @@ export function DoctorsSection() {
         <div className='flex flex-col gap-[1.5rem] sm:flex-row sm:items-end sm:justify-between'>
           <div>
             <div className='mb-[0.75rem] inline-flex items-center gap-[0.375rem] rounded-full bg-brand-yellow px-[0.75rem] py-[0.4375rem] text-[0.6875rem] font-semibold uppercase leading-none text-white'>
-              <Plus
+              <Image
                 aria-hidden='true'
+                src='/icons/union.svg'
+                alt=''
+                width={16}
+                height={16}
                 className='size-[0.75rem]'
-                strokeWidth={3}
               />
               Đội ngũ bác sĩ giàu kinh nghiệm
             </div>
@@ -141,11 +151,7 @@ export function DoctorsSection() {
             className='group hidden h-[2.625rem] w-fit shrink-0 items-center justify-center gap-[0.5rem] self-start rounded-full border border-brand-blue bg-white px-[1.25rem] text-[0.8125rem] font-medium text-brand-blue transition-colors duration-200 hover:border-brand-yellow hover:text-brand-yellow sm:self-auto lg:inline-flex'
           >
             Xem tất cả
-            <ArrowRight
-              aria-hidden='true'
-              className='size-[1rem] transition-transform duration-200 group-hover:translate-x-[0.1875rem]'
-              strokeWidth={1.8}
-            />
+            <ActionArrow />
           </button>
         </div>
 
@@ -157,12 +163,11 @@ export function DoctorsSection() {
             aria-label='Xem các bác sĩ trước'
             disabled={activeIndex === 0}
             onClick={handlePrevious}
-            className='absolute left-[-4.375rem] top-1/2 z-30 hidden size-[2.5rem] -translate-y-1/2 items-center justify-center rounded-full border border-brand-blue bg-white text-brand-blue transition-colors duration-200 hover:bg-brand-blue hover:text-white disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white disabled:hover:text-brand-blue lg:flex'
+            className='group absolute left-[-4.375rem] top-1/2 z-30 hidden size-[2.5rem] -translate-y-1/2 items-center justify-center rounded-full border border-brand-blue bg-white text-brand-blue transition-colors duration-200 hover:bg-brand-blue hover:text-white disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white disabled:hover:text-brand-blue lg:flex'
           >
-            <ChevronLeft
-              aria-hidden='true'
-              className='size-[1.25rem]'
-              strokeWidth={1.7}
+            <NavChevron
+              direction='left'
+              className='h-[1.25rem] w-[0.6944rem]'
             />
           </button>
 
@@ -179,28 +184,28 @@ export function DoctorsSection() {
                 <article
                   key={doctor.id}
                   data-doctor-card
-                  className='group relative h-[27rem] basis-full shrink-0 snap-start overflow-hidden rounded-[0.875rem] border border-brand-blue/10 bg-[#eef7fd] sm:h-[29rem] sm:basis-[calc((100%_-_1rem)/2)] lg:h-[30.3125rem] lg:basis-[calc((100%_-_2rem)/3)]'
+                  className='group relative h-[27rem] basis-full shrink-0 snap-start overflow-hidden rounded-[0.875rem] border border-brand-blue/10 bg-[#eef7fd] sm:h-[29rem] sm:basis-[calc((100%_-_1rem)/2)] lg:h-[30.3125rem] lg:basis-[calc((100%_-_2rem)/3)] lg:rounded-[1rem] 2xl:basis-[28.333333rem] 2xl:border-0 2xl:bg-white'
                 >
                   {/* Nền bệnh viện làm mờ */}
                   {/* Ảnh nền lớn của card */}
-                  <div className='absolute inset-0 z-0'>
+                  <div className='absolute inset-0 z-0 2xl:inset-auto 2xl:left-[-3.0625rem] 2xl:top-[-11.9375rem] 2xl:h-[44.125rem] 2xl:w-[44.2224rem]'>
                     <Image
                       src='/images/bg-to.png'
                       alt=''
                       fill
                       sizes='(max-width: 1024px) 100vw, 33vw'
-                      className='object-cover object-center'
+                      className='object-cover object-center 2xl:object-bottom 2xl:opacity-80'
                     />
 
                     {/* Lớp phủ trắng nhẹ */}
-                    <div className='absolute inset-0 bg-white/20' />
+                    <div className='absolute inset-0 bg-white/20 2xl:hidden' />
                   </div>
 
                   {/*
                    * Mobile / tablet: bố cục xếp dòng theo bản thiết kế MB.
                    * Ảnh + tên ở hàng trên, danh sách thông tin và nút ở dưới.
                    */}
-                  <div className='relative z-10 flex h-full flex-col gap-[0.75rem] p-[0.75rem] lg:hidden'>
+                  <div className='relative z-10 flex h-full min-h-0 flex-col gap-[0.75rem] p-[0.75rem] lg:hidden'>
                     <div className='flex gap-[0.75rem]'>
                       <div className='relative h-[10rem] w-[40%] shrink-0 overflow-hidden rounded-[0.75rem] border-[0.125rem] border-white bg-white/40'>
                         <Image
@@ -214,10 +219,13 @@ export function DoctorsSection() {
 
                       <div className='flex min-w-0 flex-1 flex-col'>
                         <span className='inline-flex h-[1.5rem] w-fit max-w-full items-center gap-[0.3125rem] rounded-[0.375rem] bg-brand-yellow px-[0.5rem] text-[0.625rem] font-semibold uppercase text-white'>
-                          <ClipboardList
+                          <Image
                             aria-hidden='true'
+                            src='/icons/vuesax-bold-note.svg'
+                            alt=''
+                            width={16}
+                            height={16}
                             className='size-[0.75rem] shrink-0'
-                            strokeWidth={2.4}
                           />
 
                           <span className='truncate'>{doctor.role}</span>
@@ -239,7 +247,10 @@ export function DoctorsSection() {
                       </div>
                     </div>
 
-                    <div className='min-h-0 flex-1 overflow-y-auto pr-[0.5rem] [scrollbar-color:#1991c7_rgba(25,145,199,0.12)] [scrollbar-width:thin] [&::-webkit-scrollbar]:w-[0.25rem] [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-brand-blue [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-track]:bg-brand-blue/10'>
+                    <div
+                      onWheel={stopWheelPropagation}
+                      className='min-h-0 flex-1 touch-pan-y overflow-y-auto overscroll-contain pr-[0.5rem] [scrollbar-color:#1991c7_rgba(25,145,199,0.12)] [scrollbar-width:thin] [&::-webkit-scrollbar]:w-[0.25rem] [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-brand-blue [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-track]:bg-brand-blue/10'
+                    >
                       <ul className='space-y-[0.625rem]'>
                         {details.map((detail, index) => (
                           <li
@@ -267,32 +278,29 @@ export function DoctorsSection() {
                       className='group/detail flex h-[2.75rem] shrink-0 items-center justify-center gap-[0.5rem] rounded-full border border-brand-blue/30 bg-[#edf4fb]/95 text-[0.875rem] font-medium text-brand-blue transition-colors duration-200 hover:border-brand-yellow hover:text-brand-yellow'
                     >
                       Xem chi tiết
-                      <ArrowRight
-                        aria-hidden='true'
-                        className='size-[1rem] transition-transform duration-200 group-hover/detail:translate-x-[0.2rem]'
-                        strokeWidth={1.8}
-                      />
+                      <ActionArrow hoverGroup='detail' />
                     </button>
                   </div>
 
                   {/* Desktop: giữ nguyên bố cục tuyệt đối của bản thiết kế web */}
                   <div className='hidden lg:block'>
                     {/* Nhãn chuyên khoa màu vàng */}
-                    <div className='absolute right-[0.5rem] top-[0.5rem] z-20 inline-flex h-[1.625rem] max-w-[55%] items-center gap-[0.3125rem] rounded-[0.375rem] bg-brand-yellow px-[0.625rem] text-[0.625rem] font-semibold uppercase text-white'>
-                      <ClipboardList
+                    <div className='absolute right-[0.5rem] top-[0.5rem] z-20 inline-flex h-[1.625rem] max-w-[55%] items-center gap-[0.3125rem] rounded-[0.375rem] bg-brand-yellow px-[0.625rem] text-[0.625rem] font-semibold uppercase text-white 2xl:right-[0.72rem] 2xl:top-[0.625rem] 2xl:h-[2rem] 2xl:gap-[0.27rem] 2xl:rounded-[0.5rem] 2xl:p-[0.5rem] 2xl:text-[0.75rem] 2xl:leading-[1.2] 2xl:tracking-[0.0075rem]'>
+                      <Image
                         aria-hidden='true'
-                        className='size-[0.75rem] shrink-0'
-                        strokeWidth={2.4}
+                        src='/icons/vuesax-bold-note.svg'
+                        alt=''
+                        width={16}
+                        height={16}
+                        className='size-[0.75rem] shrink-0 2xl:size-[1rem]'
                       />
-
                       <span className='truncate'>{doctor.role}</span>
                     </div>
-
                     {/* Ảnh bác sĩ bên trái */}
                     {/* Khung chữ nhật trang trí phía sau bác sĩ */}
                     {/* Khung chữ nhật phía sau bác sĩ */}
                     {/* Hình chữ nhật trang trí phía sau bác sĩ */}
-                    <div className='absolute bottom-[4.75rem] left-[0.75rem] z-[5] h-[11.5rem] w-[42%] overflow-hidden rounded-[0.75rem] border-[0.125rem] border-white shadow-[0_0.5rem_1.5rem_rgba(8,53,74,0.08)]'>
+                    <div className='absolute bottom-[4.75rem] left-[0.75rem] z-[5] h-[11.5rem] w-[42%] overflow-hidden rounded-[0.75rem] border-[0.125rem] border-white shadow-[0_0.5rem_1.5rem_rgba(8,53,74,0.08)] 2xl:bottom-auto 2xl:left-[0.78125rem] 2xl:top-[10.6875rem] 2xl:h-[11.875rem] 2xl:w-[11.5625rem] 2xl:rounded-[0.628rem] 2xl:border-[0.157rem]'>
                       <Image
                         src='/images/bg_nho.png'
                         alt=''
@@ -303,7 +311,7 @@ export function DoctorsSection() {
                     </div>
 
                     {/* Ảnh bác sĩ */}
-                    <div className='absolute bottom-[4.75rem] left-[0.25rem] z-10 h-[20rem] w-[47%]'>
+                    <div className='absolute bottom-[4.75rem] left-[0.25rem] z-10 h-[20rem] w-[47%] 2xl:bottom-auto 2xl:left-[-0.9375rem] 2xl:top-[2.4375rem] 2xl:w-[14.6875rem]'>
                       <Image
                         src={doctor.image}
                         alt={doctor.name}
@@ -312,45 +320,50 @@ export function DoctorsSection() {
                         className={cn(
                           'origin-bottom object-contain object-bottom',
                           doctor.imageHeightClassName,
+                          '2xl:h-full',
                         )}
                       />
                     </div>
 
                     {/* Tên bác sĩ */}
                     {/* Khối tên bác sĩ */}
-                    <div className='absolute left-[42%] right-[0.75rem] top-[4.75rem] z-20 rounded-[0.75rem] bg-[linear-gradient(90deg,#075dad_0%,#199bcf_100%)] px-[1rem] py-[0.75rem] text-center text-white shadow-[0_0.5rem_1.25rem_rgba(7,94,180,0.2)]'>
-                      <h3 className='truncate text-[1rem] font-bold uppercase leading-[1.2]'>
+                    <div className='absolute left-[42%] right-[0.75rem] top-[4.75rem] z-20 rounded-[0.75rem] bg-[linear-gradient(90deg,#075dad_0%,#199bcf_100%)] px-[1rem] py-[0.75rem] text-center text-white shadow-[0_0.5rem_1.25rem_rgba(7,94,180,0.2)] 2xl:left-[12.34375rem] 2xl:right-[0.7396rem] 2xl:top-[4.125rem] 2xl:rounded-[0.625rem] 2xl:py-[0.5rem] 2xl:shadow-none'>
+                      <h3 className='truncate text-[1rem] font-bold uppercase leading-[1.2] 2xl:leading-[1.5]'>
                         {doctor.name}
                       </h3>
 
-                      <p className='mt-[0.375rem] truncate text-[0.7rem] leading-[1.3] text-white/90'>
+                      <p className='mt-[0.375rem] truncate text-[0.7rem] leading-[1.3] text-white/90 2xl:mt-[0.25rem] 2xl:text-[0.75rem] 2xl:leading-[1.5]'>
                         {doctor.position}
                       </p>
                     </div>
 
                     {/* Kinh nghiệm và thông tin */}
                     {/* Kinh nghiệm và nội dung bác sĩ */}
-                    <div className='absolute bottom-[5.75rem] left-[47%] right-[1rem] top-[10rem] z-10 flex min-h-0 flex-col'>
-                      <p className='shrink-0 text-[1.75rem] font-bold uppercase leading-[1.12] text-text-dark-blue'>
+                    <div className='absolute bottom-[5.75rem] left-[47%] right-[1rem] top-[10rem] z-10 flex min-h-0 flex-col 2xl:bottom-auto 2xl:left-[12.84375rem] 2xl:right-auto 2xl:top-[8.6875rem] 2xl:h-[14rem] 2xl:w-[14.0625rem]'>
+                      <p className='shrink-0 text-[1.75rem] font-bold uppercase leading-[1.12] text-text-dark-blue 2xl:text-center 2xl:leading-[1.4]'>
                         {doctor.experience}
                       </p>
 
-                      <div className='mt-[0.75rem] min-h-0 flex-1 overflow-y-auto pr-[0.75rem] [scrollbar-color:#1991c7_rgba(25,145,199,0.12)] [scrollbar-width:thin] [&::-webkit-scrollbar]:w-[0.375rem] [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-brand-blue [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-track]:bg-brand-blue/10'>
-                        <ul className='space-y-[0.875rem]'>
+                      <div
+                        onWheel={stopWheelPropagation}
+                        className='mt-[0.75rem] min-h-0 flex-1 touch-pan-y overflow-y-auto overscroll-contain pr-[0.75rem] [scrollbar-color:#1991c7_rgba(25,145,199,0.12)] [scrollbar-width:thin] [&::-webkit-scrollbar]:w-[0.375rem] [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-brand-blue [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-track]:bg-brand-blue/10 2xl:mt-0 2xl:pr-0'
+                      >
+                        <ul className='space-y-[0.875rem] 2xl:space-y-[0.625rem]'>
                           {details.map((detail, index) => (
                             <li
                               key={`${doctor.id}-${index}`}
-                              className='flex items-start gap-[0.625rem]'
+                              className='flex items-start gap-[0.625rem] 2xl:gap-[0.375rem]'
                             >
-                              <span className='mt-[0.15rem] inline-flex size-[1rem] shrink-0 items-center justify-center rounded-full bg-brand-mint text-white'>
-                                <Check
-                                  aria-hidden='true'
-                                  className='size-[0.625rem]'
-                                  strokeWidth={3}
-                                />
-                              </span>
+                              <Image
+                                aria-hidden='true'
+                                src='/icons/vuesax-bold-tick-circle.svg'
+                                alt=''
+                                width={16}
+                                height={16}
+                                className='mt-[0.15rem] size-[1rem] shrink-0'
+                              />
 
-                              <span className='text-[0.8rem] leading-[1.55] text-text-dark-blue'>
+                              <span className='text-[0.8rem] leading-[1.55] text-text-dark-blue 2xl:text-[0.75rem] 2xl:leading-[1.5]'>
                                 {detail}
                               </span>
                             </li>
@@ -362,13 +375,12 @@ export function DoctorsSection() {
                     {/* Nút xem chi tiết */}
                     <button
                       type='button'
-                      className='group/detail absolute bottom-[0.75rem] left-[0.75rem] right-[0.75rem] z-20 flex h-[3.25rem] items-center justify-center gap-[0.75rem] rounded-full border border-brand-blue/30 bg-[#edf4fb]/95 text-[0.9rem] font-medium text-brand-blue shadow-[inset_0_0_0_0.0625rem_rgba(255,255,255,0.9)] transition-colors duration-200 hover:border-brand-yellow hover:text-brand-yellow'
+                      className='group/detail absolute bottom-[0.75rem] left-[0.75rem] right-[0.75rem] z-20 flex h-[3.25rem] items-center justify-center gap-[0.75rem] rounded-full border border-brand-blue/30 bg-[#edf4fb]/95 text-[0.9rem] font-medium text-brand-blue shadow-[inset_0_0_0_0.0625rem_rgba(255,255,255,0.9)] transition-colors duration-200 hover:border-brand-yellow hover:text-brand-yellow 2xl:bottom-[1.4375rem] 2xl:left-[0.875rem] 2xl:right-[0.8958rem] 2xl:h-[2.75rem] 2xl:gap-[0.5rem] 2xl:border-[0.0875rem] 2xl:px-[1.75rem] 2xl:py-[0.875rem] 2xl:text-[0.875rem] 2xl:leading-[1.5] 2xl:shadow-[0_0_0_0.125rem_rgba(95,205,255,0.17),0_0_0.25rem_rgba(95,205,255,0.12),0_0.0625rem_0.5rem_rgba(95,205,255,0.1)]'
                     >
                       Xem chi tiết
-                      <ArrowRight
-                        aria-hidden='true'
-                        className='size-[1.1rem] transition-transform duration-200 group-hover/detail:translate-x-[0.2rem]'
-                        strokeWidth={1.8}
+                      <ActionArrow
+                        hoverGroup='detail'
+                        className='size-[1.1rem] 2xl:size-[1.265625rem]'
                       />
                     </button>
                   </div>
@@ -383,12 +395,11 @@ export function DoctorsSection() {
             aria-label='Xem các bác sĩ tiếp theo'
             disabled={activeIndex === maxIndex}
             onClick={handleNext}
-            className='absolute right-[-4.375rem] top-1/2 z-30 hidden size-[2.5rem] -translate-y-1/2 items-center justify-center rounded-full border border-brand-blue bg-white text-brand-blue transition-colors duration-200 hover:bg-brand-blue hover:text-white disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white disabled:hover:text-brand-blue lg:flex'
+            className='group absolute right-[-4.375rem] top-1/2 z-30 hidden size-[2.5rem] -translate-y-1/2 items-center justify-center rounded-full border border-brand-blue bg-white text-brand-blue transition-colors duration-200 hover:bg-brand-blue hover:text-white disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white disabled:hover:text-brand-blue lg:flex'
           >
-            <ChevronRight
-              aria-hidden='true'
-              className='size-[1.25rem]'
-              strokeWidth={1.7}
+            <NavChevron
+              direction='right'
+              className='h-[1.25rem] w-[0.6944rem]'
             />
           </button>
         </div>
@@ -419,13 +430,9 @@ export function DoctorsSection() {
                 aria-label='Xem các bác sĩ trước'
                 disabled={activeIndex === 0}
                 onClick={handlePrevious}
-                className='inline-flex size-[2.25rem] items-center justify-center rounded-full border border-brand-blue bg-white text-brand-blue transition-colors duration-200 disabled:opacity-30'
+                className='group inline-flex size-[2.25rem] items-center justify-center rounded-full border border-brand-blue bg-white text-brand-blue transition-colors duration-200 hover:bg-brand-blue hover:text-white disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white disabled:hover:text-brand-blue'
               >
-                <ChevronLeft
-                  aria-hidden='true'
-                  className='size-[1.125rem]'
-                  strokeWidth={1.7}
-                />
+                <NavChevron direction='left' />
               </button>
 
               <button
@@ -433,13 +440,9 @@ export function DoctorsSection() {
                 aria-label='Xem các bác sĩ tiếp theo'
                 disabled={activeIndex === maxIndex}
                 onClick={handleNext}
-                className='inline-flex size-[2.25rem] items-center justify-center rounded-full border border-brand-blue bg-white text-brand-blue transition-colors duration-200 disabled:opacity-30'
+                className='group inline-flex size-[2.25rem] items-center justify-center rounded-full border border-brand-blue bg-white text-brand-blue transition-colors duration-200 hover:bg-brand-blue hover:text-white disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white disabled:hover:text-brand-blue'
               >
-                <ChevronRight
-                  aria-hidden='true'
-                  className='size-[1.125rem]'
-                  strokeWidth={1.7}
-                />
+                <NavChevron direction='right' />
               </button>
             </div>
           </div>
@@ -452,11 +455,7 @@ export function DoctorsSection() {
             className='group inline-flex h-[2.75rem] items-center justify-center gap-[0.5rem] rounded-full border border-brand-blue bg-white px-[1.5rem] text-[0.875rem] font-medium text-brand-blue transition-colors duration-200 hover:border-brand-yellow hover:text-brand-yellow'
           >
             Xem tất cả
-            <ArrowRight
-              aria-hidden='true'
-              className='size-[1rem] transition-transform duration-200 group-hover:translate-x-[0.1875rem]'
-              strokeWidth={1.8}
-            />
+            <ActionArrow />
           </button>
         </div>
       </div>

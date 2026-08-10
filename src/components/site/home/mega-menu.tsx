@@ -15,7 +15,6 @@ export function MegaMenu() {
     <div className='absolute left-0 top-full hidden w-screen bg-white shadow-[0_10px_30px_rgba(0,0,0,0.1)] group-hover:block'>
       {/* Container to match header padding */}
       <div className='mx-auto grid w-full max-w-[1440px] grid-cols-12 gap-8 px-[1rem] py-[2rem] sm:px-[1.5rem] lg:px-[6.25rem]'>
-        
         {/* Cột 1: Danh sách khoa (4 columns) */}
         <div className='col-span-3 border-r border-gray-100 pr-6'>
           <ul className='flex flex-col gap-1'>
@@ -54,14 +53,13 @@ export function MegaMenu() {
         {/* Cột 3: Ảnh quảng cáo (5 columns) */}
         <div className='col-span-5 flex items-start justify-center overflow-hidden'>
           <Image
-            src='/images/banner-dng-tam1.png'
+            src='/images/baner_nho.jpg'
             alt='IVF Đồng Tâm'
-            width={600}
-            height={400}
+            width={1400}
+            height={735}
             className='h-auto w-full object-cover transition-all duration-500 hover:scale-105'
           />
         </div>
-        
       </div>
     </div>
   )

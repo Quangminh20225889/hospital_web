@@ -2,7 +2,7 @@
 
 import { ChevronDown, Menu, Search, X } from 'lucide-react'
 import Image from 'next/image'
-import { useState, useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { megaMenuData, navigationItems } from '@/content/home'
 import { Link } from '@/i18n/navigation'
@@ -19,6 +19,14 @@ export function SiteHeader() {
   const [isVisible, setIsVisible] = useState(true)
   const [isAtTop, setIsAtTop] = useState(true)
   const [lastScrollY, setLastScrollY] = useState(0)
+  const [isSearchOpen, setIsSearchOpen] = useState(false)
+  const searchInputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    if (isSearchOpen) {
+      searchInputRef.current?.focus()
+    }
+  }, [isSearchOpen])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -120,19 +128,65 @@ export function SiteHeader() {
           />
 
           <div className='flex shrink-0 items-center gap-[0.5rem] lg:gap-[0.75rem]'>
-            <button
-              type='button'
-              aria-label='Tìm kiếm'
-              className='hidden size-[2.5rem] items-center justify-center rounded-full bg-surface-blue transition hover:bg-brand-blue/10 sm:inline-flex'
-            >
-              <Image
-                src='/icons/Search Icon.svg'
-                alt=''
-                width={18}
-                height={18}
-                className='size-[1.125rem]'
-              />
-            </button>
+            <div className='relative hidden sm:block'>
+              <div
+                className={cn(
+                  'invisible absolute right-[3rem] top-1/2 z-10 h-[2.5rem] w-0 -translate-y-1/2 overflow-hidden opacity-0 transition-[width,opacity,visibility] duration-300 ease-out lg:right-[3.25rem]',
+                  isSearchOpen && 'visible w-[min(15rem,35vw)] opacity-100',
+                )}
+              >
+                <form
+                  role='search'
+                  onSubmit={(event) => event.preventDefault()}
+                  className='absolute right-0 flex h-[2.5rem] w-[min(15rem,35vw)] items-center gap-[0.625rem] rounded-full bg-surface-blue px-[1.25rem]'
+                >
+                  <Image
+                    src='/icons/Search Icon.svg'
+                    alt=''
+                    width={18}
+                    height={18}
+                    className='size-[1.125rem] shrink-0'
+                  />
+
+                  <input
+                    ref={searchInputRef}
+                    type='search'
+                    aria-label='Tìm kiếm dịch vụ'
+                    placeholder='Tìm kiếm dịch vụ...'
+                    onKeyDown={(event) => {
+                      if (event.key === 'Escape') {
+                        setIsSearchOpen(false)
+                      }
+                    }}
+                    className='min-w-0 flex-1 bg-transparent text-[0.9375rem] text-text-dark-blue outline-none placeholder:text-text-dark-blue/45 [&::-webkit-search-cancel-button]:hidden'
+                  />
+                </form>
+              </div>
+
+              <button
+                type='button'
+                aria-label={isSearchOpen ? 'Đóng tìm kiếm' : 'Tìm kiếm'}
+                aria-expanded={isSearchOpen}
+                onClick={() => setIsSearchOpen((isOpen) => !isOpen)}
+                className='inline-flex size-[2.5rem] items-center justify-center rounded-full bg-surface-blue text-text-dark-blue/35 transition-colors hover:bg-brand-blue/10 hover:text-brand-blue'
+              >
+                {isSearchOpen ? (
+                  <X
+                    aria-hidden='true'
+                    className='size-[1.125rem]'
+                    strokeWidth={1.8}
+                  />
+                ) : (
+                  <Image
+                    src='/icons/Search Icon.svg'
+                    alt=''
+                    width={18}
+                    height={18}
+                    className='size-[1.125rem]'
+                  />
+                )}
+              </button>
+            </div>
 
             <Link
               href={'/dat-lich' as any}

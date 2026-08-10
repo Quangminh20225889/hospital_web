@@ -1,8 +1,8 @@
 'use client'
 
-import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useRef, useState, type UIEvent } from 'react'
 
+import { NavChevron } from '@/components/common/nav-chevron'
 import type { Service } from '@/content/home'
 
 import { ServiceCard } from './service-card'
@@ -104,13 +104,9 @@ export function ServicesMobileSlider({ services }: ServicesMobileSliderProps) {
             aria-label='Xem dịch vụ trước'
             disabled={activeIndex === 0}
             onClick={() => scrollToIndex(activeIndex - 1)}
-            className='inline-flex size-[2.25rem] items-center justify-center rounded-full border border-brand-blue bg-white text-brand-blue transition-colors duration-200 disabled:opacity-30'
+            className='group inline-flex size-[2.25rem] items-center justify-center rounded-full border border-brand-blue bg-white text-brand-blue transition-colors duration-200 hover:bg-brand-blue hover:text-white disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white disabled:hover:text-brand-blue'
           >
-            <ChevronLeft
-              aria-hidden='true'
-              className='size-[1.125rem]'
-              strokeWidth={1.7}
-            />
+            <NavChevron direction='left' />
           </button>
 
           <button
@@ -118,13 +114,9 @@ export function ServicesMobileSlider({ services }: ServicesMobileSliderProps) {
             aria-label='Xem dịch vụ tiếp theo'
             disabled={activeIndex === maxIndex}
             onClick={() => scrollToIndex(activeIndex + 1)}
-            className='inline-flex size-[2.25rem] items-center justify-center rounded-full border border-brand-blue bg-white text-brand-blue transition-colors duration-200 disabled:opacity-30'
+            className='group inline-flex size-[2.25rem] items-center justify-center rounded-full border border-brand-blue bg-white text-brand-blue transition-colors duration-200 hover:bg-brand-blue hover:text-white disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white disabled:hover:text-brand-blue'
           >
-            <ChevronRight
-              aria-hidden='true'
-              className='size-[1.125rem]'
-              strokeWidth={1.7}
-            />
+            <NavChevron direction='right' />
           </button>
         </div>
       </div>

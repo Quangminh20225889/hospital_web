@@ -61,13 +61,13 @@ export function ServicesSection() {
             />
           </div>
 
-          {/* Bàn tay ở giữa: mobile không có ảnh hai bên nên đặt gọn trong dải xanh */}
-          <div className='pointer-events-none absolute bottom-0 left-1/2 z-30 block h-[6.5rem] w-[7.5rem] -translate-x-1/2 sm:hidden md:bottom-[-1.5rem] md:block md:h-[9.75rem] md:w-[11.5rem] lg:h-[11rem] lg:w-[13rem]'>
+          {/* Bàn tay ở giữa: nằm gọn trên mobile, nhô xuống ở màn hình lớn */}
+          <div className='pointer-events-none absolute bottom-0 left-1/2 z-30 h-[5.5rem] w-[8.125rem] -translate-x-1/2 sm:bottom-[-2.9375rem] sm:h-[9.1875rem] sm:w-[13.5rem] lg:bottom-[-1.875rem]'>
             <Image
               src='/images/ban-tay.png'
               alt=''
               fill
-              sizes='208px'
+              sizes='(max-width: 639px) 130px, 216px'
               className='object-contain object-bottom'
             />
           </div>

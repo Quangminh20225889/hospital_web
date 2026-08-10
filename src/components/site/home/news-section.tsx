@@ -1,9 +1,10 @@
 'use client'
 
-import { ArrowRightIcon, PlusIcon } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 import * as React from 'react'
 
+import { ActionArrow } from '@/components/common/action-arrow'
 import { Container } from '@/components/common/container'
 import { SectionHeading } from '@/components/common/section-heading'
 import { Badge } from '@/components/ui/badge'
@@ -69,10 +70,13 @@ export function NewsSection() {
         <div className='flex flex-col gap-[1.25rem] md:flex-row md:items-end md:justify-between'>
           <div>
             <Badge className='mb-[0.75rem] h-auto rounded-full border-0 bg-brand-yellow px-[0.875rem] py-[0.5rem] text-[0.6875rem] font-semibold uppercase leading-none tracking-normal text-white'>
-              <PlusIcon
+              <Image
                 aria-hidden='true'
+                src='/icons/union.svg'
+                alt=''
+                width={16}
+                height={16}
                 className='size-[0.75rem]'
-                strokeWidth={3}
               />
               Kiến thức &amp; Tin tức
             </Badge>
@@ -88,14 +92,11 @@ export function NewsSection() {
           <Button
             asChild
             variant='outline'
-            className='hidden h-[2.75rem] w-fit rounded-full border-brand-blue bg-white px-[1.5rem] text-[0.875rem] font-medium text-brand-blue shadow-none transition-colors duration-300 hover:border-brand-blue hover:bg-brand-blue hover:text-white lg:inline-flex'
+            className='group hidden h-[2.625rem] w-fit shrink-0 rounded-full border-brand-blue bg-white px-[1.25rem] text-[0.8125rem] font-medium text-brand-blue shadow-none transition-colors duration-200 hover:border-brand-yellow hover:bg-white hover:text-brand-yellow lg:inline-flex'
           >
             <Link href='/#tin-tuc'>
               Xem tất cả
-              <ArrowRightIcon
-                data-icon='inline-end'
-                className='size-[1rem]'
-              />
+              <ActionArrow />
             </Link>
           </Button>
         </div>
@@ -120,14 +121,11 @@ export function NewsSection() {
             <Button
               asChild
               variant='outline'
-              className='h-[2.75rem] w-fit rounded-full border-brand-blue bg-white px-[1.5rem] text-[0.875rem] font-medium text-brand-blue shadow-none'
+              className='group h-[2.75rem] w-fit rounded-full border-brand-blue bg-white px-[1.5rem] text-[0.875rem] font-medium text-brand-blue shadow-none transition-colors duration-200 hover:border-brand-yellow hover:bg-white hover:text-brand-yellow'
             >
               <Link href='/#tin-tuc'>
                 Xem tất cả
-                <ArrowRightIcon
-                  data-icon='inline-end'
-                  className='size-[1rem]'
-                />
+                <ActionArrow />
               </Link>
             </Button>
           </div>
