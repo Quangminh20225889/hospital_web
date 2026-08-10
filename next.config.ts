@@ -25,13 +25,10 @@ const nextConfig: NextConfig = {
   experimental: {
     viewTransition: true,
     webVitalsAttribution: ['CLS', 'LCP'],
-    // cssChunking: true,
   },
   typescript: {
     ignoreBuildErrors: true,
   },
 }
-
-// ANALYZE=true pnpm build
 
 export default withBundleAnalyzer(withNextIntl(nextConfig))

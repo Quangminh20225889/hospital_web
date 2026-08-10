@@ -1,6 +1,5 @@
 export default function parseRankMathHead(headHtml: string) {
   function decodeHtmlEntities(input: string) {
-    // Decode common HTML entities and numeric entities (e.g. &#8211; or &#x2013;)
     const named: Record<string, string> = {
       amp: '&',
       lt: '<',

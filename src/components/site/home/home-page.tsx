@@ -20,7 +20,7 @@ export function HomePage() {
       </main>
       <SiteFooter />
 
-      {/* Chừa chỗ cho thanh CTA dính đáy trên mobile */}
+      {}
       <div
         aria-hidden='true'
         className='h-[3rem] lg:hidden'

@@ -5,12 +5,6 @@ import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
 
 gsap.registerPlugin(ScrollToPlugin)
 
-/**
- * Scrolls smoothly to a section with the given element ID using GSAP.
- * @param elementId - The ID of the element to scroll to.
- * @param duration - Optional duration of the scroll animation in seconds (default: 1s).
- * @param offsetRem - Optional offset from the top in rem (default: 0rem).
- */
 export function scrollToSection(
   elementId: string,
   duration: number = 1,

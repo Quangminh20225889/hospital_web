@@ -13,9 +13,9 @@ export function MegaMenu() {
 
   return (
     <div className='absolute left-0 top-full hidden w-screen bg-white shadow-[0_10px_30px_rgba(0,0,0,0.1)] group-hover:block'>
-      {/* Container to match header padding */}
+      {}
       <div className='mx-auto grid w-full max-w-[1440px] grid-cols-12 gap-8 px-[1rem] py-[2rem] sm:px-[1.5rem] lg:px-[6.25rem]'>
-        {/* Cột 1: Danh sách khoa (4 columns) */}
+        {}
         <div className='col-span-3 border-r border-gray-100 pr-6'>
           <ul className='flex flex-col gap-1'>
             {megaMenuData.map((dept) => (
@@ -34,7 +34,6 @@ export function MegaMenu() {
           </ul>
         </div>
 
-        {/* Cột 2: Danh sách dịch vụ (4 columns) */}
         <div className='col-span-4 pl-4'>
           <ul className='flex flex-col gap-4'>
             {activeDept.services.map((service, idx) => (
@@ -50,7 +49,6 @@ export function MegaMenu() {
           </ul>
         </div>
 
-        {/* Cột 3: Ảnh quảng cáo (5 columns) */}
         <div className='col-span-5 flex items-start justify-center overflow-hidden'>
           <Image
             src='/images/baner_nho.jpg'

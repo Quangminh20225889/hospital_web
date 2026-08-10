@@ -11,10 +11,6 @@ type ServicesMobileSliderProps = {
   services: Service[]
 }
 
-/**
- * Dưới breakpoint lg danh sách dịch vụ chuyển thành slider từng thẻ một,
- * đúng như bản thiết kế mobile. Từ lg trở lên dùng danh sách dạng dòng.
- */
 export function ServicesMobileSlider({ services }: ServicesMobileSliderProps) {
   const sliderRef = useRef<HTMLDivElement>(null)
   const [activeIndex, setActiveIndex] = useState(0)

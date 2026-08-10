@@ -35,9 +35,9 @@ export function SiteHeader() {
       setIsAtTop(currentScrollY < 50)
 
       if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        setIsVisible(false) // cuộn xuống
+        setIsVisible(false)
       } else if (currentScrollY < lastScrollY) {
-        setIsVisible(true) // cuộn lên
+        setIsVisible(true)
       }
       setLastScrollY(currentScrollY)
     }
@@ -46,7 +46,6 @@ export function SiteHeader() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [lastScrollY])
 
-  // Khoá cuộn nền khi menu mobile đang mở
   useEffect(() => {
     if (!isOpen) return
 
@@ -70,7 +69,6 @@ export function SiteHeader() {
           isVisible ? 'translate-y-0' : '-translate-y-full'
         }`}
       >
-        {/* Top bar: chỉ có ở desktop, bản thiết kế mobile không có dải này */}
         <div
           className={`hidden overflow-hidden transition-all duration-300 ease-in-out lg:block ${
             isAtTop ? 'h-[3rem] opacity-100' : 'h-0 opacity-0'
@@ -102,7 +100,6 @@ export function SiteHeader() {
           </div>
         </div>
 
-        {/* Logo + actions */}
         <div className='flex items-center justify-between px-[1rem] py-[0.5rem] sm:px-[1.5rem] lg:px-[6.25rem] lg:py-[0.75rem]'>
           <Link
             href='/'
@@ -214,7 +211,6 @@ export function SiteHeader() {
           </div>
         </div>
 
-        {/* Navigation desktop */}
         <nav className='hidden border-t border-black/5 px-[1rem] sm:px-[1.5rem] lg:block lg:px-[6.25rem]'>
           <ul className='flex items-center justify-between gap-[0.5rem]'>
             {navigationItems.map((item) => (
@@ -241,7 +237,6 @@ export function SiteHeader() {
         </nav>
       </header>
 
-      {/* Menu mobile: phủ toàn màn hình theo bản thiết kế */}
       {isOpen ? (
         <div
           className='fixed inset-0 z-50 flex flex-col bg-white lg:hidden'

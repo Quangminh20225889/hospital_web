@@ -14,7 +14,7 @@ export function ServicesSection() {
       className='py-[4rem] lg:py-[6rem]'
     >
       <Container className='max-w-none'>
-        {/* Mobile: tiêu đề tách khỏi dải xanh, xuống thành 2 dòng căn giữa */}
+        {}
         <div className='text-center sm:hidden'>
           <p className='text-[1.375rem] font-bold uppercase leading-[1.3] text-title-blue'>
             Dịch vụ nổi bật
@@ -26,7 +26,7 @@ export function ServicesSection() {
         </div>
 
         <div className='relative mt-[1.5rem] h-[5.5rem] sm:h-[6.25rem] lg:h-[7.3125rem]'>
-          {/* Nền xanh và hoa văn */}
+          {}
           <div className='absolute inset-0 overflow-hidden rounded-[0.875rem] bg-brand-blue'>
             <Image
               src='/images/hoavan.png'
@@ -37,7 +37,7 @@ export function ServicesSection() {
             />
           </div>
 
-          {/* Nội dung chữ */}
+          {}
           <h2 className='sr-only'>Dịch vụ nổi bật - Hiệu quả điều trị</h2>
 
           <div className='absolute inset-0 z-20 hidden grid-cols-2 items-center sm:grid'>
@@ -50,7 +50,7 @@ export function ServicesSection() {
             </p>
           </div>
 
-          {/* Bác sĩ bên trái */}
+          {}
           <div className='absolute bottom-0 left-[1rem] z-30 hidden h-[8.75rem] w-[9rem] sm:block lg:left-[1.5rem] lg:h-[10rem] lg:w-[10rem]'>
             <Image
               src='/images/bac-si-2.png'
@@ -61,7 +61,7 @@ export function ServicesSection() {
             />
           </div>
 
-          {/* Bàn tay ở giữa: nằm gọn trên mobile, nhô xuống ở màn hình lớn */}
+          {}
           <div className='pointer-events-none absolute bottom-0 left-1/2 z-30 h-[5.5rem] w-[8.125rem] -translate-x-1/2 sm:bottom-[-2.9375rem] sm:h-[9.1875rem] sm:w-[13.5rem] lg:bottom-[-1.875rem]'>
             <Image
               src='/images/ban-tay.png'
@@ -72,7 +72,7 @@ export function ServicesSection() {
             />
           </div>
 
-          {/* Gia đình bên phải */}
+          {}
           <div className='absolute bottom-0 right-[0.75rem] z-30 hidden h-[8.5rem] w-[10rem] sm:block lg:right-[1.25rem] lg:h-[10rem] lg:w-[12rem]'>
             <Image
               src='/images/family.png'

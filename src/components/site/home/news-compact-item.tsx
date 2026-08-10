@@ -8,9 +8,6 @@ type NewsCompactItemProps = {
   item: NewsItemData
 }
 
-/**
- * Dòng tin rút gọn dùng cho mobile: ảnh nhỏ bên trái, tiêu đề và ngày bên phải.
- */
 export function NewsCompactItem({ item }: NewsCompactItemProps) {
   return (
     <article className='flex items-start gap-[0.875rem]'>

@@ -11,7 +11,7 @@ type NewsItemProps = {
 export function NewsItem({ item }: NewsItemProps) {
   return (
     <article className='h-full'>
-      {/* Desktop theo bản thiết kế 1600: thẻ 453x358, ảnh 230 -> 1rem = 16px */}
+      {}
       <Card className='flex h-[18.5rem] gap-0 overflow-hidden rounded-[0.875rem] bg-white py-0 shadow-none ring-1 ring-[#e2e8ec] lg:h-[22.375rem] lg:rounded-[1rem]'>
         <Link
           href={item.href}
@@ -37,7 +37,7 @@ export function NewsItem({ item }: NewsItemProps) {
             </span>
           </div>
 
-          {/* Cột chữ: padding 8/16/10/0 và cách khối ngày 16px như bản thiết kế */}
+          {}
           <div className='min-w-0 overflow-hidden px-[0.875rem] py-[0.75rem] lg:px-[1rem] lg:pt-[0.5rem] lg:pb-[0.625rem]'>
             <p className='text-[0.6875rem] font-medium leading-[1.5] text-brand-blue lg:text-[0.75rem]'>
               {item.category}

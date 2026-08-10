@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import ENV from '@/configs/env'
 
 export type RequestPostGuest = {
@@ -22,13 +20,11 @@ export default async function fetchData(request: RequestPostGuest) {
     })
 
     if (!res.ok) {
-      // This will activate the closest `error.js` Error Boundary
       throw new Error('Failed to fetch data')
     }
 
     return res.json()
   } catch (error: unknown) {
-    // Convert the error to a string or handle based on its type
     const errorMessage = error instanceof Error ? error.message : String(error)
     throw new Error(`${ENV.CMS}${ENV.API!}${request.api}: ${errorMessage}`)
   }

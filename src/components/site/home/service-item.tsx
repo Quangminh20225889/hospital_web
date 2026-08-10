@@ -44,7 +44,7 @@ export function ServiceItem({ service }: ServiceItemProps) {
           'lg:px-[2.5rem] lg:py-[1.25rem]',
         ].join(' ')}
       >
-        {/* Icon và tên dịch vụ */}
+        {}
         <div
           className={[
             'flex min-w-0 items-center gap-[1.25rem] order-2 lg:order-none',
@@ -85,7 +85,7 @@ export function ServiceItem({ service }: ServiceItemProps) {
           </div>
         </div>
 
-        {/* Ảnh dịch vụ */}
+        {}
         <Link
           href={service.href}
           aria-label={`Xem dịch vụ ${service.title}`}
@@ -107,7 +107,6 @@ export function ServiceItem({ service }: ServiceItemProps) {
           />
         </Link>
 
-        {/* Mô tả dịch vụ */}
         <p
           className={[
             'min-w-0 text-[0.9375rem] leading-[1.7] text-text-dark-blue/80',
@@ -121,7 +120,6 @@ export function ServiceItem({ service }: ServiceItemProps) {
           {service.description}
         </p>
 
-        {/* Nút chuyển tiếp */}
         <Button
           asChild
           variant='ghost'
@@ -146,7 +144,6 @@ export function ServiceItem({ service }: ServiceItemProps) {
             href={service.href}
             aria-label={`Xem chi tiết dịch vụ ${service.title}`}
           >
-            {/* Nền tròn xanh trượt từ trái vào */}
             <span
               aria-hidden='true'
               className={[
@@ -158,7 +155,6 @@ export function ServiceItem({ service }: ServiceItemProps) {
               ].join(' ')}
             />
 
-            {/* Mũi tên xanh ban đầu trượt sang phải */}
             <span
               aria-hidden='true'
               className={[
@@ -173,7 +169,6 @@ export function ServiceItem({ service }: ServiceItemProps) {
               ›
             </span>
 
-            {/* Mũi tên trắng trượt từ trái vào */}
             <span
               aria-hidden='true'
               className={[

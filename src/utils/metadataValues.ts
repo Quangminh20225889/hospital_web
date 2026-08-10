@@ -1,6 +1,5 @@
 import ENV from '@/configs/env'
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export default function metadataValues(res: any) {
   const domain = ENV.DOMAIN
   if (!res) {
@@ -19,7 +18,6 @@ export default function metadataValues(res: any) {
 
   const result = res
 
-  // Chuẩn hóa Open Graph Images
   const ogImages: any[] = []
   if (result?.openGraph?.image?.url) {
     ogImages.push({
@@ -30,7 +28,6 @@ export default function metadataValues(res: any) {
     })
   }
 
-  // Chuẩn hóa Twitter Images
   let twitterImages: any[] = []
   if (result?.twitter?.image) {
     if (Array.isArray(result.twitter.image)) {
@@ -40,7 +37,6 @@ export default function metadataValues(res: any) {
     }
   }
 
-  // Fallback ảnh mặc định nếu không có
   if (ogImages.length === 0) {
     ogImages.push({
       url: '/default.webp',
@@ -64,7 +60,7 @@ export default function metadataValues(res: any) {
     },
     author: 'Homes World',
     robots: 'index, follow',
-    schema: result?.schema || null, // <-- Truyền xuống component để render JSON-LD
+    schema: result?.schema || null,
     openGraph: {
       title: result?.openGraph?.title || result?.title || 'Homes World',
       description: result?.openGraph?.description || result?.description || 'Homes World',

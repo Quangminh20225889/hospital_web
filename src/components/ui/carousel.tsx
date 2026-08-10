@@ -57,8 +57,6 @@ function Carousel({
     plugins,
   )
 
-  // Subscribe to Embla's mutable API via useSyncExternalStore instead of
-  // setState-in-effect (react-hooks/set-state-in-effect).
   const subscribe = React.useCallback(
     (onStoreChange: () => void) => {
       if (!api) return () => {}
@@ -141,7 +139,10 @@ function CarouselContent({ className, ...props }: React.ComponentProps<'div'>) {
   return (
     <div
       ref={carouselRef}
-      className='overflow-hidden'
+      className={cn(
+        'overflow-hidden',
+        orientation === 'horizontal' ? 'touch-pan-y' : 'touch-pan-x',
+      )}
       data-slot='carousel-content'
     >
       <div

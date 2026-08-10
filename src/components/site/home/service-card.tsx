@@ -7,10 +7,6 @@ type ServiceCardProps = {
   service: Service
 }
 
-/**
- * Dạng thẻ dùng cho slider dịch vụ ở mobile:
- * ảnh nằm trên, rồi tới icon + tên, mô tả và liên kết "Xem chi tiết".
- */
 export function ServiceCard({ service }: ServiceCardProps) {
   const iconSrc = service.icon?.trim() || '/images/file.svg'
   const imageSrc = service.image?.trim() || '/images/IMG_5948-scaled.jpg'
@@ -56,10 +52,6 @@ export function ServiceCard({ service }: ServiceCardProps) {
         </div>
       </div>
 
-      {/*
-       * Bọc thêm một lớp: nếu <p> là flex item thì trình duyệt blockify
-       * display:-webkit-box và line-clamp mất tác dụng.
-       */}
       <div className='mt-[0.75rem] flex-1'>
         <p className='line-clamp-3 text-[0.8125rem] leading-[1.6] text-text-dark-blue/80'>
           {service.description}

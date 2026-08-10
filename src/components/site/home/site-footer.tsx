@@ -75,7 +75,7 @@ export function SiteFooter() {
                         key={item.id}
                         className='flex items-start justify-center gap-[0.75rem] xl:justify-start'
                       >
-                        {/* Bản thiết kế mobile căn giữa và không dùng icon */}
+                        {}
                         <span className='hidden size-[1.25rem] shrink-0 items-center justify-center xl:flex'>
                           <Image
                             src={item.icon}

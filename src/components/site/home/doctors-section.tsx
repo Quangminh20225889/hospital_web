@@ -19,11 +19,6 @@ export function DoctorsSection() {
   const [visibleCount, setVisibleCount] = useState(3)
   const [activeIndex, setActiveIndex] = useState(0)
 
-  /*
-   * Desktop: 3 card
-   * Tablet: 2 card
-   * Mobile: 1 card
-   */
   useEffect(() => {
     const updateVisibleCount = () => {
       let newVisibleCount = 1
@@ -50,12 +45,6 @@ export function DoctorsSection() {
     }
   }, [])
 
-  /*
-   * Có 4 bác sĩ, desktop hiển thị 3 bác sĩ:
-   *
-   * Vị trí 0: bác sĩ 1, 2, 3
-   * Vị trí 1: bác sĩ 2, 3, 4
-   */
   const maxIndex = Math.max(0, doctors.length - visibleCount)
 
   const getScrollStep = () => {
@@ -121,11 +110,11 @@ export function DoctorsSection() {
       id='bac-si'
       className='relative overflow-hidden bg-white pt-[3rem] pb-[4rem] lg:pt-[3.75rem] lg:pb-[6.25rem]'
     >
-      {/* Nền sáng nhẹ phía trên section */}
+      {}
       <div className='pointer-events-none absolute inset-x-0 top-0 h-[10rem] bg-[linear-gradient(180deg,rgba(25,145,199,0.06),rgba(255,255,255,0))]' />
 
       <div className='relative mx-auto w-full px-[1rem] sm:px-[2rem] lg:px-[6.25rem]'>
-        {/* Phần tiêu đề */}
+        {}
         <div className='flex flex-col gap-[1.5rem] sm:flex-row sm:items-end sm:justify-between'>
           <div>
             <div className='mb-[0.75rem] inline-flex items-center gap-[0.375rem] rounded-full bg-brand-yellow px-[0.75rem] py-[0.4375rem] text-[0.6875rem] font-semibold uppercase leading-none text-white'>
@@ -145,7 +134,7 @@ export function DoctorsSection() {
             </h2>
           </div>
 
-          {/* Desktop: nút nằm cạnh tiêu đề. Mobile: nút chuyển xuống cuối section */}
+          {}
           <button
             type='button'
             className='group hidden h-[2.625rem] w-fit shrink-0 items-center justify-center gap-[0.5rem] self-start rounded-full border border-brand-blue bg-white px-[1.25rem] text-[0.8125rem] font-medium text-brand-blue transition-colors duration-200 hover:border-brand-yellow hover:text-brand-yellow sm:self-auto lg:inline-flex'
@@ -155,9 +144,9 @@ export function DoctorsSection() {
           </button>
         </div>
 
-        {/* Danh sách bác sĩ: cách tiêu đề 3rem */}
+        {}
         <div className='relative mt-[3rem]'>
-          {/* Nút quay lại */}
+          {}
           <button
             type='button'
             aria-label='Xem các bác sĩ trước'
@@ -171,11 +160,11 @@ export function DoctorsSection() {
             />
           </button>
 
-          {/* Khu vực slider */}
+          {}
           <div
             ref={sliderRef}
             onScroll={handleScroll}
-            className='hidden_scroll flex snap-x snap-mandatory gap-[1rem] overflow-x-auto scroll-smooth'
+            className='hidden_scroll flex snap-x snap-mandatory gap-[1rem] overflow-x-auto overscroll-x-contain scroll-smooth [-webkit-overflow-scrolling:touch] [touch-action:pan-x_pan-y_pinch-zoom]'
           >
             {doctors.map((doctor) => {
               const details = [doctor.description, ...doctor.specialties]
@@ -186,8 +175,8 @@ export function DoctorsSection() {
                   data-doctor-card
                   className='group relative h-[27rem] basis-full shrink-0 snap-start overflow-hidden rounded-[0.875rem] border border-brand-blue/10 bg-[#eef7fd] sm:h-[29rem] sm:basis-[calc((100%_-_1rem)/2)] lg:h-[30.3125rem] lg:basis-[calc((100%_-_2rem)/3)] lg:rounded-[1rem] 2xl:basis-[28.333333rem] 2xl:border-0 2xl:bg-white'
                 >
-                  {/* Nền bệnh viện làm mờ */}
-                  {/* Ảnh nền lớn của card */}
+                  {}
+                  {}
                   <div className='absolute inset-0 z-0 2xl:inset-auto 2xl:left-[-3.0625rem] 2xl:top-[-11.9375rem] 2xl:h-[44.125rem] 2xl:w-[44.2224rem]'>
                     <Image
                       src='/images/bg-to.png'
@@ -197,14 +186,11 @@ export function DoctorsSection() {
                       className='object-cover object-center 2xl:object-bottom 2xl:opacity-80'
                     />
 
-                    {/* Lớp phủ trắng nhẹ */}
+                    {}
                     <div className='absolute inset-0 bg-white/20 2xl:hidden' />
                   </div>
 
-                  {/*
-                   * Mobile / tablet: bố cục xếp dòng theo bản thiết kế MB.
-                   * Ảnh + tên ở hàng trên, danh sách thông tin và nút ở dưới.
-                   */}
+                  {}
                   <div className='relative z-10 flex h-full min-h-0 flex-col gap-[0.75rem] p-[0.75rem] lg:hidden'>
                     <div className='flex gap-[0.75rem]'>
                       <div className='relative h-[10rem] w-[40%] shrink-0 overflow-hidden rounded-[0.75rem] border-[0.125rem] border-white bg-white/40'>
@@ -282,9 +268,7 @@ export function DoctorsSection() {
                     </button>
                   </div>
 
-                  {/* Desktop: giữ nguyên bố cục tuyệt đối của bản thiết kế web */}
                   <div className='hidden lg:block'>
-                    {/* Nhãn chuyên khoa màu vàng */}
                     <div className='absolute right-[0.5rem] top-[0.5rem] z-20 inline-flex h-[1.625rem] max-w-[55%] items-center gap-[0.3125rem] rounded-[0.375rem] bg-brand-yellow px-[0.625rem] text-[0.625rem] font-semibold uppercase text-white 2xl:right-[0.72rem] 2xl:top-[0.625rem] 2xl:h-[2rem] 2xl:gap-[0.27rem] 2xl:rounded-[0.5rem] 2xl:p-[0.5rem] 2xl:text-[0.75rem] 2xl:leading-[1.2] 2xl:tracking-[0.0075rem]'>
                       <Image
                         aria-hidden='true'
@@ -296,10 +280,7 @@ export function DoctorsSection() {
                       />
                       <span className='truncate'>{doctor.role}</span>
                     </div>
-                    {/* Ảnh bác sĩ bên trái */}
-                    {/* Khung chữ nhật trang trí phía sau bác sĩ */}
-                    {/* Khung chữ nhật phía sau bác sĩ */}
-                    {/* Hình chữ nhật trang trí phía sau bác sĩ */}
+
                     <div className='absolute bottom-[4.75rem] left-[0.75rem] z-[5] h-[11.5rem] w-[42%] overflow-hidden rounded-[0.75rem] border-[0.125rem] border-white shadow-[0_0.5rem_1.5rem_rgba(8,53,74,0.08)] 2xl:bottom-auto 2xl:left-[0.78125rem] 2xl:top-[10.6875rem] 2xl:h-[11.875rem] 2xl:w-[11.5625rem] 2xl:rounded-[0.628rem] 2xl:border-[0.157rem]'>
                       <Image
                         src='/images/bg_nho.png'
@@ -310,7 +291,6 @@ export function DoctorsSection() {
                       />
                     </div>
 
-                    {/* Ảnh bác sĩ */}
                     <div className='absolute bottom-[4.75rem] left-[0.25rem] z-10 h-[20rem] w-[47%] 2xl:bottom-auto 2xl:left-[-0.9375rem] 2xl:top-[2.4375rem] 2xl:w-[14.6875rem]'>
                       <Image
                         src={doctor.image}
@@ -325,8 +305,6 @@ export function DoctorsSection() {
                       />
                     </div>
 
-                    {/* Tên bác sĩ */}
-                    {/* Khối tên bác sĩ */}
                     <div className='absolute left-[42%] right-[0.75rem] top-[4.75rem] z-20 rounded-[0.75rem] bg-[linear-gradient(90deg,#075dad_0%,#199bcf_100%)] px-[1rem] py-[0.75rem] text-center text-white shadow-[0_0.5rem_1.25rem_rgba(7,94,180,0.2)] 2xl:left-[12.34375rem] 2xl:right-[0.7396rem] 2xl:top-[4.125rem] 2xl:rounded-[0.625rem] 2xl:py-[0.5rem] 2xl:shadow-none'>
                       <h3 className='truncate text-[1rem] font-bold uppercase leading-[1.2] 2xl:leading-[1.5]'>
                         {doctor.name}
@@ -337,8 +315,6 @@ export function DoctorsSection() {
                       </p>
                     </div>
 
-                    {/* Kinh nghiệm và thông tin */}
-                    {/* Kinh nghiệm và nội dung bác sĩ */}
                     <div className='absolute bottom-[5.75rem] left-[47%] right-[1rem] top-[10rem] z-10 flex min-h-0 flex-col 2xl:bottom-auto 2xl:left-[12.84375rem] 2xl:right-auto 2xl:top-[8.6875rem] 2xl:h-[14rem] 2xl:w-[14.0625rem]'>
                       <p className='shrink-0 text-[1.75rem] font-bold uppercase leading-[1.12] text-text-dark-blue 2xl:text-center 2xl:leading-[1.4]'>
                         {doctor.experience}
@@ -372,7 +348,6 @@ export function DoctorsSection() {
                       </div>
                     </div>
 
-                    {/* Nút xem chi tiết */}
                     <button
                       type='button'
                       className='group/detail absolute bottom-[0.75rem] left-[0.75rem] right-[0.75rem] z-20 flex h-[3.25rem] items-center justify-center gap-[0.75rem] rounded-full border border-brand-blue/30 bg-[#edf4fb]/95 text-[0.9rem] font-medium text-brand-blue shadow-[inset_0_0_0_0.0625rem_rgba(255,255,255,0.9)] transition-colors duration-200 hover:border-brand-yellow hover:text-brand-yellow 2xl:bottom-[1.4375rem] 2xl:left-[0.875rem] 2xl:right-[0.8958rem] 2xl:h-[2.75rem] 2xl:gap-[0.5rem] 2xl:border-[0.0875rem] 2xl:px-[1.75rem] 2xl:py-[0.875rem] 2xl:text-[0.875rem] 2xl:leading-[1.5] 2xl:shadow-[0_0_0_0.125rem_rgba(95,205,255,0.17),0_0_0.25rem_rgba(95,205,255,0.12),0_0.0625rem_0.5rem_rgba(95,205,255,0.1)]'
@@ -389,7 +364,6 @@ export function DoctorsSection() {
             })}
           </div>
 
-          {/* Nút chuyển tiếp */}
           <button
             type='button'
             aria-label='Xem các bác sĩ tiếp theo'
@@ -404,7 +378,6 @@ export function DoctorsSection() {
           </button>
         </div>
 
-        {/* Thanh thể hiện vị trí slider + nút điều hướng cho mobile */}
         {pageIndexes.length > 1 && (
           <div className='mt-[1.5rem] flex items-center justify-between gap-[1rem] lg:mt-[1.75rem] lg:justify-center'>
             <div className='flex items-center gap-[0.25rem]'>
@@ -423,7 +396,6 @@ export function DoctorsSection() {
               ))}
             </div>
 
-            {/* Dưới lg không có chỗ cho nút hai bên slider nên đặt cạnh dots */}
             <div className='flex items-center gap-[0.5rem] lg:hidden'>
               <button
                 type='button'
@@ -448,7 +420,6 @@ export function DoctorsSection() {
           </div>
         )}
 
-        {/* Mobile: nút "Xem tất cả" nằm cuối section theo bản thiết kế MB */}
         <div className='mt-[1.5rem] flex justify-center lg:hidden'>
           <button
             type='button'

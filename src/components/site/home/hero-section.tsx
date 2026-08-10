@@ -36,9 +36,9 @@ function BannerNavButton({ direction }: { direction: 'prev' | 'next' }) {
       onClick={direction === 'prev' ? scrollPrev : scrollNext}
       className={cn(
         'group absolute inset-y-0 z-10 my-auto flex items-center justify-center rounded-full transition-all duration-300',
-        // Mobile: nút nhỏ, nền trắng mờ đặt sát mép
+
         'size-[1.75rem] border border-brand-blue bg-white text-brand-blue backdrop-blur-[2px]',
-        // Desktop: nút tròn lớn hơn
+
         'lg:size-[3rem]',
         'lg:shadow-[0_0.25rem_1rem_rgba(4,24,33,0.08)]',
         'hover:bg-brand-blue hover:text-white',
@@ -62,7 +62,7 @@ export function HeroSection() {
       aria-label='Banner'
     >
       <Carousel
-        opts={{ loop: true, align: 'start', duration: 45 }}
+        opts={{ loop: true, align: 'start', duration: 45, watchDrag: true }}
         className='w-full'
       >
         <BannerAutoplay />
@@ -73,13 +73,14 @@ export function HeroSection() {
               key={slide.id}
               className='pl-0'
             >
-              {/* Tỉ lệ banner theo từng bản thiết kế: mobile 375x180, desktop 3600x1178 */}
+              {}
               <div className='relative aspect-[375/180] w-full sm:aspect-[1024/380] lg:aspect-[3600/1178]'>
                 <Image
                   src={slide.src}
                   alt={slide.alt}
                   fill
                   priority={index === 0}
+                  draggable={false}
                   sizes='100vw'
                   className='object-cover object-center'
                 />

@@ -30,12 +30,10 @@ export function FloatingActions() {
       const scrollDifference = currentScrollY - lastScrollY.current
 
       if (Math.abs(scrollDifference) >= 8) {
-        // Lăn xuống: hiện
         if (scrollDifference > 0) {
           setIsVisible(true)
         }
 
-        // Lăn lên: ẩn
         if (scrollDifference < 0) {
           setIsVisible(false)
         }
@@ -81,7 +79,6 @@ export function FloatingActions() {
     <aside
       aria-label='Liên hệ nhanh'
       className={cn(
-        // Mobile: nhấc lên trên thanh CTA dính đáy (cao 3rem)
         'fixed bottom-[3.75rem] right-[0.75rem] z-40 flex flex-col items-center gap-[0.5rem]',
         'lg:bottom-[1rem] lg:right-[1rem] lg:z-50',
         'transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
@@ -90,7 +87,7 @@ export function FloatingActions() {
           : 'pointer-events-none translate-x-[5rem] opacity-0',
       )}
     >
-      {/* Đặt lịch và gọi điện đã có sẵn ở thanh CTA đáy nên chỉ hiện từ lg */}
+      {}
       <Button
         asChild
         className={cn(

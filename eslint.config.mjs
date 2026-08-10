@@ -9,7 +9,6 @@ const eslintConfig = [
   ...nextTypescript,
   {
     rules: {
-      // TypeScript specific rules
       '@typescript-eslint/no-unused-vars': [
         'error',
         {
@@ -21,18 +20,15 @@ const eslintConfig = [
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/no-non-null-assertion': 'warn',
 
-      // React specific rules
       'react/no-unescaped-entities': 'error',
       'react/prop-types': 'off',
       'react/react-in-jsx-scope': 'off',
       'react-hooks/exhaustive-deps': 'warn',
 
-      // Next.js specific rules
       '@next/next/no-html-link-for-pages': 'error',
       '@next/next/no-img-element': 'error',
       '@next/next/no-page-custom-font': 'error',
 
-      // General code quality rules
       'no-console': ['warn', { allow: ['warn', 'error'] }],
       'no-debugger': 'error',
       'no-duplicate-imports': 'error',
@@ -49,7 +45,6 @@ const eslintConfig = [
       'keyword-spacing': 'error',
       'comma-spacing': 'error',
 
-      // Import rules
       'import/order': [
         'error',
         {
@@ -62,9 +57,8 @@ const eslintConfig = [
         },
       ],
       'import/no-duplicates': 'error',
-      'import/no-unresolved': 'off', // Handled by TypeScript
+      'import/no-unresolved': 'off',
 
-      // Code style rules
       quotes: ['error', 'single', { avoidEscape: true }],
       semi: ['error', 'never'],
       'comma-dangle': ['error', 'always-multiline'],
@@ -99,7 +93,6 @@ const eslintConfig = [
   {
     files: ['src/components/ui/**/*'],
     rules: {
-      // Disable all TypeScript rules for UI components
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-unused-vars': 'off',
       '@typescript-eslint/no-non-null-assertion': 'off',
@@ -117,7 +110,6 @@ const eslintConfig = [
       '@typescript-eslint/typedef': 'off',
       '@typescript-eslint/unified-signatures': 'off',
 
-      // Disable all other rules for UI components
       'no-console': 'off',
       'no-debugger': 'off',
       'no-duplicate-imports': 'off',
@@ -127,7 +119,7 @@ const eslintConfig = [
       quotes: 'off',
       semi: 'off',
       'comma-dangle': 'off',
-      // 'object-curly-spacing': 'off',
+
       'array-bracket-spacing': 'off',
       indent: 'off',
       'max-len': 'off',
@@ -135,14 +127,12 @@ const eslintConfig = [
       'import/no-duplicates': 'off',
       'import/no-unresolved': 'off',
 
-      // React rules
       'react/no-unescaped-entities': 'off',
       'react/prop-types': 'off',
       'react/react-in-jsx-scope': 'off',
       'react-hooks/exhaustive-deps': 'off',
       'react-hooks/rules-of-hooks': 'off',
 
-      // Next.js rules
       '@next/next/no-html-link-for-pages': 'off',
       '@next/next/no-img-element': 'off',
       '@next/next/no-page-custom-font': 'off',

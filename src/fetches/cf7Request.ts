@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 class CF7Request {
   private formData: FormData
 
@@ -24,7 +22,7 @@ class CF7Request {
     }
 
     try {
-      this.formData.set('_wpcf7_unit_tag', unitTag) // Use set to avoid duplicates
+      this.formData.set('_wpcf7_unit_tag', unitTag)
       const response = await fetch(this.getEndpoint(id), {
         method: 'POST',
         body: this.formData,

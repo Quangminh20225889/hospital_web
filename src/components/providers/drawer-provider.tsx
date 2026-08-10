@@ -26,7 +26,7 @@ const DrawerProvider: FC<DrawerProviderProps> = ({ children, className, open, se
           className,
         )}
       >
-        {/* Giữ lại để tránh báo error */}
+        {}
         <DrawerHeader className='hidden'>
           <DrawerTitle></DrawerTitle>
         </DrawerHeader>

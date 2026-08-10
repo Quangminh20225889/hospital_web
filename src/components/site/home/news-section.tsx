@@ -88,7 +88,7 @@ export function NewsSection() {
             />
           </div>
 
-          {/* Desktop: nút cạnh tiêu đề. Mobile: nút nằm cuối danh sách */}
+          {}
           <Button
             asChild
             variant='outline'
@@ -101,10 +101,7 @@ export function NewsSection() {
           </Button>
         </div>
 
-        {/*
-         * Mobile / tablet: một tin nổi bật ở trên, các tin còn lại rút gọn
-         * thành danh sách dọc theo bản thiết kế MB.
-         */}
+        {}
         <div className='mt-[1.5rem] lg:hidden'>
           {featuredItem ? <NewsItem item={featuredItem} /> : null}
 

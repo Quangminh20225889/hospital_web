@@ -3,10 +3,6 @@ import Link from 'next/link'
 
 import { footerContent } from '@/content/home'
 
-/**
- * Thanh CTA dính đáy màn hình, chỉ hiện dưới breakpoint lg.
- * Bản thiết kế mobile: "Gọi tổng đài | Liên hệ | Đặt lịch khám".
- */
 export function MobileCtaBar() {
   return (
     <div className='fixed inset-x-0 bottom-0 z-40 bg-brand-blue pb-[env(safe-area-inset-bottom)] lg:hidden'>
