@@ -125,7 +125,7 @@ export function SiteHeader() {
           />
 
           <div className='flex shrink-0 items-center gap-[0.5rem] lg:gap-[0.75rem]'>
-            <div className='relative hidden sm:block'>
+            <div className='relative block xsm:hidden'>
               <div
                 className={cn(
                   'invisible absolute right-[3rem] top-1/2 z-10 h-[2.5rem] w-0 -translate-y-1/2 overflow-hidden opacity-0 transition-[width,opacity,visibility] duration-300 ease-out lg:right-[3.25rem]',
@@ -204,7 +204,7 @@ export function SiteHeader() {
               aria-label='Mở menu'
               aria-expanded={isOpen}
               onClick={() => setIsOpen(true)}
-              className='inline-flex size-[2.25rem] items-center justify-center rounded-[0.5rem] text-brand-blue transition hover:bg-surface-blue sm:size-[2.5rem] sm:rounded-full sm:border sm:border-brand-blue/20 lg:hidden'
+              className='hidden size-[2.25rem] items-center justify-center rounded-[0.5rem] text-brand-blue transition hover:bg-surface-blue tablet:inline-flex tablet:size-[2.5rem] tablet:rounded-full tablet:border tablet:border-brand-blue/20 xsm:inline-flex'
             >
               <Menu className='size-[1.5rem]' />
             </button>
@@ -239,7 +239,7 @@ export function SiteHeader() {
 
       {isOpen ? (
         <div
-          className='fixed inset-0 z-50 flex flex-col bg-white lg:hidden'
+          className='fixed inset-0 z-50 hidden flex-col bg-white tablet:flex xsm:flex'
           role='dialog'
           aria-modal='true'
           aria-label='Menu'

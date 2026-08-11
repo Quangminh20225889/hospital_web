@@ -22,10 +22,12 @@ export function DoctorsSection() {
   useEffect(() => {
     const updateVisibleCount = () => {
       let newVisibleCount = 1
+      const isDesktop = window.matchMedia('(min-width: 64.0625rem)').matches
+      const isTablet = window.matchMedia('(min-width: 40rem)').matches
 
-      if (window.innerWidth >= 1025) {
+      if (isDesktop) {
         newVisibleCount = 3
-      } else if (window.innerWidth >= 640) {
+      } else if (isTablet) {
         newVisibleCount = 2
       }
 
@@ -182,7 +184,7 @@ export function DoctorsSection() {
                       src='/images/bg-to.png'
                       alt=''
                       fill
-                      sizes='(max-width: 1024px) 100vw, 33vw'
+                      sizes='(max-width: 64rem) 100vw, 33vw'
                       className='object-cover object-center 2xl:object-bottom 2xl:opacity-80'
                     />
 
@@ -191,14 +193,14 @@ export function DoctorsSection() {
                   </div>
 
                   {}
-                  <div className='relative z-10 flex h-full min-h-0 flex-col gap-[0.75rem] p-[0.75rem] lg:hidden'>
+                  <div className='relative z-10 hidden h-full min-h-0 flex-col gap-[0.75rem] p-[0.75rem] tablet:flex xsm:flex'>
                     <div className='flex gap-[0.75rem]'>
                       <div className='relative h-[10rem] w-[40%] shrink-0 overflow-hidden rounded-[0.75rem] border-[0.125rem] border-white bg-white/40'>
                         <Image
                           src={doctor.image}
                           alt={doctor.name}
                           fill
-                          sizes='(max-width: 1024px) 40vw, 16vw'
+                          sizes='(max-width: 64rem) 40vw, 16vw'
                           className='object-contain object-bottom'
                         />
                       </div>
@@ -268,7 +270,7 @@ export function DoctorsSection() {
                     </button>
                   </div>
 
-                  <div className='hidden lg:block'>
+                  <div className='block tablet:hidden xsm:hidden'>
                     <div className='absolute right-[0.5rem] top-[0.5rem] z-20 inline-flex h-[1.625rem] max-w-[55%] items-center gap-[0.3125rem] rounded-[0.375rem] bg-brand-yellow px-[0.625rem] text-[0.625rem] font-semibold uppercase text-white 2xl:right-[0.72rem] 2xl:top-[0.625rem] 2xl:h-[2rem] 2xl:gap-[0.27rem] 2xl:rounded-[0.5rem] 2xl:p-[0.5rem] 2xl:text-[0.75rem] 2xl:leading-[1.2] 2xl:tracking-[0.0075rem]'>
                       <Image
                         aria-hidden='true'
@@ -296,7 +298,7 @@ export function DoctorsSection() {
                         src={doctor.image}
                         alt={doctor.name}
                         fill
-                        sizes='(max-width: 639px) 47vw, (max-width: 1024px) 24vw, 16vw'
+                        sizes='(max-width: 39.9375rem) 47vw, (max-width: 64rem) 24vw, 16vw'
                         className={cn(
                           'origin-bottom object-contain object-bottom',
                           doctor.imageHeightClassName,
@@ -396,7 +398,7 @@ export function DoctorsSection() {
               ))}
             </div>
 
-            <div className='flex items-center gap-[0.5rem] lg:hidden'>
+            <div className='hidden items-center gap-[0.5rem] tablet:flex xsm:flex'>
               <button
                 type='button'
                 aria-label='Xem các bác sĩ trước'
@@ -420,7 +422,7 @@ export function DoctorsSection() {
           </div>
         )}
 
-        <div className='mt-[1.5rem] flex justify-center lg:hidden'>
+        <div className='mt-[1.5rem] hidden justify-center tablet:flex xsm:flex'>
           <button
             type='button'
             className='group inline-flex h-[2.75rem] items-center justify-center gap-[0.5rem] rounded-full border border-brand-blue bg-white px-[1.5rem] text-[0.875rem] font-medium text-brand-blue transition-colors duration-200 hover:border-brand-yellow hover:text-brand-yellow'

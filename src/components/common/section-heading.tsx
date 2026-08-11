@@ -26,11 +26,11 @@ export function SectionHeading({
   descriptionClassName,
 }: SectionHeadingProps) {
   return (
-    <div className={cn('max-w-[720px]', align === 'center' && 'mx-auto text-center', className)}>
+    <div className={cn('max-w-[45rem]', align === 'center' && 'mx-auto text-center', className)}>
       {label && (
         <p
           className={cn(
-            'mb-[8px] inline-flex items-center gap-[6px] text-[12px] font-semibold uppercase tracking-[0.08em] text-brand-blue',
+            'mb-[0.5rem] inline-flex items-center gap-[0.375rem] text-[0.75rem] font-semibold uppercase tracking-[0.08em] text-brand-blue',
             align === 'center' && 'justify-center',
             labelClassName,
           )}
@@ -42,7 +42,7 @@ export function SectionHeading({
 
       <h2
         className={cn(
-          'text-[28px] font-bold leading-[1.25] text-text-dark-blue md:text-[36px]',
+          'text-[1.75rem] font-bold leading-[1.25] text-text-dark-blue md:text-[2.25rem]',
           titleClassName,
         )}
       >
@@ -52,7 +52,7 @@ export function SectionHeading({
       {description && (
         <p
           className={cn(
-            'mt-[16px] text-[16px] leading-[1.75] text-text-dark-blue/70',
+            'mt-[1rem] text-[1rem] leading-[1.75] text-text-dark-blue/70',
             descriptionClassName,
           )}
         >

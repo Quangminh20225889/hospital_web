@@ -22,7 +22,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
           src={imageSrc}
           alt={service.title}
           fill
-          sizes='(max-width: 1024px) 100vw, 33vw'
+          sizes='(max-width: 64rem) 100vw, 33vw'
           className='object-cover'
         />
       </Link>
@@ -33,7 +33,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
             src={iconSrc}
             alt=''
             fill
-            sizes='48px'
+            sizes='3rem'
             className={['object-contain', service.iconClassName ?? ''].join(' ')}
           />
         </div>

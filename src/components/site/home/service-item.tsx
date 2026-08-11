@@ -57,7 +57,7 @@ export function ServiceItem({ service }: ServiceItemProps) {
               src={iconSrc}
               alt=''
               fill
-              sizes='72px'
+              sizes='4.5rem'
               className={[
                 'object-contain',
                 'transform-gpu',
@@ -102,7 +102,7 @@ export function ServiceItem({ service }: ServiceItemProps) {
             src={imageSrc}
             alt={service.title}
             fill
-            sizes='(max-width: 767px) 100vw, (max-width: 1023px) 45vw, 208px'
+            sizes='(max-width: 47.9375rem) 100vw, (max-width: 63.9375rem) 45vw, 13rem'
             className='object-cover'
           />
         </Link>

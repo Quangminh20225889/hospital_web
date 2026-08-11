@@ -20,7 +20,7 @@ export function NewsCompactItem({ item }: NewsCompactItemProps) {
           src={item.image}
           alt={item.imageAlt}
           fill
-          sizes='128px'
+          sizes='8rem'
           className='object-cover'
         />
       </Link>

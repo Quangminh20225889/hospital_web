@@ -37,7 +37,7 @@ function BannerNavButton({ direction }: { direction: 'prev' | 'next' }) {
       className={cn(
         'group absolute inset-y-0 z-10 my-auto flex items-center justify-center rounded-full transition-all duration-300',
 
-        'size-[1.75rem] border border-brand-blue bg-white text-brand-blue backdrop-blur-[2px]',
+        'size-[1.75rem] border border-brand-blue bg-white text-brand-blue backdrop-blur-[0.125rem]',
 
         'lg:size-[3rem]',
         'lg:shadow-[0_0.25rem_1rem_rgba(4,24,33,0.08)]',

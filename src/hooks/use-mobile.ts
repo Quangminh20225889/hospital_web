@@ -1,7 +1,6 @@
 import * as React from 'react'
 
-const MOBILE_BREAKPOINT = 639
-const MOBILE_QUERY = `(max-width: ${MOBILE_BREAKPOINT - 1}px)`
+const MOBILE_QUERY = '(max-width: 39.9375rem)'
 
 function subscribe(onStoreChange: () => void) {
   const mql = window.matchMedia(MOBILE_QUERY)

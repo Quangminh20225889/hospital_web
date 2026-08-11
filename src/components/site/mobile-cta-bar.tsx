@@ -5,7 +5,7 @@ import { footerContent } from '@/content/home'
 
 export function MobileCtaBar() {
   return (
-    <div className='fixed inset-x-0 bottom-0 z-40 bg-brand-blue pb-[env(safe-area-inset-bottom)] lg:hidden'>
+    <div className='fixed inset-x-0 bottom-0 z-40 hidden bg-brand-blue pb-[env(safe-area-inset-bottom)] tablet:block xsm:block'>
       <div className='flex h-[3rem] items-stretch text-[0.8125rem] font-medium text-white'>
         <a
           href={footerContent.hotline.href}

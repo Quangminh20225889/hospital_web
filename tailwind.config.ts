@@ -5,17 +5,17 @@ const config: Config = {
   content: ['./src/**/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
     screens: {
-      lg: '1025px',
-      sm: '640px',
+      lg: '64.0625rem',
+      sm: '40rem',
       xlg: {
-        max: '1024px',
+        max: '64rem',
       },
       xsm: {
-        max: '639px',
+        max: '39.9375rem',
       },
       tablet: {
-        min: '640px',
-        max: '1024px',
+        min: '40rem',
+        max: '64rem',
       },
     },
     extend: {

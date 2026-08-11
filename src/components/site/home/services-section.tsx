@@ -15,7 +15,7 @@ export function ServicesSection() {
     >
       <Container className='max-w-none'>
         {}
-        <div className='text-center sm:hidden'>
+        <div className='hidden text-center xsm:block'>
           <p className='text-[1.375rem] font-bold uppercase leading-[1.3] text-title-blue'>
             Dịch vụ nổi bật
           </p>
@@ -56,7 +56,7 @@ export function ServicesSection() {
               src='/images/bac-si-2.png'
               alt='Bác sĩ chăm sóc mẹ và bé'
               fill
-              sizes='160px'
+              sizes='10rem'
               className='object-contain object-bottom'
             />
           </div>
@@ -67,7 +67,7 @@ export function ServicesSection() {
               src='/images/ban-tay.png'
               alt=''
               fill
-              sizes='(max-width: 639px) 130px, 216px'
+              sizes='(max-width: 39.9375rem) 8.125rem, 13.5rem'
               className='object-contain object-bottom'
             />
           </div>
@@ -78,7 +78,7 @@ export function ServicesSection() {
               src='/images/family.png'
               alt='Gia đình hạnh phúc'
               fill
-              sizes='192px'
+              sizes='12rem'
               className='object-contain object-bottom'
             />
           </div>
@@ -87,7 +87,7 @@ export function ServicesSection() {
         <div className='mt-[2rem] w-full'>
           <ServicesMobileSlider services={services} />
 
-          <div className='hidden lg:block'>
+          <div className='block tablet:hidden xsm:hidden'>
             {services.map((service) => (
               <ServiceItem
                 key={service.id}

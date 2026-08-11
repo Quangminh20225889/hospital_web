@@ -102,7 +102,7 @@ export function NewsSection() {
         </div>
 
         {}
-        <div className='mt-[1.5rem] lg:hidden'>
+        <div className='mt-[1.5rem] hidden tablet:block xsm:block'>
           {featuredItem ? <NewsItem item={featuredItem} /> : null}
 
           <div className='mt-[1.25rem] flex flex-col gap-[1.125rem]'>
@@ -128,7 +128,7 @@ export function NewsSection() {
           </div>
         </div>
 
-        <div className='hidden lg:block'>
+        <div className='block tablet:hidden xsm:hidden'>
           <Carousel
             setApi={setCarouselApi}
             opts={{

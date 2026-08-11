@@ -60,7 +60,7 @@ export function ServicesMobileSlider({ services }: ServicesMobileSliderProps) {
   }
 
   return (
-    <div className='lg:hidden'>
+    <div className='hidden tablet:block xsm:block'>
       <div
         ref={sliderRef}
         onScroll={handleScroll}
