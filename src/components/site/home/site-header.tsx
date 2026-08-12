@@ -120,7 +120,7 @@ export function SiteHeader() {
             alt='Gieo mầm hạnh phúc'
             width={300}
             height={52}
-            className='hidden h-[2.75rem] w-auto xl:block'
+            className='block h-[2.75rem] w-auto xsm:hidden'
             priority
           />
 
