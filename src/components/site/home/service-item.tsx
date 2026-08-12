@@ -33,21 +33,14 @@ export function ServiceItem({ service }: ServiceItemProps) {
     >
       <div
         className={[
-          'grid grid-cols-1 items-center gap-[1.25rem]',
-          'px-[1rem] py-[1.5rem]',
-
-          'md:grid-cols-2 md:gap-x-[2rem]',
-
-          'lg:min-h-[12.5rem]',
-          'lg:grid-cols-[minmax(20rem,1.2fr)_18.75rem_minmax(18rem,1fr)_3rem]',
-          'lg:gap-x-[3rem]',
-          'lg:px-[2.5rem] lg:py-[1.25rem]',
+          'grid min-h-[12.5rem] grid-cols-[minmax(20rem,1.2fr)_18.75rem_minmax(18rem,1fr)_3rem] items-center gap-x-[3rem]',
+          'px-[2.5rem] py-[1.25rem]',
         ].join(' ')}
       >
         {}
         <div
           className={[
-            'flex min-w-0 items-center gap-[1.25rem] order-2 lg:order-none',
+            'flex min-w-0 items-center gap-[1.25rem]',
             motionClassName,
             'group-hover/service:-translate-x-[0.5rem]',
           ].join(' ')}
@@ -74,7 +67,7 @@ export function ServiceItem({ service }: ServiceItemProps) {
               Dịch vụ
             </Badge>
 
-            <h3 className='mt-[0.375rem] text-[1rem] font-bold uppercase leading-[1.4] text-brand-blue sm:text-[1.0625rem]'>
+            <h3 className='mt-[0.375rem] text-[1.0625rem] font-bold uppercase leading-[1.4] text-brand-blue'>
               <Link
                 href={service.href}
                 className='transition-opacity duration-300 hover:opacity-75'
@@ -90,12 +83,9 @@ export function ServiceItem({ service }: ServiceItemProps) {
           href={service.href}
           aria-label={`Xem dịch vụ ${service.title}`}
           className={[
-            'relative block aspect-[16/9] w-full overflow-hidden rounded-[0.75rem]',
-            'order-1 lg:order-none',
+            'relative block h-[10rem] w-[18.75rem] overflow-hidden rounded-[0.75rem]',
             motionClassName,
             'group-hover/service:-translate-x-[0.5rem]',
-            'md:aspect-[1.65/1]',
-            'lg:h-[10rem] lg:w-[18.75rem] lg:aspect-auto',
           ].join(' ')}
         >
           <Image
@@ -110,11 +100,9 @@ export function ServiceItem({ service }: ServiceItemProps) {
         <p
           className={[
             'min-w-0 text-[0.9375rem] leading-[1.7] text-text-dark-blue/80',
-            'order-3 lg:order-none',
+            'w-full max-w-[22rem] justify-self-start',
             motionClassName,
             'group-hover/service:-translate-x-[0.5rem]',
-            'md:col-span-2',
-            'lg:col-span-1 lg:w-full lg:max-w-[22rem] lg:justify-self-start',
           ].join(' ')}
         >
           {service.description}
@@ -136,8 +124,6 @@ export function ServiceItem({ service }: ServiceItemProps) {
             'transition-transform duration-[850ms]',
             'ease-[cubic-bezier(0.22,1,0.36,1)]',
             'group-hover/service:translate-x-[0.5rem]',
-            'order-4 lg:order-none',
-            'md:col-span-2 lg:col-span-1',
           ].join(' ')}
         >
           <Link

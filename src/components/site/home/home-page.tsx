@@ -23,7 +23,7 @@ export function HomePage() {
       {}
       <div
         aria-hidden='true'
-        className='hidden h-[3rem] tablet:block xsm:block'
+        className='hidden h-[3rem] xsm:block'
       />
 
       <FloatingActions />

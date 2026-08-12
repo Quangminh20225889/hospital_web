@@ -1,6 +1,7 @@
 'use client'
 
-import { ArrowUpIcon, CalendarCheckIcon, MessageCircleIcon, PhoneCallIcon } from 'lucide-react'
+import { useLenis } from 'lenis/react'
+import Image from 'next/image'
 import Link from 'next/link'
 import * as React from 'react'
 
@@ -9,6 +10,7 @@ import { footerContent } from '@/content/home'
 import { cn } from '@/lib/utils'
 
 export function FloatingActions() {
+  const lenis = useLenis()
   const [isVisible, setIsVisible] = React.useState(true)
   const [scrollProgress, setScrollProgress] = React.useState(0)
 
@@ -69,6 +71,14 @@ export function FloatingActions() {
   }, [])
 
   const handleScrollToTop = () => {
+    if (lenis) {
+      lenis.scrollTo(0, {
+        duration: 2,
+        easing: (progress) => 1 - Math.pow(1 - progress, 4),
+      })
+      return
+    }
+
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
@@ -79,8 +89,8 @@ export function FloatingActions() {
     <aside
       aria-label='Liên hệ nhanh'
       className={cn(
-        'fixed bottom-[3.75rem] right-[0.75rem] z-40 flex flex-col items-center gap-[0.5rem]',
-        'lg:bottom-[1rem] lg:right-[1rem] lg:z-50',
+        'fixed bottom-[1rem] right-[1rem] z-50 flex flex-col items-center gap-[0.5rem]',
+        'xsm:bottom-[3.75rem] xsm:right-[0.75rem] xsm:z-40',
         'transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
         isVisible
           ? 'translate-x-0 opacity-100'
@@ -91,17 +101,21 @@ export function FloatingActions() {
       <Button
         asChild
         className={cn(
-          'hidden size-[3.75rem] flex-col gap-[0.1875rem] rounded-full border-0 bg-brand-yellow p-0 text-white lg:flex',
+          'flex size-[3.75rem] cursor-pointer flex-col gap-[0.1875rem] rounded-full border-0 bg-brand-yellow p-0 text-white transition-none hover:bg-brand-yellow active:translate-y-0 xsm:hidden',
           'shadow-[0_0.5rem_1.5rem_rgba(8,53,74,0.14)]',
-          'transition-transform duration-300 hover:scale-[1.05] hover:bg-brand-yellow/90',
         )}
       >
         <Link
           href='/dat-lich'
           aria-label='Đặt lịch khám'
-          title='Đặt lịch khám'
         >
-          <CalendarCheckIcon className='size-[1.375rem]' />
+          <Image
+            src='/icons/lich.png'
+            alt=''
+            width={25}
+            height={25}
+            className='size-[1.5625rem] object-contain'
+          />
 
           <span className='text-[0.625rem] font-semibold leading-none'>Đặt lịch</span>
         </Link>
@@ -110,26 +124,29 @@ export function FloatingActions() {
       <Button
         asChild
         className={cn(
-          'hidden size-[3.75rem] rounded-full border-0 bg-brand-blue p-0 text-white lg:flex',
+          'flex size-[3.75rem] cursor-pointer rounded-full border-0 bg-brand-blue p-0 text-white transition-none hover:bg-brand-blue active:translate-y-0 xsm:hidden',
           'shadow-[0_0.5rem_1.5rem_rgba(8,53,74,0.14)]',
-          'transition-transform duration-300 hover:scale-[1.05] hover:bg-brand-blue/90',
         )}
       >
         <Link
           href={footerContent.hotline.href}
           aria-label={`Gọi ${footerContent.hotline.value}`}
-          title={`Gọi ${footerContent.hotline.value}`}
         >
-          <PhoneCallIcon className='size-[1.625rem]' />
+          <Image
+            src='/icons/phone.png'
+            alt=''
+            width={29}
+            height={29}
+            className='size-[1.8125rem] object-contain'
+          />
         </Link>
       </Button>
 
       <Button
         asChild
         className={cn(
-          'size-[2.75rem] rounded-full border-0 bg-brand-blue p-0 text-white lg:size-[3.75rem]',
+          'size-[3.75rem] cursor-pointer rounded-full border-0 bg-brand-blue p-0 text-white transition-none hover:bg-brand-blue active:translate-y-0 xsm:size-[2.75rem]',
           'shadow-[0_0.5rem_1.5rem_rgba(8,53,74,0.14)]',
-          'transition-transform duration-300 hover:scale-[1.05] hover:bg-brand-blue/90',
         )}
       >
         <Link
@@ -137,13 +154,18 @@ export function FloatingActions() {
           target='_blank'
           rel='noreferrer'
           aria-label='Nhắn tin Messenger'
-          title='Nhắn tin Messenger'
         >
-          <MessageCircleIcon className='size-[1.25rem] lg:size-[1.625rem]' />
+          <Image
+            src='/icons/mess.png'
+            alt=''
+            width={28}
+            height={29}
+            className='size-[1.8125rem] object-contain xsm:size-[1.25rem]'
+          />
         </Link>
       </Button>
 
-      <div className='relative size-[2.75rem] shrink-0 lg:size-[3.75rem]'>
+      <div className='relative size-[3.75rem] shrink-0 xsm:size-[2.75rem]'>
         <svg
           aria-hidden='true'
           viewBox='0 0 60 60'
@@ -172,22 +194,24 @@ export function FloatingActions() {
           />
         </svg>
 
-        <Button
+        <button
           type='button'
           onClick={handleScrollToTop}
           aria-label={`Lên đầu trang, đã cuộn ${Math.round(scrollProgress)}%`}
-          title='Lên đầu trang'
           className={cn(
-            'absolute left-1/2 top-1/2 size-[2.375rem] -translate-x-1/2 -translate-y-1/2',
-            'lg:size-[3.375rem]',
-            'rounded-full border-0 bg-white p-0 text-brand-blue',
+            'absolute inset-[0.1875rem]',
+            'flex cursor-pointer items-center justify-center rounded-full border-0 bg-white p-0 text-brand-blue',
             'shadow-[0_0.5rem_1.5rem_rgba(8,53,74,0.14)]',
-            'transition-all duration-300',
-            'hover:scale-[1.05] hover:bg-brand-blue hover:text-white',
           )}
         >
-          <ArrowUpIcon className='size-[1.25rem] lg:size-[1.625rem]' />
-        </Button>
+          <Image
+            src='/icons/ontop.png'
+            alt=''
+            width={25}
+            height={22}
+            className='block h-[1.375rem] w-[1.5625rem] object-contain xsm:h-[1.1rem] xsm:w-[1.25rem]'
+          />
+        </button>
       </div>
     </aside>
   )

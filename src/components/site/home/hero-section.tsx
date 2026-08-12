@@ -16,11 +16,55 @@ function BannerAutoplay() {
   useEffect(() => {
     if (!api) return
 
-    const id = window.setInterval(() => {
-      api.scrollNext()
-    }, AUTOPLAY_MS)
+    let timeoutId: number | null = null
 
-    return () => window.clearInterval(id)
+    const clearAutoplay = () => {
+      if (timeoutId === null) return
+
+      window.clearTimeout(timeoutId)
+      timeoutId = null
+    }
+
+    const startAutoplay = () => {
+      clearAutoplay()
+
+      if (document.hidden || api.scrollSnapList().length <= 1) return
+
+      timeoutId = window.setTimeout(() => {
+        timeoutId = null
+
+        if (document.hidden) return
+
+        api.scrollNext()
+        startAutoplay()
+      }, AUTOPLAY_MS)
+    }
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        clearAutoplay()
+
+        // Finish any in-progress loop transition so Embla does not resume
+        // from an intermediate position when the tab becomes visible again.
+        api.scrollTo(api.selectedScrollSnap(), true)
+        return
+      }
+
+      startAutoplay()
+    }
+
+    api.on('select', startAutoplay)
+    api.on('reInit', startAutoplay)
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+
+    startAutoplay()
+
+    return () => {
+      clearAutoplay()
+      api.off('select', startAutoplay)
+      api.off('reInit', startAutoplay)
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
+    }
   }, [api])
 
   return null
@@ -37,19 +81,18 @@ function BannerNavButton({ direction }: { direction: 'prev' | 'next' }) {
       className={cn(
         'group absolute inset-y-0 z-10 my-auto flex items-center justify-center rounded-full transition-all duration-300',
 
-        'size-[1.75rem] border border-brand-blue bg-white text-brand-blue backdrop-blur-[0.125rem]',
-
-        'lg:size-[3rem]',
-        'lg:shadow-[0_0.25rem_1rem_rgba(4,24,33,0.08)]',
+        'size-[3rem] border border-brand-blue bg-white text-brand-blue backdrop-blur-[0.125rem]',
+        'shadow-[0_0.25rem_1rem_rgba(4,24,33,0.08)]',
+        'xsm:size-[1.75rem] xsm:shadow-none',
         'hover:bg-brand-blue hover:text-white',
         direction === 'prev'
-          ? 'left-[0.5rem] lg:left-[1.25rem]'
-          : 'right-[0.5rem] lg:right-[1.25rem]',
+          ? 'left-[1.25rem] xsm:left-[0.5rem]'
+          : 'right-[1.25rem] xsm:right-[0.5rem]',
       )}
     >
       <NavChevron
         direction={direction === 'prev' ? 'left' : 'right'}
-        className='lg:h-[1.375rem] lg:w-[0.7639rem]'
+        className='h-[1.375rem] w-[0.7639rem] xsm:h-auto xsm:w-auto'
       />
     </button>
   )
@@ -74,7 +117,7 @@ export function HeroSection() {
               className='pl-0'
             >
               {}
-              <div className='relative aspect-[375/180] w-full sm:aspect-[1024/380] lg:aspect-[3600/1178]'>
+              <div className='relative aspect-[3600/1178] w-full xsm:aspect-[375/180]'>
                 <Image
                   src={slide.src}
                   alt={slide.alt}

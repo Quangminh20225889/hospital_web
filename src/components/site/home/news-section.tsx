@@ -55,7 +55,7 @@ export function NewsSection() {
   return (
     <section
       id='tin-tuc'
-      className='relative overflow-hidden bg-white pb-[3rem] pt-[3rem] lg:pb-[4rem] lg:pt-[4rem]'
+      className='relative overflow-hidden bg-white py-[4rem] xsm:py-[3rem]'
     >
       <div
         aria-hidden='true'
@@ -66,8 +66,8 @@ export function NewsSection() {
         <div className='absolute -bottom-[11rem] left-[10%] h-[15rem] w-[115%] rotate-[12deg] rounded-[50%] bg-[#e7f2f8]/70' />
       </div>
 
-      <Container className='relative z-10 max-w-[100rem]'>
-        <div className='flex flex-col gap-[1.25rem] md:flex-row md:items-end md:justify-between'>
+      <Container className='relative z-10'>
+        <div className='flex flex-row items-end justify-between gap-[1.25rem] xsm:flex-col xsm:items-stretch'>
           <div>
             <Badge className='mb-[0.75rem] h-auto rounded-full border-0 bg-brand-yellow px-[0.875rem] py-[0.5rem] text-[0.6875rem] font-semibold uppercase leading-none tracking-normal text-white'>
               <Image
@@ -84,7 +84,7 @@ export function NewsSection() {
             <SectionHeading
               title='Thông tin nổi bật'
               className='max-w-none'
-              titleClassName='text-[2rem] uppercase text-brand-blue md:text-[2.25rem]'
+              titleClassName='text-[2.25rem] uppercase text-brand-blue xsm:text-[2rem]'
             />
           </div>
 
@@ -92,7 +92,7 @@ export function NewsSection() {
           <Button
             asChild
             variant='outline'
-            className='group hidden h-[2.625rem] w-fit shrink-0 rounded-full border-brand-blue bg-white px-[1.25rem] text-[0.8125rem] font-medium text-brand-blue shadow-none transition-colors duration-200 hover:border-brand-yellow hover:bg-white hover:text-brand-yellow lg:inline-flex'
+            className='group inline-flex h-[2.625rem] w-fit shrink-0 rounded-full border-brand-blue bg-white px-[1.25rem] text-[0.8125rem] font-medium text-brand-blue shadow-none transition-colors duration-200 hover:border-brand-yellow hover:bg-white hover:text-brand-yellow xsm:hidden'
           >
             <Link href='/#tin-tuc'>
               Xem tất cả
@@ -102,7 +102,7 @@ export function NewsSection() {
         </div>
 
         {}
-        <div className='mt-[1.5rem] hidden tablet:block xsm:block'>
+        <div className='mt-[1.5rem] hidden xsm:block'>
           {featuredItem ? <NewsItem item={featuredItem} /> : null}
 
           <div className='mt-[1.25rem] flex flex-col gap-[1.125rem]'>
@@ -128,22 +128,23 @@ export function NewsSection() {
           </div>
         </div>
 
-        <div className='block tablet:hidden xsm:hidden'>
+        <div className='block xsm:hidden'>
           <Carousel
             setApi={setCarouselApi}
             opts={{
               align: 'start',
+              dragFree: false,
               loop: false,
               slidesToScroll: 1,
               containScroll: 'trimSnaps',
             }}
-            className='mt-[2rem]'
+            className='mt-[2rem] cursor-grab select-none active:cursor-grabbing'
           >
             <CarouselContent className='-ml-[1rem]'>
               {newsItems.map((item) => (
                 <CarouselItem
                   key={item.id}
-                  className='basis-full pl-[1rem] md:basis-1/2 lg:basis-1/3'
+                  className='basis-1/3 pl-[1rem]'
                 >
                   <NewsItem item={item} />
                 </CarouselItem>
@@ -153,13 +154,13 @@ export function NewsSection() {
             <CarouselPrevious
               size='icon-lg'
               aria-label='Xem tin trước'
-              className='left-[-4.75rem] hidden size-[2.75rem] border-brand-blue bg-white text-brand-blue shadow-none transition-colors duration-300 hover:border-brand-blue hover:bg-brand-blue hover:text-white disabled:cursor-not-allowed disabled:opacity-35 lg:inline-flex'
+              className='left-[-4.75rem] inline-flex size-[2.75rem] border-brand-blue bg-white text-brand-blue shadow-none transition-colors duration-300 hover:border-brand-blue hover:bg-brand-blue hover:text-white disabled:cursor-not-allowed disabled:opacity-35'
             />
 
             <CarouselNext
               size='icon-lg'
               aria-label='Xem tin tiếp theo'
-              className='right-[-4.75rem] hidden size-[2.75rem] border-brand-blue bg-white text-brand-blue shadow-none transition-colors duration-300 hover:border-brand-blue hover:bg-brand-blue hover:text-white disabled:cursor-not-allowed disabled:opacity-35 lg:inline-flex'
+              className='right-[-4.75rem] inline-flex size-[2.75rem] border-brand-blue bg-white text-brand-blue shadow-none transition-colors duration-300 hover:border-brand-blue hover:bg-brand-blue hover:text-white disabled:cursor-not-allowed disabled:opacity-35'
             />
           </Carousel>
 

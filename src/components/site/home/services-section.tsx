@@ -11,7 +11,7 @@ export function ServicesSection() {
   return (
     <section
       id='dich-vu'
-      className='py-[4rem] lg:py-[6rem]'
+      className='py-[6rem] xsm:py-[4rem]'
     >
       <Container className='max-w-none'>
         {}
@@ -25,7 +25,7 @@ export function ServicesSection() {
           </p>
         </div>
 
-        <div className='relative mt-[1.5rem] h-[5.5rem] sm:h-[6.25rem] lg:h-[7.3125rem]'>
+        <div className='relative mt-[1.5rem] h-[7.3125rem] xsm:h-[5.5rem]'>
           {}
           <div className='absolute inset-0 overflow-hidden rounded-[0.875rem] bg-brand-blue'>
             <Image
@@ -40,18 +40,18 @@ export function ServicesSection() {
           {}
           <h2 className='sr-only'>Dịch vụ nổi bật - Hiệu quả điều trị</h2>
 
-          <div className='absolute inset-0 z-20 hidden grid-cols-2 items-center sm:grid'>
-            <p className='pl-[1rem] text-center text-[1rem] font-bold uppercase leading-[1.2] text-white sm:pl-[5rem] sm:text-[1.375rem] lg:pl-[8rem] lg:text-[1.75rem]'>
+          <div className='absolute inset-0 z-20 grid grid-cols-2 items-center xsm:hidden'>
+            <p className='pl-[8rem] text-center text-[1.75rem] font-bold uppercase leading-[1.2] text-white'>
               Dịch vụ nổi bật
             </p>
 
-            <p className='pr-[1rem] text-center text-[1rem] font-bold uppercase leading-[1.2] text-white sm:pr-[5rem] sm:text-[1.375rem] lg:pr-[8rem] lg:text-[1.75rem]'>
+            <p className='pr-[8rem] text-center text-[1.75rem] font-bold uppercase leading-[1.2] text-white'>
               Hiệu quả điều trị
             </p>
           </div>
 
           {}
-          <div className='absolute bottom-0 left-[1rem] z-30 hidden h-[8.75rem] w-[9rem] sm:block lg:left-[1.5rem] lg:h-[10rem] lg:w-[10rem]'>
+          <div className='absolute bottom-0 left-[1.5rem] z-30 h-[10rem] w-[10rem] xsm:hidden'>
             <Image
               src='/images/bac-si-2.png'
               alt='Bác sĩ chăm sóc mẹ và bé'
@@ -62,7 +62,7 @@ export function ServicesSection() {
           </div>
 
           {}
-          <div className='pointer-events-none absolute bottom-0 left-1/2 z-30 h-[5.5rem] w-[8.125rem] -translate-x-1/2 sm:bottom-[-2.9375rem] sm:h-[9.1875rem] sm:w-[13.5rem] lg:bottom-[-1.875rem]'>
+          <div className='pointer-events-none absolute bottom-[-1.875rem] left-1/2 z-30 h-[9.1875rem] w-[13.5rem] -translate-x-1/2 xsm:bottom-0 xsm:h-[5.5rem] xsm:w-[8.125rem]'>
             <Image
               src='/images/ban-tay.png'
               alt=''
@@ -73,7 +73,7 @@ export function ServicesSection() {
           </div>
 
           {}
-          <div className='absolute bottom-0 right-[0.75rem] z-30 hidden h-[8.5rem] w-[10rem] sm:block lg:right-[1.25rem] lg:h-[10rem] lg:w-[12rem]'>
+          <div className='absolute bottom-0 right-[1.25rem] z-30 h-[10rem] w-[12rem] xsm:hidden'>
             <Image
               src='/images/family.png'
               alt='Gia đình hạnh phúc'
@@ -87,7 +87,7 @@ export function ServicesSection() {
         <div className='mt-[2rem] w-full'>
           <ServicesMobileSlider services={services} />
 
-          <div className='block tablet:hidden xsm:hidden'>
+          <div className='block xsm:hidden'>
             {services.map((service) => (
               <ServiceItem
                 key={service.id}

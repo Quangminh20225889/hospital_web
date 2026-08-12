@@ -60,7 +60,7 @@ export function ServicesMobileSlider({ services }: ServicesMobileSliderProps) {
   }
 
   return (
-    <div className='hidden tablet:block xsm:block'>
+    <div className='hidden xsm:block'>
       <div
         ref={sliderRef}
         onScroll={handleScroll}
@@ -70,7 +70,7 @@ export function ServicesMobileSlider({ services }: ServicesMobileSliderProps) {
           <div
             key={service.id}
             data-service-card
-            className='shrink-0 basis-full snap-start sm:basis-[calc((100%_-_1rem)/2)]'
+            className='shrink-0 basis-full snap-start'
           >
             <ServiceCard service={service} />
           </div>

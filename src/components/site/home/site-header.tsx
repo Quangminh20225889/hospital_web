@@ -70,15 +70,15 @@ export function SiteHeader() {
         }`}
       >
         <div
-          className={`hidden overflow-hidden transition-all duration-300 ease-in-out lg:block ${
+          className={`block overflow-hidden transition-all duration-300 ease-in-out xsm:hidden ${
             isAtTop ? 'h-[3rem] opacity-100' : 'h-0 opacity-0'
           }`}
         >
-          <div className='flex h-[3rem] items-center justify-end bg-brand-blue px-[1rem] sm:px-[1.5rem] lg:pr-[6.25rem] lg:pl-0'>
+          <div className='flex h-[3rem] items-center justify-end bg-brand-blue pr-[6.25rem] pl-0'>
             <div className='flex items-center gap-[0.75rem]'>
               <a
                 href={HOTLINE_TEL}
-                className='inline-flex h-[2rem] w-[13.5rem] items-center gap-[0.375rem] rounded-full bg-white px-[0.75rem] text-[0.875rem] font-medium text-brand-blue transition hover:bg-white/95'
+                className='inline-flex h-[2rem] items-center justify-center gap-[0.375rem] rounded-full bg-white px-[0.75rem] text-[0.875rem] font-medium text-brand-blue transition hover:bg-white/95'
               >
                 <Image
                   src='/icons/vuesax-bold-call1.svg'
@@ -100,7 +100,7 @@ export function SiteHeader() {
           </div>
         </div>
 
-        <div className='flex items-center justify-between px-[1rem] py-[0.5rem] sm:px-[1.5rem] lg:px-[6.25rem] lg:py-[0.75rem]'>
+        <div className='flex items-center justify-between px-[6.25rem] py-[0.75rem] xsm:px-[1rem] xsm:py-[0.5rem]'>
           <Link
             href='/'
             className='min-w-0 shrink'
@@ -110,7 +110,7 @@ export function SiteHeader() {
               alt='Bệnh viện Đồng Tâm'
               width={392}
               height={67}
-              className='h-[2.125rem] w-auto max-w-full sm:h-[2.75rem] lg:h-[3.5rem]'
+              className='h-[3rem] w-auto max-w-full xsm:h-[2.125rem]'
               priority
             />
           </Link>
@@ -124,11 +124,11 @@ export function SiteHeader() {
             priority
           />
 
-          <div className='flex shrink-0 items-center gap-[0.5rem] lg:gap-[0.75rem]'>
+          <div className='flex shrink-0 items-center gap-[0.75rem] xsm:gap-[0.5rem]'>
             <div className='relative block xsm:hidden'>
               <div
                 className={cn(
-                  'invisible absolute right-[3rem] top-1/2 z-10 h-[2.5rem] w-0 -translate-y-1/2 overflow-hidden opacity-0 transition-[width,opacity,visibility] duration-300 ease-out lg:right-[3.25rem]',
+                  'invisible absolute right-[3.25rem] top-1/2 z-10 h-[2.5rem] w-0 -translate-y-1/2 overflow-hidden opacity-0 transition-[width,opacity,visibility] duration-300 ease-out',
                   isSearchOpen && 'visible w-[min(15rem,35vw)] opacity-100',
                 )}
               >
@@ -187,7 +187,7 @@ export function SiteHeader() {
 
             <Link
               href={'/dat-lich' as any}
-              className='hidden items-center gap-[0.5rem] rounded-full bg-brand-blue px-[1.25rem] py-[0.625rem] text-[0.9375rem] font-semibold text-white shadow-[0_0_0_0.25rem_rgba(25,145,199,0.18)] transition hover:bg-brand-blue/90 sm:inline-flex'
+              className='inline-flex items-center gap-[0.5rem] rounded-full bg-brand-blue px-[1.25rem] py-[0.625rem] text-[0.9375rem] font-semibold text-white shadow-[0_0_0_0.25rem_rgba(25,145,199,0.18)] transition-[background-color,box-shadow] duration-300 hover:bg-brand-yellow hover:shadow-[0_0_0_0.25rem_rgba(252,202,69,0.3)] xsm:hidden'
             >
               <Image
                 src='/icons/vuesax-bold-calendar-tick.svg'
@@ -204,14 +204,14 @@ export function SiteHeader() {
               aria-label='Mở menu'
               aria-expanded={isOpen}
               onClick={() => setIsOpen(true)}
-              className='hidden size-[2.25rem] items-center justify-center rounded-[0.5rem] text-brand-blue transition hover:bg-surface-blue tablet:inline-flex tablet:size-[2.5rem] tablet:rounded-full tablet:border tablet:border-brand-blue/20 xsm:inline-flex'
+              className='hidden size-[2.25rem] items-center justify-center rounded-[0.5rem] text-brand-blue transition hover:bg-surface-blue xsm:inline-flex'
             >
               <Menu className='size-[1.5rem]' />
             </button>
           </div>
         </div>
 
-        <nav className='hidden border-t border-black/5 px-[1rem] sm:px-[1.5rem] lg:block lg:px-[6.25rem]'>
+        <nav className='block border-t border-black/5 px-[6.25rem] xsm:hidden'>
           <ul className='flex items-center justify-between gap-[0.5rem]'>
             {navigationItems.map((item) => (
               <li
@@ -220,7 +220,7 @@ export function SiteHeader() {
               >
                 <Link
                   href={item.href as any}
-                  className='inline-flex h-full items-center gap-[0.25rem] whitespace-nowrap py-[0.75rem] text-[0.9375rem] font-medium text-text-dark-blue transition-colors hover:text-brand-blue'
+                  className='inline-flex h-full items-center gap-[0.25rem] whitespace-nowrap py-[1.25rem] text-[0.9375rem] font-medium text-text-dark-blue transition-colors hover:text-brand-blue'
                 >
                   {item.label}
                   {item.hasDropdown ? (
@@ -239,7 +239,7 @@ export function SiteHeader() {
 
       {isOpen ? (
         <div
-          className='fixed inset-0 z-50 hidden flex-col bg-white tablet:flex xsm:flex'
+          className='fixed inset-0 z-50 hidden flex-col bg-white xsm:flex'
           role='dialog'
           aria-modal='true'
           aria-label='Menu'
@@ -250,7 +250,7 @@ export function SiteHeader() {
               alt='Bệnh viện Đồng Tâm'
               width={392}
               height={67}
-              className='h-[2.125rem] w-auto sm:h-[2.5rem]'
+              className='h-[2.125rem] w-auto'
             />
 
             <button

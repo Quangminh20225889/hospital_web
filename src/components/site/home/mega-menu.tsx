@@ -12,9 +12,9 @@ export function MegaMenu() {
   const activeDept = megaMenuData.find((dept) => dept.id === activeDeptId) || megaMenuData[0]
 
   return (
-    <div className='absolute left-0 top-full hidden w-screen bg-white shadow-[0_10px_30px_rgba(0,0,0,0.1)] group-hover:block'>
+    <div className='absolute left-0 top-full hidden w-full bg-white shadow-[0_10px_30px_rgba(0,0,0,0.1)] group-hover:block'>
       {}
-      <div className='mx-auto grid w-full max-w-[90rem] grid-cols-12 gap-8 px-[1rem] py-[2rem] sm:px-[1.5rem] lg:px-[6.25rem]'>
+      <div className='mx-auto grid w-full max-w-[90rem] grid-cols-12 gap-8 px-[6.25rem] py-[2rem]'>
         {}
         <div className='col-span-3 border-r border-gray-100 pr-6'>
           <ul className='flex flex-col gap-1'>
