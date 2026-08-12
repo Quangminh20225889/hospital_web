@@ -237,49 +237,57 @@ export function SiteHeader() {
         </nav>
       </header>
 
-      {isOpen ? (
-        <div
-          className='fixed inset-0 z-50 hidden flex-col bg-white xsm:flex'
-          role='dialog'
-          aria-modal='true'
-          aria-label='Menu'
-        >
-          <div className='flex shrink-0 items-center justify-between border-b border-brand-blue/10 px-[1rem] py-[0.5rem]'>
-            <Image
-              src='/images/frame2147263310.svg'
-              alt='Bệnh viện Đồng Tâm'
-              width={392}
-              height={67}
-              className='h-[2.125rem] w-auto'
+      <div
+        className={cn(
+          'fixed inset-0 z-50 hidden flex-col bg-white transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] xsm:flex',
+          isOpen ? 'translate-x-0' : 'pointer-events-none translate-x-full',
+        )}
+        role='dialog'
+        aria-modal={isOpen ? 'true' : undefined}
+        aria-hidden={!isOpen}
+        aria-label='Menu'
+        inert={!isOpen}
+      >
+        <div className='flex shrink-0 items-center justify-between border-b border-brand-blue/10 px-[1rem] py-[0.5rem]'>
+          <Image
+            src='/images/frame2147263310.svg'
+            alt='Bệnh viện Đồng Tâm'
+            width={392}
+            height={67}
+            className='h-[2.125rem] w-auto'
+          />
+
+          <button
+            type='button'
+            aria-label='Đóng menu'
+            onClick={closeMenu}
+            className='inline-flex size-[2.25rem] shrink-0 items-center justify-center rounded-full bg-surface-blue text-brand-blue'
+          >
+            <X className='size-[1.25rem]' />
+          </button>
+        </div>
+
+        <div className='shrink-0 px-[1rem] py-[0.875rem]'>
+          <div className='flex items-center gap-[0.625rem] rounded-full bg-surface-blue px-[1rem] py-[0.75rem]'>
+            <Search
+              aria-hidden='true'
+              className='size-[1.125rem] shrink-0 text-brand-blue'
             />
 
-            <button
-              type='button'
-              aria-label='Đóng menu'
-              onClick={closeMenu}
-              className='inline-flex size-[2.25rem] shrink-0 items-center justify-center rounded-full bg-surface-blue text-brand-blue'
-            >
-              <X className='size-[1.25rem]' />
-            </button>
+            <input
+              type='search'
+              placeholder='Tìm kiếm dịch vụ...'
+              aria-label='Tìm kiếm dịch vụ'
+              className='min-w-0 flex-1 bg-transparent text-[0.9375rem] text-text-dark-blue outline-none placeholder:text-text-dark-blue/45'
+            />
           </div>
+        </div>
 
-          <div className='shrink-0 px-[1rem] py-[0.875rem]'>
-            <div className='flex items-center gap-[0.625rem] rounded-full bg-surface-blue px-[1rem] py-[0.75rem]'>
-              <Search
-                aria-hidden='true'
-                className='size-[1.125rem] shrink-0 text-brand-blue'
-              />
-
-              <input
-                type='search'
-                placeholder='Tìm kiếm dịch vụ...'
-                aria-label='Tìm kiếm dịch vụ'
-                className='min-w-0 flex-1 bg-transparent text-[0.9375rem] text-text-dark-blue outline-none placeholder:text-text-dark-blue/45'
-              />
-            </div>
-          </div>
-
-          <nav className='min-h-0 flex-1 overflow-y-auto px-[1rem]'>
+        <div
+          data-lenis-prevent
+          className='min-h-0 flex-1 touch-pan-y overflow-y-auto overscroll-contain [-webkit-overflow-scrolling:touch]'
+        >
+          <nav className='px-[1rem]'>
             <ul className='divide-y divide-brand-blue/10'>
               {navigationItems.map((item) => {
                 if (!item.hasDropdown) {
@@ -338,7 +346,7 @@ export function SiteHeader() {
             </ul>
           </nav>
 
-          <div className='shrink-0 border-t border-brand-blue/10 p-[1rem] pb-[calc(1rem+env(safe-area-inset-bottom))]'>
+          <div className='border-t border-brand-blue/10 p-[1rem] pb-[calc(1rem+env(safe-area-inset-bottom))]'>
             <Link
               href={'/dat-lich' as any}
               onClick={closeMenu}
@@ -369,7 +377,7 @@ export function SiteHeader() {
             </a>
           </div>
         </div>
-      ) : null}
+      </div>
     </>
   )
 }
