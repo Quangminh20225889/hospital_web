@@ -118,11 +118,10 @@ export function ServiceItem({ service }: ServiceItemProps) {
             'min-h-[3rem] min-w-[3rem]',
             'max-h-[3rem] max-w-[3rem]',
             'shrink-0 self-center justify-self-end',
-            'overflow-hidden rounded-full p-0',
-            'bg-transparent text-brand-blue hover:bg-transparent',
+            'overflow-hidden rounded-full bg-transparent p-0',
+            'hover:bg-transparent',
             'transform-gpu will-change-transform',
-            'transition-transform duration-[850ms]',
-            'ease-[cubic-bezier(0.22,1,0.36,1)]',
+            'transition-transform duration-[850ms] ease-[cubic-bezier(0.22,1,0.36,1)]',
             'group-hover/service:translate-x-[0.5rem]',
           ].join(' ')}
         >
@@ -132,42 +131,27 @@ export function ServiceItem({ service }: ServiceItemProps) {
           >
             <span
               aria-hidden='true'
-              className={[
-                'pointer-events-none absolute inset-0 rounded-full bg-brand-blue',
-                '-translate-x-[120%] transform-gpu',
-                'transition-transform duration-[850ms]',
-                'ease-[cubic-bezier(0.22,1,0.36,1)]',
-                'group-hover/service:translate-x-0',
-              ].join(' ')}
+              className='pointer-events-none absolute inset-0 rounded-full bg-brand-blue opacity-0 transition-opacity duration-300 ease-in-out group-hover/service:opacity-100'
             />
 
             <span
               aria-hidden='true'
-              className={[
-                'pointer-events-none absolute inset-0 z-10',
-                'flex items-center justify-center',
-                'text-[2rem] font-light leading-none text-brand-blue',
-                'transform-gpu transition-transform duration-[850ms]',
-                'ease-[cubic-bezier(0.22,1,0.36,1)]',
-                'group-hover/service:translate-x-[120%]',
-              ].join(' ')}
+              className='pointer-events-none absolute inset-0 flex items-center justify-center'
             >
-              ›
-            </span>
-
-            <span
-              aria-hidden='true'
-              className={[
-                'pointer-events-none absolute inset-0 z-20',
-                'flex items-center justify-center',
-                'text-[2rem] font-light leading-none text-white',
-                '-translate-x-[120%] transform-gpu',
-                'transition-transform duration-[850ms]',
-                'ease-[cubic-bezier(0.22,1,0.36,1)]',
-                'group-hover/service:translate-x-0',
-              ].join(' ')}
-            >
-              ›
+              <Image
+                src='/icons/next (1).svg'
+                alt=''
+                width={10}
+                height={18}
+                className='absolute h-[1.125rem] w-[0.625rem] transition-opacity duration-300 group-hover/service:opacity-0'
+              />
+              <Image
+                src='/icons/next_1_w.svg'
+                alt=''
+                width={10}
+                height={18}
+                className='absolute h-[1.125rem] w-[0.625rem] opacity-0 transition-opacity duration-300 group-hover/service:opacity-100'
+              />
             </span>
           </Link>
         </Button>

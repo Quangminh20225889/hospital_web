@@ -1,8 +1,9 @@
 'use client'
 
-import { useRef, useState, type UIEvent } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 import { NavChevron } from '@/components/common/nav-chevron'
+import { Carousel, type CarouselApi, CarouselContent, CarouselItem } from '@/components/ui/carousel'
 import type { Service } from '@/content/home'
 
 import { ServiceCard } from './service-card'
@@ -12,79 +13,67 @@ type ServicesMobileSliderProps = {
 }
 
 export function ServicesMobileSlider({ services }: ServicesMobileSliderProps) {
-  const sliderRef = useRef<HTMLDivElement>(null)
+  const [carouselApi, setCarouselApi] = useState<CarouselApi>()
   const [activeIndex, setActiveIndex] = useState(0)
+  const [pageIndexes, setPageIndexes] = useState<number[]>([])
+  const [canScrollPrevious, setCanScrollPrevious] = useState(false)
+  const [canScrollNext, setCanScrollNext] = useState(false)
 
-  const maxIndex = Math.max(0, services.length - 1)
+  const updateCarouselState = useCallback((api: NonNullable<CarouselApi>) => {
+    setActiveIndex(api.selectedScrollSnap())
+    setPageIndexes(api.scrollSnapList().map((_, index) => index))
+    setCanScrollPrevious(api.canScrollPrev())
+    setCanScrollNext(api.canScrollNext())
+  }, [])
 
-  const getScrollStep = () => {
-    const slider = sliderRef.current
+  useEffect(() => {
+    if (!carouselApi) return
 
-    if (!slider) {
-      return 0
+    const handleCarouselChange = () => updateCarouselState(carouselApi)
+
+    handleCarouselChange()
+    carouselApi.on('select', handleCarouselChange)
+    carouselApi.on('reInit', handleCarouselChange)
+
+    return () => {
+      carouselApi.off('select', handleCarouselChange)
+      carouselApi.off('reInit', handleCarouselChange)
     }
-
-    const firstCard = slider.querySelector<HTMLElement>('[data-service-card]')
-
-    if (!firstCard) {
-      return 0
-    }
-
-    const sliderStyle = window.getComputedStyle(slider)
-    const gap = Number.parseFloat(sliderStyle.columnGap || sliderStyle.gap || '0')
-
-    return firstCard.offsetWidth + gap
-  }
-
-  const scrollToIndex = (index: number) => {
-    const safeIndex = Math.max(0, Math.min(index, maxIndex))
-
-    sliderRef.current?.scrollTo({
-      left: getScrollStep() * safeIndex,
-      behavior: 'smooth',
-    })
-
-    setActiveIndex(safeIndex)
-  }
-
-  const handleScroll = (event: UIEvent<HTMLDivElement>) => {
-    const scrollStep = getScrollStep()
-
-    if (!scrollStep) {
-      return
-    }
-
-    const newIndex = Math.round(event.currentTarget.scrollLeft / scrollStep)
-
-    setActiveIndex(Math.max(0, Math.min(newIndex, maxIndex)))
-  }
+  }, [carouselApi, updateCarouselState])
 
   return (
     <div className='hidden xsm:block'>
-      <div
-        ref={sliderRef}
-        onScroll={handleScroll}
-        className='hidden_scroll flex snap-x snap-mandatory gap-[1rem] overflow-x-auto scroll-smooth'
+      <Carousel
+        setApi={setCarouselApi}
+        opts={{
+          align: 'start',
+          containScroll: 'trimSnaps',
+          dragFree: false,
+          loop: false,
+          watchDrag: true,
+        }}
+        className='cursor-grab select-none active:cursor-grabbing'
       >
-        {services.map((service) => (
-          <div
-            key={service.id}
-            data-service-card
-            className='shrink-0 basis-full snap-start'
-          >
-            <ServiceCard service={service} />
-          </div>
-        ))}
-      </div>
+        <CarouselContent className='ml-0 gap-[1rem]'>
+          {services.map((service) => (
+            <CarouselItem
+              key={service.id}
+              className='basis-full pl-0'
+            >
+              <ServiceCard service={service} />
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </Carousel>
 
       <div className='mt-[1.25rem] flex items-center justify-between gap-[1rem]'>
         <div className='flex items-center gap-[0.25rem]'>
-          {services.map((service, index) => (
+          {pageIndexes.map((index) => (
             <button
-              key={service.id}
+              key={index}
               type='button'
               aria-label={`Chuyển đến dịch vụ ${index + 1}`}
-              onClick={() => scrollToIndex(index)}
+              onClick={() => carouselApi?.scrollTo(index)}
               className={`h-[0.125rem] rounded-full transition-all duration-300 ${
                 activeIndex === index
                   ? 'w-[2.5rem] bg-brand-blue'
@@ -98,9 +87,9 @@ export function ServicesMobileSlider({ services }: ServicesMobileSliderProps) {
           <button
             type='button'
             aria-label='Xem dịch vụ trước'
-            disabled={activeIndex === 0}
-            onClick={() => scrollToIndex(activeIndex - 1)}
-            className='group inline-flex size-[2.25rem] items-center justify-center rounded-full border border-brand-blue bg-white text-brand-blue transition-colors duration-200 hover:bg-brand-blue hover:text-white disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white disabled:hover:text-brand-blue'
+            disabled={!canScrollPrevious}
+            onClick={() => carouselApi?.scrollPrev()}
+            className='group relative inline-flex size-[2.25rem] items-center justify-center overflow-hidden rounded-full border border-brand-blue bg-white transition-colors duration-300 ease-in-out enabled:hover:bg-brand-blue disabled:cursor-default disabled:opacity-30'
           >
             <NavChevron direction='left' />
           </button>
@@ -108,9 +97,9 @@ export function ServicesMobileSlider({ services }: ServicesMobileSliderProps) {
           <button
             type='button'
             aria-label='Xem dịch vụ tiếp theo'
-            disabled={activeIndex === maxIndex}
-            onClick={() => scrollToIndex(activeIndex + 1)}
-            className='group inline-flex size-[2.25rem] items-center justify-center rounded-full border border-brand-blue bg-white text-brand-blue transition-colors duration-200 hover:bg-brand-blue hover:text-white disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white disabled:hover:text-brand-blue'
+            disabled={!canScrollNext}
+            onClick={() => carouselApi?.scrollNext()}
+            className='group relative inline-flex size-[2.25rem] items-center justify-center overflow-hidden rounded-full border border-brand-blue bg-white transition-colors duration-300 ease-in-out enabled:hover:bg-brand-blue disabled:cursor-default disabled:opacity-30'
           >
             <NavChevron direction='right' />
           </button>

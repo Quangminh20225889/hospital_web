@@ -1,6 +1,5 @@
 'use client'
 
-import { Check } from 'lucide-react'
 import Image from 'next/image'
 import { useCallback, useEffect, useState, type WheelEvent } from 'react'
 
@@ -14,12 +13,56 @@ const stopWheelPropagation = (event: WheelEvent<HTMLDivElement>) => {
   event.stopPropagation()
 }
 
+const DESKTOP_DOCTORS_PER_PAGE = 3
+const desktopPageIndexes = Array.from(
+  { length: Math.ceil(doctors.length / DESKTOP_DOCTORS_PER_PAGE) },
+  (_, index) => index,
+)
+
+function DoctorsAllArrow() {
+  return (
+    <span
+      aria-hidden='true'
+      className='relative size-[1.25rem] shrink-0'
+    >
+      <Image
+        src='/icons/vuesax-outline-arrow-right.svg'
+        alt=''
+        fill
+        sizes='1.25rem'
+        className='transition-opacity duration-200 group-hover:opacity-0'
+      />
+      <Image
+        src='/icons/arrow-right.svg'
+        alt=''
+        fill
+        sizes='1.25rem'
+        className='opacity-0 transition-opacity duration-200 group-hover:opacity-100'
+      />
+    </span>
+  )
+}
+
 export function DoctorsSection() {
   const [carouselApi, setCarouselApi] = useState<CarouselApi>()
   const [activeIndex, setActiveIndex] = useState(0)
   const [pageIndexes, setPageIndexes] = useState<number[]>([])
   const [canScrollPrevious, setCanScrollPrevious] = useState(false)
   const [canScrollNext, setCanScrollNext] = useState(false)
+
+  const desktopActiveIndex =
+    pageIndexes.length <= 1 || desktopPageIndexes.length <= 1
+      ? 0
+      : Math.round((activeIndex / (pageIndexes.length - 1)) * (desktopPageIndexes.length - 1))
+
+  const scrollToDesktopPage = (pageIndex: number) => {
+    if (!carouselApi || pageIndexes.length <= 1 || desktopPageIndexes.length <= 1) return
+
+    const targetSnap = Math.round(
+      (pageIndex / (desktopPageIndexes.length - 1)) * (pageIndexes.length - 1),
+    )
+    carouselApi.scrollTo(targetSnap)
+  }
 
   const updateCarouselState = useCallback((api: NonNullable<CarouselApi>) => {
     setActiveIndex(api.selectedScrollSnap())
@@ -78,7 +121,7 @@ export function DoctorsSection() {
             className='group inline-flex h-[2.625rem] w-fit shrink-0 items-center justify-center gap-[0.5rem] self-auto rounded-full border border-brand-blue bg-white px-[1.25rem] text-[0.8125rem] font-medium text-brand-blue transition-colors duration-200 hover:border-brand-yellow hover:text-brand-yellow xsm:hidden'
           >
             Xem tất cả
-            <ActionArrow />
+            <DoctorsAllArrow />
           </button>
         </div>
 
@@ -90,7 +133,7 @@ export function DoctorsSection() {
             aria-label='Xem các bác sĩ trước'
             disabled={!canScrollPrevious}
             onClick={() => carouselApi?.scrollPrev()}
-            className='group absolute left-[-4.375rem] top-1/2 z-30 flex size-[2.5rem] -translate-y-1/2 items-center justify-center rounded-full border border-brand-blue bg-white text-brand-blue transition-colors duration-200 hover:bg-brand-blue hover:text-white disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white disabled:hover:text-brand-blue xsm:hidden'
+            className='group absolute left-[-4.375rem] top-1/2 z-30 flex size-[2.5rem] -translate-y-1/2 items-center justify-center overflow-hidden rounded-full border border-brand-blue bg-white transition-colors duration-300 ease-in-out enabled:hover:bg-brand-blue disabled:cursor-default disabled:opacity-30 xsm:hidden'
           >
             <NavChevron
               direction='left'
@@ -106,6 +149,10 @@ export function DoctorsSection() {
               containScroll: 'trimSnaps',
               dragFree: false,
               loop: false,
+              slidesToScroll: 1,
+              breakpoints: {
+                '(min-width: 40rem)': { slidesToScroll: 3 },
+              },
             }}
             className='w-full'
           >
@@ -187,13 +234,14 @@ export function DoctorsSection() {
                               key={`${doctor.id}-mb-${index}`}
                               className='flex items-start gap-[0.5rem]'
                             >
-                              <span className='mt-[0.15rem] inline-flex size-[0.9375rem] shrink-0 items-center justify-center rounded-full bg-brand-mint text-white'>
-                                <Check
-                                  aria-hidden='true'
-                                  className='size-[0.5625rem]'
-                                  strokeWidth={3}
-                                />
-                              </span>
+                              <Image
+                                aria-hidden='true'
+                                src='/icons/vuesax-bold-tick-circle.svg'
+                                alt=''
+                                width={16}
+                                height={16}
+                                className='mt-[0.15rem] size-[0.9375rem] shrink-0'
+                              />
 
                               <span className='text-[0.8125rem] leading-[1.5] text-text-dark-blue'>
                                 {detail}
@@ -314,7 +362,7 @@ export function DoctorsSection() {
             aria-label='Xem các bác sĩ tiếp theo'
             disabled={!canScrollNext}
             onClick={() => carouselApi?.scrollNext()}
-            className='group absolute right-[-4.375rem] top-1/2 z-30 flex size-[2.5rem] -translate-y-1/2 items-center justify-center rounded-full border border-brand-blue bg-white text-brand-blue transition-colors duration-200 hover:bg-brand-blue hover:text-white disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white disabled:hover:text-brand-blue xsm:hidden'
+            className='group absolute right-[-4.375rem] top-1/2 z-30 flex size-[2.5rem] -translate-y-1/2 items-center justify-center overflow-hidden rounded-full border border-brand-blue bg-white transition-colors duration-300 ease-in-out enabled:hover:bg-brand-blue disabled:cursor-default disabled:opacity-30 xsm:hidden'
           >
             <NavChevron
               direction='right'
@@ -325,7 +373,23 @@ export function DoctorsSection() {
 
         {pageIndexes.length > 1 && (
           <div className='mt-[1.75rem] flex items-center justify-center gap-[1rem] xsm:mt-[1.5rem] xsm:justify-between'>
-            <div className='flex items-center gap-[0.25rem]'>
+            <div className='flex items-center gap-[0.25rem] xsm:hidden'>
+              {desktopPageIndexes.map((index) => (
+                <button
+                  key={index}
+                  type='button'
+                  aria-label={`Chuyển đến nhóm bác sĩ ${index + 1}`}
+                  onClick={() => scrollToDesktopPage(index)}
+                  className={`h-[0.125rem] rounded-full transition-all duration-300 ${
+                    desktopActiveIndex === index
+                      ? 'w-[7.5rem] bg-brand-blue'
+                      : 'w-[1.5rem] bg-text-dark-blue/30'
+                  }`}
+                />
+              ))}
+            </div>
+
+            <div className='hidden items-center gap-[0.25rem] xsm:flex'>
               {pageIndexes.map((index) => (
                 <button
                   key={index}
@@ -334,7 +398,7 @@ export function DoctorsSection() {
                   onClick={() => carouselApi?.scrollTo(index)}
                   className={`h-[0.125rem] rounded-full transition-all duration-300 ${
                     activeIndex === index
-                      ? 'w-[7.5rem] bg-brand-blue xsm:w-[3.5rem]'
+                      ? 'w-[3.5rem] bg-brand-blue'
                       : 'w-[1.5rem] bg-text-dark-blue/30'
                   }`}
                 />
@@ -347,7 +411,7 @@ export function DoctorsSection() {
                 aria-label='Xem các bác sĩ trước'
                 disabled={!canScrollPrevious}
                 onClick={() => carouselApi?.scrollPrev()}
-                className='group inline-flex size-[2.25rem] items-center justify-center rounded-full border border-brand-blue bg-white text-brand-blue transition-colors duration-200 hover:bg-brand-blue hover:text-white disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white disabled:hover:text-brand-blue'
+                className='group relative inline-flex size-[2.25rem] items-center justify-center overflow-hidden rounded-full border border-brand-blue bg-white transition-colors duration-300 ease-in-out enabled:hover:bg-brand-blue disabled:cursor-default disabled:opacity-30'
               >
                 <NavChevron direction='left' />
               </button>
@@ -357,7 +421,7 @@ export function DoctorsSection() {
                 aria-label='Xem các bác sĩ tiếp theo'
                 disabled={!canScrollNext}
                 onClick={() => carouselApi?.scrollNext()}
-                className='group inline-flex size-[2.25rem] items-center justify-center rounded-full border border-brand-blue bg-white text-brand-blue transition-colors duration-200 hover:bg-brand-blue hover:text-white disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white disabled:hover:text-brand-blue'
+                className='group relative inline-flex size-[2.25rem] items-center justify-center overflow-hidden rounded-full border border-brand-blue bg-white transition-colors duration-300 ease-in-out enabled:hover:bg-brand-blue disabled:cursor-default disabled:opacity-30'
               >
                 <NavChevron direction='right' />
               </button>
@@ -371,7 +435,7 @@ export function DoctorsSection() {
             className='group inline-flex h-[2.75rem] items-center justify-center gap-[0.5rem] rounded-full border border-brand-blue bg-white px-[1.5rem] text-[0.875rem] font-medium text-brand-blue transition-colors duration-200 hover:border-brand-yellow hover:text-brand-yellow'
           >
             Xem tất cả
-            <ActionArrow />
+            <DoctorsAllArrow />
           </button>
         </div>
       </div>

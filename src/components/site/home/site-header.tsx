@@ -1,6 +1,6 @@
 'use client'
 
-import { ChevronDown, Menu, Search, X } from 'lucide-react'
+import { ChevronDown, Menu, X } from 'lucide-react'
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 
@@ -269,9 +269,13 @@ export function SiteHeader() {
 
         <div className='shrink-0 px-[1rem] py-[0.875rem]'>
           <div className='flex items-center gap-[0.625rem] rounded-full bg-surface-blue px-[1rem] py-[0.75rem]'>
-            <Search
+            <Image
               aria-hidden='true'
-              className='size-[1.125rem] shrink-0 text-brand-blue'
+              src='/icons/Search Icon.svg'
+              alt=''
+              width={18}
+              height={18}
+              className='size-[1.125rem] shrink-0'
             />
 
             <input

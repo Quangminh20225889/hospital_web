@@ -3,7 +3,6 @@
 import Image from 'next/image'
 import { useEffect } from 'react'
 
-import { NavChevron } from '@/components/common/nav-chevron'
 import { Carousel, CarouselContent, CarouselItem, useCarousel } from '@/components/ui/carousel'
 import { bannerSlides } from '@/content/home'
 import { cn } from '@/lib/utils'
@@ -72,6 +71,8 @@ function BannerAutoplay() {
 
 function BannerNavButton({ direction }: { direction: 'prev' | 'next' }) {
   const { scrollPrev, scrollNext } = useCarousel()
+  const isPrevious = direction === 'prev'
+  const iconSizeClassName = 'h-[1.375rem] w-[0.7639rem] xsm:h-[1.125rem] xsm:w-[0.625rem]'
 
   return (
     <button
@@ -79,21 +80,44 @@ function BannerNavButton({ direction }: { direction: 'prev' | 'next' }) {
       aria-label={direction === 'prev' ? 'Banner trước' : 'Banner tiếp'}
       onClick={direction === 'prev' ? scrollPrev : scrollNext}
       className={cn(
-        'group absolute inset-y-0 z-10 my-auto flex items-center justify-center rounded-full transition-all duration-300',
-
-        'size-[3rem] border border-brand-blue bg-white text-brand-blue backdrop-blur-[0.125rem]',
+        'group/hero-nav absolute inset-y-0 z-10 my-auto size-[3rem] overflow-hidden rounded-full border border-brand-blue bg-white transition-colors duration-300 ease-in-out',
         'shadow-[0_0.25rem_1rem_rgba(4,24,33,0.08)]',
         'xsm:size-[1.75rem] xsm:shadow-none',
-        'hover:bg-brand-blue hover:text-white',
-        direction === 'prev'
-          ? 'left-[1.25rem] xsm:left-[0.5rem]'
-          : 'right-[1.25rem] xsm:right-[0.5rem]',
+        'min-[639.98px]:hover:bg-brand-blue',
+        isPrevious ? 'left-[1.25rem] xsm:left-[0.5rem]' : 'right-[1.25rem] xsm:right-[0.5rem]',
       )}
     >
-      <NavChevron
-        direction={direction === 'prev' ? 'left' : 'right'}
-        className='h-[1.375rem] w-[0.7639rem] xsm:h-auto xsm:w-auto'
-      />
+      <span
+        className={cn(
+          'absolute inset-0 flex items-center justify-center transition-transform duration-300 ease-in-out',
+          isPrevious
+            ? 'min-[639.98px]:group-hover/hero-nav:-translate-x-full'
+            : 'min-[639.98px]:group-hover/hero-nav:translate-x-full',
+        )}
+      >
+        <Image
+          src={isPrevious ? '/icons/next (2).svg' : '/icons/next (1).svg'}
+          alt=''
+          width={10}
+          height={18}
+          className={iconSizeClassName}
+        />
+      </span>
+
+      <span
+        className={cn(
+          'absolute inset-0 flex items-center justify-center transition-transform duration-300 ease-in-out min-[639.98px]:group-hover/hero-nav:translate-x-0',
+          isPrevious ? 'translate-x-full' : '-translate-x-full',
+        )}
+      >
+        <Image
+          src={isPrevious ? '/icons/next_2_w.svg' : '/icons/next_1_w.svg'}
+          alt=''
+          width={10}
+          height={18}
+          className={iconSizeClassName}
+        />
+      </span>
     </button>
   )
 }

@@ -115,13 +115,26 @@ export function ServicesSection() {
               <span
                 aria-hidden='true'
                 className={[
-                  'ml-[0.625rem] inline-block text-[1.5rem] font-light leading-none',
+                  'relative ml-[0.625rem] inline-block size-[1.25rem] shrink-0',
                   'transform-gpu transition-transform duration-[500ms]',
                   'ease-[cubic-bezier(0.22,1,0.36,1)]',
                   'group-hover/all:translate-x-[0.375rem]',
                 ].join(' ')}
               >
-                →
+                <Image
+                  src='/icons/vuesax-outline-arrow-right.svg'
+                  alt=''
+                  fill
+                  sizes='1.25rem'
+                  className='transition-opacity duration-200 group-hover/all:opacity-0'
+                />
+                <Image
+                  src='/icons/arrow-right.svg'
+                  alt=''
+                  fill
+                  sizes='1.25rem'
+                  className='opacity-0 transition-opacity duration-200 group-hover/all:opacity-100'
+                />
               </span>
             </Link>
           </Button>

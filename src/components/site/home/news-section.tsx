@@ -6,6 +6,7 @@ import * as React from 'react'
 
 import { ActionArrow } from '@/components/common/action-arrow'
 import { Container } from '@/components/common/container'
+import { NavChevron } from '@/components/common/nav-chevron'
 import { SectionHeading } from '@/components/common/section-heading'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -154,14 +155,18 @@ export function NewsSection() {
             <CarouselPrevious
               size='icon-lg'
               aria-label='Xem tin trước'
-              className='left-[-4.75rem] inline-flex size-[2.75rem] border-brand-blue bg-white text-brand-blue shadow-none transition-colors duration-300 hover:border-brand-blue hover:bg-brand-blue hover:text-white disabled:cursor-not-allowed disabled:opacity-35'
-            />
+              className='group left-[-4.75rem] inline-flex size-[2.75rem] overflow-hidden border-brand-blue bg-white shadow-none transition-colors duration-300 ease-in-out enabled:hover:bg-brand-blue disabled:cursor-not-allowed disabled:opacity-35'
+            >
+              <NavChevron direction='left' />
+            </CarouselPrevious>
 
             <CarouselNext
               size='icon-lg'
               aria-label='Xem tin tiếp theo'
-              className='right-[-4.75rem] inline-flex size-[2.75rem] border-brand-blue bg-white text-brand-blue shadow-none transition-colors duration-300 hover:border-brand-blue hover:bg-brand-blue hover:text-white disabled:cursor-not-allowed disabled:opacity-35'
-            />
+              className='group right-[-4.75rem] inline-flex size-[2.75rem] overflow-hidden border-brand-blue bg-white shadow-none transition-colors duration-300 ease-in-out enabled:hover:bg-brand-blue disabled:cursor-not-allowed disabled:opacity-35'
+            >
+              <NavChevron direction='right' />
+            </CarouselNext>
           </Carousel>
 
           {scrollSnaps.length > 1 && (
