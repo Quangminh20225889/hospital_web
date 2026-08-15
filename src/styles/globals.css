@@ -60,18 +60,12 @@
 }
 
 html {
-  font-size: clamp(0.75rem, 1vw, 1.25rem);
+  font-size: 1vw;
 }
 
-@media (max-width: 64rem) {
+@media (max-width: 639px) {
   html {
-    font-size: 1.125rem;
-  }
-}
-
-@media (max-width: 39.9375rem) {
-  html {
-    font-size: min(4.26666667vw, 1.25rem);
+    font-size: 4.26666667vw;
   }
 }
 
