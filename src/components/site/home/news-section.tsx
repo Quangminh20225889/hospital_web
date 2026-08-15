@@ -67,7 +67,7 @@ export function NewsSection() {
         <div className='absolute -bottom-[11rem] left-[10%] h-[15rem] w-[115%] rotate-[12deg] rounded-[50%] bg-[#e7f2f8]/70' />
       </div>
 
-      <Container className='relative z-10'>
+      <Container className='relative z-10 max-w-none'>
         <div className='flex flex-row items-end justify-between gap-[1.25rem] xsm:flex-col xsm:items-stretch'>
           <div>
             <Badge className='mb-[0.75rem] h-auto rounded-full border-0 bg-brand-yellow px-[0.875rem] py-[0.5rem] text-[0.6875rem] font-semibold uppercase leading-none tracking-normal text-white'>
@@ -155,7 +155,7 @@ export function NewsSection() {
             <CarouselPrevious
               size='icon-lg'
               aria-label='Xem tin trước'
-              className='group left-[-4.75rem] inline-flex size-[2.75rem] overflow-hidden border-brand-blue bg-white shadow-none transition-colors duration-300 ease-in-out enabled:hover:bg-brand-blue disabled:cursor-not-allowed disabled:opacity-35'
+              className='group left-[-4.375rem] inline-flex size-[2.75rem] overflow-hidden border-brand-blue bg-white shadow-none transition-colors duration-300 ease-in-out enabled:hover:bg-brand-blue disabled:cursor-not-allowed disabled:opacity-35'
             >
               <NavChevron direction='left' />
             </CarouselPrevious>
@@ -163,7 +163,7 @@ export function NewsSection() {
             <CarouselNext
               size='icon-lg'
               aria-label='Xem tin tiếp theo'
-              className='group right-[-4.75rem] inline-flex size-[2.75rem] overflow-hidden border-brand-blue bg-white shadow-none transition-colors duration-300 ease-in-out enabled:hover:bg-brand-blue disabled:cursor-not-allowed disabled:opacity-35'
+              className='group right-[-4.375rem] inline-flex size-[2.75rem] overflow-hidden border-brand-blue bg-white shadow-none transition-colors duration-300 ease-in-out enabled:hover:bg-brand-blue disabled:cursor-not-allowed disabled:opacity-35'
             >
               <NavChevron direction='right' />
             </CarouselNext>
