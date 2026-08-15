@@ -3,6 +3,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import * as React from 'react'
+import type { Swiper as SwiperInstance } from 'swiper'
+import { Swiper, SwiperSlide } from 'swiper/react'
+
+import 'swiper/css'
 
 import { ActionArrow } from '@/components/common/action-arrow'
 import { Container } from '@/components/common/container'
@@ -10,14 +14,6 @@ import { NavChevron } from '@/components/common/nav-chevron'
 import { SectionHeading } from '@/components/common/section-heading'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import {
-  Carousel,
-  type CarouselApi,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from '@/components/ui/carousel'
 import { newsItems } from '@/content/home'
 
 import { NewsCompactItem } from './news-compact-item'
@@ -25,33 +21,67 @@ import { NewsItem } from './news-item'
 
 const [featuredItem, ...compactItems] = newsItems
 
-export function NewsSection() {
-  const [carouselApi, setCarouselApi] = React.useState<CarouselApi>()
+const DESKTOP_SLIDES_PER_VIEW = 3
+const DEFAULT_ROOT_FONT_SIZE = 16
 
-  const subscribe = React.useCallback(
-    (onStoreChange: () => void) => {
-      if (!carouselApi) {
-        return () => {}
+export function NewsSection() {
+  const [swiper, setSwiper] = React.useState<SwiperInstance | null>(null)
+  const [activeIndex, setActiveIndex] = React.useState(0)
+  const [spaceBetween, setSpaceBetween] = React.useState(DEFAULT_ROOT_FONT_SIZE)
+
+  const pageCount =
+    newsItems.length > 0 ? Math.max(newsItems.length - DESKTOP_SLIDES_PER_VIEW + 1, 1) : 0
+
+  const pageIndexes = Array.from({ length: pageCount }, (_, index) => index)
+
+  const lastStartIndex = Math.max(newsItems.length - DESKTOP_SLIDES_PER_VIEW, 0)
+
+  const canScrollPrevious = Boolean(swiper) && activeIndex > 0
+  const canScrollNext = Boolean(swiper) && activeIndex < lastStartIndex
+
+  React.useEffect(() => {
+    const updateSpaceBetween = () => {
+      const rootFontSize = Number.parseFloat(
+        window.getComputedStyle(document.documentElement).fontSize,
+      )
+
+      if (!Number.isFinite(rootFontSize)) return
+
+      setSpaceBetween(rootFontSize)
+    }
+
+    updateSpaceBetween()
+
+    window.addEventListener('resize', updateSpaceBetween)
+
+    return () => {
+      window.removeEventListener('resize', updateSpaceBetween)
+    }
+  }, [])
+
+  const handleSwiper = React.useCallback((instance: SwiperInstance) => {
+    setSwiper(instance)
+    setActiveIndex(instance.activeIndex)
+  }, [])
+
+  const handleSlideChange = React.useCallback((instance: SwiperInstance) => {
+    setActiveIndex(instance.activeIndex)
+  }, [])
+
+  const handleKeyDown = React.useCallback(
+    (event: React.KeyboardEvent<HTMLDivElement>) => {
+      if (event.key === 'ArrowLeft') {
+        event.preventDefault()
+        swiper?.slidePrev()
       }
 
-      carouselApi.on('select', onStoreChange)
-      carouselApi.on('reInit', onStoreChange)
-
-      return () => {
-        carouselApi.off('select', onStoreChange)
-        carouselApi.off('reInit', onStoreChange)
+      if (event.key === 'ArrowRight') {
+        event.preventDefault()
+        swiper?.slideNext()
       }
     },
-    [carouselApi],
+    [swiper],
   )
-
-  const selectedIndex = React.useSyncExternalStore(
-    subscribe,
-    () => carouselApi?.selectedScrollSnap() ?? 0,
-    () => 0,
-  )
-
-  const scrollSnaps = carouselApi?.scrollSnapList() ?? []
 
   return (
     <section
@@ -89,7 +119,6 @@ export function NewsSection() {
             />
           </div>
 
-          {}
           <Button
             asChild
             variant='outline'
@@ -102,7 +131,6 @@ export function NewsSection() {
           </Button>
         </div>
 
-        {}
         <div className='mt-[1.5rem] hidden xsm:block'>
           {featuredItem ? <NewsItem item={featuredItem} /> : null}
 
@@ -130,53 +158,62 @@ export function NewsSection() {
         </div>
 
         <div className='block xsm:hidden'>
-          <Carousel
-            setApi={setCarouselApi}
-            opts={{
-              align: 'start',
-              dragFree: false,
-              loop: false,
-              slidesToScroll: 1,
-              containScroll: 'trimSnaps',
-            }}
-            className='mt-[2rem] cursor-grab select-none active:cursor-grabbing'
+          <div
+            role='region'
+            aria-roledescription='carousel'
+            className='relative mt-[2rem]'
+            onKeyDownCapture={handleKeyDown}
           >
-            <CarouselContent className='-ml-[1rem]'>
+            <Swiper
+              slidesPerView={DESKTOP_SLIDES_PER_VIEW}
+              slidesPerGroup={1}
+              spaceBetween={spaceBetween}
+              loop={false}
+              allowTouchMove
+              onSwiper={handleSwiper}
+              onSlideChange={handleSlideChange}
+              className='cursor-grab select-none active:cursor-grabbing'
+            >
               {newsItems.map((item) => (
-                <CarouselItem
-                  key={item.id}
-                  className='basis-1/3 pl-[1rem]'
-                >
+                <SwiperSlide key={item.id}>
                   <NewsItem item={item} />
-                </CarouselItem>
+                </SwiperSlide>
               ))}
-            </CarouselContent>
+            </Swiper>
 
-            <CarouselPrevious
+            <Button
+              type='button'
+              variant='outline'
               size='icon-lg'
               aria-label='Xem tin trước'
-              className='group left-[-4.375rem] inline-flex size-[2.75rem] overflow-hidden border-brand-blue bg-white shadow-none transition-colors duration-300 ease-in-out enabled:hover:bg-brand-blue disabled:cursor-not-allowed disabled:opacity-35'
+              disabled={!canScrollPrevious}
+              onClick={() => swiper?.slidePrev()}
+              className='group absolute inset-y-0 left-[-4.375rem] z-10 my-auto inline-flex size-[2.75rem] touch-manipulation overflow-hidden rounded-full border-brand-blue bg-white shadow-none transition-colors duration-300 ease-in-out enabled:hover:bg-brand-blue disabled:cursor-not-allowed disabled:opacity-35'
             >
               <NavChevron direction='left' />
-            </CarouselPrevious>
+            </Button>
 
-            <CarouselNext
+            <Button
+              type='button'
+              variant='outline'
               size='icon-lg'
               aria-label='Xem tin tiếp theo'
-              className='group right-[-4.375rem] inline-flex size-[2.75rem] overflow-hidden border-brand-blue bg-white shadow-none transition-colors duration-300 ease-in-out enabled:hover:bg-brand-blue disabled:cursor-not-allowed disabled:opacity-35'
+              disabled={!canScrollNext}
+              onClick={() => swiper?.slideNext()}
+              className='group absolute inset-y-0 right-[-4.375rem] z-10 my-auto inline-flex size-[2.75rem] touch-manipulation overflow-hidden rounded-full border-brand-blue bg-white shadow-none transition-colors duration-300 ease-in-out enabled:hover:bg-brand-blue disabled:cursor-not-allowed disabled:opacity-35'
             >
               <NavChevron direction='right' />
-            </CarouselNext>
-          </Carousel>
+            </Button>
+          </div>
 
-          {scrollSnaps.length > 1 && (
+          {pageCount > 1 && (
             <div
               className='mt-[2rem] flex items-center justify-center gap-[0.25rem]'
               role='tablist'
               aria-label='Chọn nhóm tin tức'
             >
-              {scrollSnaps.map((_, index) => {
-                const isActive = selectedIndex === index
+              {pageIndexes.map((index) => {
+                const isActive = activeIndex === index
 
                 return (
                   <button
@@ -185,7 +222,7 @@ export function NewsSection() {
                     role='tab'
                     aria-label={`Chuyển đến nhóm tin ${index + 1}`}
                     aria-selected={isActive}
-                    onClick={() => carouselApi?.scrollTo(index)}
+                    onClick={() => swiper?.slideTo(index)}
                     className={
                       isActive
                         ? 'h-[0.1875rem] w-[6.5rem] rounded-full bg-brand-blue transition-all duration-300'

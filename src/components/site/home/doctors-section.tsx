@@ -1,11 +1,14 @@
 'use client'
 
 import Image from 'next/image'
-import { useCallback, useEffect, useState, type WheelEvent } from 'react'
+import { useState, type WheelEvent } from 'react'
+import type { Swiper as SwiperType } from 'swiper'
+import { Swiper, SwiperSlide } from 'swiper/react'
+
+import 'swiper/css'
 
 import { ActionArrow } from '@/components/common/action-arrow'
 import { NavChevron } from '@/components/common/nav-chevron'
-import { Carousel, type CarouselApi, CarouselContent } from '@/components/ui/carousel'
 import { doctors } from '@/content/home'
 import { cn } from '@/lib/utils'
 
@@ -14,10 +17,13 @@ const stopWheelPropagation = (event: WheelEvent<HTMLDivElement>) => {
 }
 
 const DESKTOP_DOCTORS_PER_PAGE = 3
+
 const desktopPageIndexes = Array.from(
   { length: Math.ceil(doctors.length / DESKTOP_DOCTORS_PER_PAGE) },
   (_, index) => index,
 )
+
+const mobilePageIndexes = doctors.map((_, index) => index)
 
 function DoctorsAllArrow() {
   return (
@@ -32,6 +38,7 @@ function DoctorsAllArrow() {
         sizes='1.25rem'
         className='transition-opacity duration-200 group-hover:opacity-0'
       />
+
       <Image
         src='/icons/arrow-right.svg'
         alt=''
@@ -44,58 +51,79 @@ function DoctorsAllArrow() {
 }
 
 export function DoctorsSection() {
-  const [carouselApi, setCarouselApi] = useState<CarouselApi>()
+  const [swiper, setSwiper] = useState<SwiperType | null>(null)
   const [activeIndex, setActiveIndex] = useState(0)
-  const [pageIndexes, setPageIndexes] = useState<number[]>([])
   const [canScrollPrevious, setCanScrollPrevious] = useState(false)
   const [canScrollNext, setCanScrollNext] = useState(false)
 
+  /*
+   * Desktop hiển thị tương đương 3 bác sĩ.
+   *
+   * Ví dụ có 4 bác sĩ:
+   *
+   * index 0:
+   * [BS1] [BS2] [BS3]
+   *
+   * index 1:
+   * [BS2] [BS3] [BS4]
+   *
+   * => index bắt đầu cuối cùng hợp lệ = 4 - 3 = 1.
+   */
+  const desktopLastStartIndex = Math.max(doctors.length - DESKTOP_DOCTORS_PER_PAGE, 0)
+
+  const canScrollDesktopPrevious = activeIndex > 0
+  const canScrollDesktopNext = activeIndex < desktopLastStartIndex
+
+  /*
+   * Pagination desktop vẫn mang ý nghĩa theo nhóm 3 bác sĩ
+   * giống thiết kế cũ.
+   *
+   * 4 bác sĩ => 2 thanh:
+   * - nhóm đầu: 3 bác sĩ
+   * - nhóm cuối: 1 bác sĩ
+   */
   const desktopActiveIndex =
-    pageIndexes.length <= 1 || desktopPageIndexes.length <= 1
+    desktopPageIndexes.length <= 1 || desktopLastStartIndex === 0
       ? 0
-      : Math.round((activeIndex / (pageIndexes.length - 1)) * (desktopPageIndexes.length - 1))
+      : Math.round((activeIndex / desktopLastStartIndex) * (desktopPageIndexes.length - 1))
 
-  const scrollToDesktopPage = (pageIndex: number) => {
-    if (!carouselApi || pageIndexes.length <= 1 || desktopPageIndexes.length <= 1) return
-
-    const targetSnap = Math.round(
-      (pageIndex / (desktopPageIndexes.length - 1)) * (pageIndexes.length - 1),
-    )
-    carouselApi.scrollTo(targetSnap)
+  const updateSwiperState = (instance: SwiperType) => {
+    setActiveIndex(instance.activeIndex)
+    setCanScrollPrevious(!instance.isBeginning)
+    setCanScrollNext(!instance.isEnd)
   }
 
-  const updateCarouselState = useCallback((api: NonNullable<CarouselApi>) => {
-    setActiveIndex(api.selectedScrollSnap())
-    setPageIndexes(api.scrollSnapList().map((_, index) => index))
-    setCanScrollPrevious(api.canScrollPrev())
-    setCanScrollNext(api.canScrollNext())
-  }, [])
+  /*
+   * Mobile:
+   * mỗi bác sĩ là một page.
+   */
+  const scrollToPage = (pageIndex: number) => {
+    swiper?.slideTo(pageIndex)
+  }
 
-  useEffect(() => {
-    if (!carouselApi) return
+  /*
+   * Desktop:
+   * pagination chỉ có số page tương ứng nhóm 3 bác sĩ,
+   * nhưng việc kéo / Next vẫn dịch từng bác sĩ một.
+   */
+  const scrollToDesktopPage = (pageIndex: number) => {
+    if (!swiper || desktopPageIndexes.length <= 1) return
 
-    const handleCarouselChange = () => updateCarouselState(carouselApi)
+    const targetIndex = Math.round(
+      (pageIndex / (desktopPageIndexes.length - 1)) * desktopLastStartIndex,
+    )
 
-    handleCarouselChange()
-    carouselApi.on('select', handleCarouselChange)
-    carouselApi.on('reInit', handleCarouselChange)
-
-    return () => {
-      carouselApi.off('select', handleCarouselChange)
-      carouselApi.off('reInit', handleCarouselChange)
-    }
-  }, [carouselApi, updateCarouselState])
+    swiper.slideTo(targetIndex)
+  }
 
   return (
     <section
       id='bac-si'
       className='relative overflow-hidden bg-white pt-[3.75rem] pb-[6.25rem] xsm:pt-[3rem] xsm:pb-[4rem]'
     >
-      {}
       <div className='pointer-events-none absolute inset-x-0 top-0 h-[10rem] bg-[linear-gradient(180deg,rgba(25,145,199,0.06),rgba(255,255,255,0))]' />
 
       <div className='relative mx-auto w-full px-[6.25rem] xsm:px-[1rem]'>
-        {}
         <div className='flex flex-row items-end justify-between gap-[1.5rem] xsm:flex-col xsm:items-stretch'>
           <div>
             <div className='mb-[0.75rem] inline-flex items-center gap-[0.375rem] rounded-full bg-brand-yellow px-[0.75rem] py-[0.4375rem] text-[0.6875rem] font-semibold uppercase leading-none text-white'>
@@ -115,7 +143,6 @@ export function DoctorsSection() {
             </h2>
           </div>
 
-          {}
           <button
             type='button'
             className='group inline-flex h-[2.625rem] w-fit shrink-0 items-center justify-center gap-[0.5rem] self-auto rounded-full border border-brand-blue bg-white px-[1.25rem] text-[0.8125rem] font-medium text-brand-blue transition-colors duration-200 hover:border-brand-yellow hover:text-brand-yellow xsm:hidden'
@@ -125,14 +152,13 @@ export function DoctorsSection() {
           </button>
         </div>
 
-        {}
         <div className='relative mt-[3rem]'>
-          {}
+          {/* Previous desktop */}
           <button
             type='button'
             aria-label='Xem các bác sĩ trước'
-            disabled={!canScrollPrevious}
-            onClick={() => carouselApi?.scrollPrev()}
+            disabled={!canScrollDesktopPrevious}
+            onClick={() => swiper?.slidePrev()}
             className='group absolute left-[-4.375rem] top-1/2 z-30 flex size-[2.5rem] -translate-y-1/2 items-center justify-center overflow-hidden rounded-full border border-brand-blue bg-white transition-colors duration-300 ease-in-out enabled:hover:bg-brand-blue disabled:cursor-default disabled:opacity-30 xsm:hidden'
           >
             <NavChevron
@@ -141,33 +167,32 @@ export function DoctorsSection() {
             />
           </button>
 
-          {}
-          <Carousel
-            setApi={setCarouselApi}
-            opts={{
-              align: 'start',
-              containScroll: 'trimSnaps',
-              dragFree: false,
-              loop: false,
-              slidesToScroll: 1,
-              breakpoints: {
-                '(min-width: 40rem)': { slidesToScroll: 3 },
-              },
+          <Swiper
+            onSwiper={(instance) => {
+              setSwiper(instance)
+              updateSwiperState(instance)
             }}
+            onSlideChange={updateSwiperState}
+            onResize={updateSwiperState}
+            slidesPerView='auto'
+            slidesPerGroup={1}
+            spaceBetween={16}
+            loop={false}
             className='w-full'
           >
-            <CarouselContent className='ml-0 gap-[1rem]'>
-              {doctors.map((doctor) => {
-                const details = [doctor.description, ...doctor.specialties]
+            {doctors.map((doctor) => {
+              const details = [doctor.description, ...doctor.specialties]
 
-                return (
+              return (
+                <SwiperSlide
+                  key={doctor.id}
+                  className='!w-[28.333333rem] xsm:!w-full'
+                >
                   <article
-                    key={doctor.id}
                     data-doctor-card
-                    className='group relative h-[30.3125rem] basis-[28.333333rem] shrink-0 overflow-hidden rounded-[1rem] border-0 bg-white xsm:h-[27rem] xsm:basis-full xsm:rounded-[0.875rem] xsm:border xsm:border-brand-blue/10 xsm:bg-[#eef7fd]'
+                    className='group relative h-[30.3125rem] w-full overflow-hidden rounded-[1rem] border-0 bg-white xsm:h-[27rem] xsm:rounded-[0.875rem] xsm:border xsm:border-brand-blue/10 xsm:bg-[#eef7fd]'
                   >
-                    {}
-                    {}
+                    {/* Background */}
                     <div className='absolute left-[-3.0625rem] top-[-11.9375rem] z-0 h-[44.125rem] w-[44.2224rem] xsm:inset-0 xsm:h-auto xsm:w-auto'>
                       <Image
                         src='/images/bg-to.png'
@@ -177,11 +202,10 @@ export function DoctorsSection() {
                         className='object-cover object-bottom opacity-80 xsm:object-center xsm:opacity-100'
                       />
 
-                      {}
                       <div className='absolute inset-0 hidden bg-white/20 xsm:block' />
                     </div>
 
-                    {}
+                    {/* Mobile layout */}
                     <div className='relative z-10 hidden h-full min-h-0 flex-col gap-[0.75rem] p-[0.75rem] xsm:flex'>
                       <div className='flex gap-[0.75rem]'>
                         <div className='relative h-[10rem] w-[40%] shrink-0 overflow-hidden rounded-[0.75rem] border-[0.125rem] border-white bg-white/40'>
@@ -260,6 +284,7 @@ export function DoctorsSection() {
                       </button>
                     </div>
 
+                    {/* Desktop layout */}
                     <div className='block xsm:hidden'>
                       <div className='absolute right-[0.72rem] top-[0.625rem] z-20 inline-flex h-[2rem] max-w-[55%] items-center gap-[0.27rem] rounded-[0.5rem] bg-brand-yellow p-[0.5rem] text-[0.75rem] font-semibold uppercase leading-[1.2] tracking-[0.0075rem] text-white'>
                         <Image
@@ -270,6 +295,7 @@ export function DoctorsSection() {
                           height={16}
                           className='size-[1rem] shrink-0'
                         />
+
                         <span className='truncate'>{doctor.role}</span>
                       </div>
 
@@ -352,16 +378,17 @@ export function DoctorsSection() {
                       </button>
                     </div>
                   </article>
-                )
-              })}
-            </CarouselContent>
-          </Carousel>
+                </SwiperSlide>
+              )
+            })}
+          </Swiper>
 
+          {/* Next desktop */}
           <button
             type='button'
             aria-label='Xem các bác sĩ tiếp theo'
-            disabled={!canScrollNext}
-            onClick={() => carouselApi?.scrollNext()}
+            disabled={!canScrollDesktopNext}
+            onClick={() => swiper?.slideNext()}
             className='group absolute right-[-4.375rem] top-1/2 z-30 flex size-[2.5rem] -translate-y-1/2 items-center justify-center overflow-hidden rounded-full border border-brand-blue bg-white transition-colors duration-300 ease-in-out enabled:hover:bg-brand-blue disabled:cursor-default disabled:opacity-30 xsm:hidden'
           >
             <NavChevron
@@ -371,8 +398,9 @@ export function DoctorsSection() {
           </button>
         </div>
 
-        {pageIndexes.length > 1 && (
+        {doctors.length > 1 && (
           <div className='mt-[1.75rem] flex items-center justify-center gap-[1rem] xsm:mt-[1.5rem] xsm:justify-between'>
+            {/* Pagination desktop */}
             <div className='flex items-center gap-[0.25rem] xsm:hidden'>
               {desktopPageIndexes.map((index) => (
                 <button
@@ -389,13 +417,14 @@ export function DoctorsSection() {
               ))}
             </div>
 
+            {/* Pagination mobile */}
             <div className='hidden items-center gap-[0.25rem] xsm:flex'>
-              {pageIndexes.map((index) => (
+              {mobilePageIndexes.map((index) => (
                 <button
                   key={index}
                   type='button'
-                  aria-label={`Chuyển đến nhóm bác sĩ ${index + 1}`}
-                  onClick={() => carouselApi?.scrollTo(index)}
+                  aria-label={`Chuyển đến bác sĩ ${index + 1}`}
+                  onClick={() => scrollToPage(index)}
                   className={`h-[0.125rem] rounded-full transition-all duration-300 ${
                     activeIndex === index
                       ? 'w-[3.5rem] bg-brand-blue'
@@ -405,12 +434,13 @@ export function DoctorsSection() {
               ))}
             </div>
 
+            {/* Previous / Next mobile */}
             <div className='hidden items-center gap-[0.5rem] xsm:flex'>
               <button
                 type='button'
                 aria-label='Xem các bác sĩ trước'
                 disabled={!canScrollPrevious}
-                onClick={() => carouselApi?.scrollPrev()}
+                onClick={() => swiper?.slidePrev()}
                 className='group relative inline-flex size-[2.25rem] items-center justify-center overflow-hidden rounded-full border border-brand-blue bg-white transition-colors duration-300 ease-in-out enabled:hover:bg-brand-blue disabled:cursor-default disabled:opacity-30'
               >
                 <NavChevron direction='left' />
@@ -420,7 +450,7 @@ export function DoctorsSection() {
                 type='button'
                 aria-label='Xem các bác sĩ tiếp theo'
                 disabled={!canScrollNext}
-                onClick={() => carouselApi?.scrollNext()}
+                onClick={() => swiper?.slideNext()}
                 className='group relative inline-flex size-[2.25rem] items-center justify-center overflow-hidden rounded-full border border-brand-blue bg-white transition-colors duration-300 ease-in-out enabled:hover:bg-brand-blue disabled:cursor-default disabled:opacity-30'
               >
                 <NavChevron direction='right' />

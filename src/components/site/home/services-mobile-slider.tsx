@@ -1,9 +1,12 @@
 'use client'
 
 import { useCallback, useEffect, useState } from 'react'
+import type { Swiper as SwiperInstance } from 'swiper'
+import { Swiper, SwiperSlide } from 'swiper/react'
+
+import 'swiper/css'
 
 import { NavChevron } from '@/components/common/nav-chevron'
-import { Carousel, type CarouselApi, CarouselContent, CarouselItem } from '@/components/ui/carousel'
 import type { Service } from '@/content/home'
 
 import { ServiceCard } from './service-card'
@@ -12,59 +15,70 @@ type ServicesMobileSliderProps = {
   services: Service[]
 }
 
+const DEFAULT_ROOT_FONT_SIZE = 16
+
 export function ServicesMobileSlider({ services }: ServicesMobileSliderProps) {
-  const [carouselApi, setCarouselApi] = useState<CarouselApi>()
+  const [swiper, setSwiper] = useState<SwiperInstance | null>(null)
   const [activeIndex, setActiveIndex] = useState(0)
-  const [pageIndexes, setPageIndexes] = useState<number[]>([])
   const [canScrollPrevious, setCanScrollPrevious] = useState(false)
   const [canScrollNext, setCanScrollNext] = useState(false)
+  const [spaceBetween, setSpaceBetween] = useState(DEFAULT_ROOT_FONT_SIZE)
 
-  const updateCarouselState = useCallback((api: NonNullable<CarouselApi>) => {
-    setActiveIndex(api.selectedScrollSnap())
-    setPageIndexes(api.scrollSnapList().map((_, index) => index))
-    setCanScrollPrevious(api.canScrollPrev())
-    setCanScrollNext(api.canScrollNext())
+  const pageIndexes = services.map((_, index) => index)
+
+  const updateSwiperState = useCallback((instance: SwiperInstance) => {
+    setActiveIndex(instance.activeIndex)
+    setCanScrollPrevious(!instance.isBeginning)
+    setCanScrollNext(!instance.isEnd)
   }, [])
 
+  const handleSwiper = useCallback(
+    (instance: SwiperInstance) => {
+      setSwiper(instance)
+      updateSwiperState(instance)
+    },
+    [updateSwiperState],
+  )
+
   useEffect(() => {
-    if (!carouselApi) return
+    const updateSpaceBetween = () => {
+      const rootFontSize = Number.parseFloat(
+        window.getComputedStyle(document.documentElement).fontSize,
+      )
 
-    const handleCarouselChange = () => updateCarouselState(carouselApi)
+      if (!Number.isFinite(rootFontSize)) return
 
-    handleCarouselChange()
-    carouselApi.on('select', handleCarouselChange)
-    carouselApi.on('reInit', handleCarouselChange)
+      setSpaceBetween(rootFontSize)
+    }
+
+    updateSpaceBetween()
+
+    window.addEventListener('resize', updateSpaceBetween)
 
     return () => {
-      carouselApi.off('select', handleCarouselChange)
-      carouselApi.off('reInit', handleCarouselChange)
+      window.removeEventListener('resize', updateSpaceBetween)
     }
-  }, [carouselApi, updateCarouselState])
+  }, [])
 
   return (
     <div className='hidden xsm:block'>
-      <Carousel
-        setApi={setCarouselApi}
-        opts={{
-          align: 'start',
-          containScroll: 'trimSnaps',
-          dragFree: false,
-          loop: false,
-          watchDrag: true,
-        }}
+      <Swiper
+        slidesPerView={1}
+        slidesPerGroup={1}
+        spaceBetween={spaceBetween}
+        loop={false}
+        allowTouchMove
+        onSwiper={handleSwiper}
+        onSlideChange={updateSwiperState}
+        onResize={updateSwiperState}
         className='cursor-grab select-none active:cursor-grabbing'
       >
-        <CarouselContent className='ml-0 gap-[1rem]'>
-          {services.map((service) => (
-            <CarouselItem
-              key={service.id}
-              className='basis-full pl-0'
-            >
-              <ServiceCard service={service} />
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-      </Carousel>
+        {services.map((service) => (
+          <SwiperSlide key={service.id}>
+            <ServiceCard service={service} />
+          </SwiperSlide>
+        ))}
+      </Swiper>
 
       <div className='mt-[1.25rem] flex items-center justify-between gap-[1rem]'>
         <div className='flex items-center gap-[0.25rem]'>
@@ -73,7 +87,7 @@ export function ServicesMobileSlider({ services }: ServicesMobileSliderProps) {
               key={index}
               type='button'
               aria-label={`Chuyển đến dịch vụ ${index + 1}`}
-              onClick={() => carouselApi?.scrollTo(index)}
+              onClick={() => swiper?.slideTo(index)}
               className={`h-[0.125rem] rounded-full transition-all duration-300 ${
                 activeIndex === index
                   ? 'w-[2.5rem] bg-brand-blue'
@@ -88,7 +102,7 @@ export function ServicesMobileSlider({ services }: ServicesMobileSliderProps) {
             type='button'
             aria-label='Xem dịch vụ trước'
             disabled={!canScrollPrevious}
-            onClick={() => carouselApi?.scrollPrev()}
+            onClick={() => swiper?.slidePrev()}
             className='group relative inline-flex size-[2.25rem] items-center justify-center overflow-hidden rounded-full border border-brand-blue bg-white transition-colors duration-300 ease-in-out enabled:hover:bg-brand-blue disabled:cursor-default disabled:opacity-30'
           >
             <NavChevron direction='left' />
@@ -98,7 +112,7 @@ export function ServicesMobileSlider({ services }: ServicesMobileSliderProps) {
             type='button'
             aria-label='Xem dịch vụ tiếp theo'
             disabled={!canScrollNext}
-            onClick={() => carouselApi?.scrollNext()}
+            onClick={() => swiper?.slideNext()}
             className='group relative inline-flex size-[2.25rem] items-center justify-center overflow-hidden rounded-full border border-brand-blue bg-white transition-colors duration-300 ease-in-out enabled:hover:bg-brand-blue disabled:cursor-default disabled:opacity-30'
           >
             <NavChevron direction='right' />

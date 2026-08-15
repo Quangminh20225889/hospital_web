@@ -1,76 +1,24 @@
 'use client'
 
 import Image from 'next/image'
-import { useEffect } from 'react'
+import { useRef } from 'react'
+import type { Swiper as SwiperType } from 'swiper'
+import { Autoplay } from 'swiper/modules'
+import { Swiper, SwiperSlide } from 'swiper/react'
 
-import { Carousel, CarouselContent, CarouselItem, useCarousel } from '@/components/ui/carousel'
+import 'swiper/css'
 import { bannerSlides } from '@/content/home'
 import { cn } from '@/lib/utils'
 
 const AUTOPLAY_MS = 8000
 
-function BannerAutoplay() {
-  const { api } = useCarousel()
-
-  useEffect(() => {
-    if (!api) return
-
-    let timeoutId: number | null = null
-
-    const clearAutoplay = () => {
-      if (timeoutId === null) return
-
-      window.clearTimeout(timeoutId)
-      timeoutId = null
-    }
-
-    const startAutoplay = () => {
-      clearAutoplay()
-
-      if (document.hidden || api.scrollSnapList().length <= 1) return
-
-      timeoutId = window.setTimeout(() => {
-        timeoutId = null
-
-        if (document.hidden) return
-
-        api.scrollNext()
-        startAutoplay()
-      }, AUTOPLAY_MS)
-    }
-
-    const handleVisibilityChange = () => {
-      if (document.hidden) {
-        clearAutoplay()
-
-        // Finish any in-progress loop transition so Embla does not resume
-        // from an intermediate position when the tab becomes visible again.
-        api.scrollTo(api.selectedScrollSnap(), true)
-        return
-      }
-
-      startAutoplay()
-    }
-
-    api.on('select', startAutoplay)
-    api.on('reInit', startAutoplay)
-    document.addEventListener('visibilitychange', handleVisibilityChange)
-
-    startAutoplay()
-
-    return () => {
-      clearAutoplay()
-      api.off('select', startAutoplay)
-      api.off('reInit', startAutoplay)
-      document.removeEventListener('visibilitychange', handleVisibilityChange)
-    }
-  }, [api])
-
-  return null
-}
-
-function BannerNavButton({ direction }: { direction: 'prev' | 'next' }) {
-  const { scrollPrev, scrollNext } = useCarousel()
+function BannerNavButton({
+  direction,
+  onClick,
+}: {
+  direction: 'prev' | 'next'
+  onClick: () => void
+}) {
   const isPrevious = direction === 'prev'
   const iconSizeClassName = 'h-[1.375rem] w-[0.7639rem] xsm:h-[1.125rem] xsm:w-[0.625rem]'
 
@@ -78,7 +26,7 @@ function BannerNavButton({ direction }: { direction: 'prev' | 'next' }) {
     <button
       type='button'
       aria-label={direction === 'prev' ? 'Banner trước' : 'Banner tiếp'}
-      onClick={direction === 'prev' ? scrollPrev : scrollNext}
+      onClick={onClick}
       className={cn(
         'group/hero-nav absolute inset-y-0 z-10 my-auto size-[3rem] overflow-hidden rounded-full border border-brand-blue bg-white transition-colors duration-300 ease-in-out',
         'shadow-[0_0.25rem_1rem_rgba(4,24,33,0.08)]',
@@ -123,42 +71,57 @@ function BannerNavButton({ direction }: { direction: 'prev' | 'next' }) {
 }
 
 export function HeroSection() {
+  const swiperRef = useRef<SwiperType | null>(null)
+
   return (
     <section
       className='relative w-full overflow-hidden bg-surface-blue'
       aria-label='Banner'
     >
-      <Carousel
-        opts={{ loop: true, align: 'start', duration: 45, watchDrag: true }}
+      <Swiper
+        modules={[Autoplay]}
+        onSwiper={(swiper) => {
+          swiperRef.current = swiper
+        }}
+        slidesPerView={1}
+        loop={bannerSlides.length > 1}
+        speed={700}
+        autoplay={
+          bannerSlides.length > 1
+            ? {
+                delay: AUTOPLAY_MS,
+                disableOnInteraction: false,
+              }
+            : false
+        }
         className='w-full'
       >
-        <BannerAutoplay />
+        {bannerSlides.map((slide, index) => (
+          <SwiperSlide key={slide.id}>
+            <div className='relative aspect-[3600/1178] w-full xsm:aspect-[375/180]'>
+              <Image
+                src={slide.src}
+                alt={slide.alt}
+                fill
+                priority={index === 0}
+                draggable={false}
+                sizes='100vw'
+                className='object-cover object-center'
+              />
+            </div>
+          </SwiperSlide>
+        ))}
 
-        <CarouselContent className='ml-0'>
-          {bannerSlides.map((slide, index) => (
-            <CarouselItem
-              key={slide.id}
-              className='pl-0'
-            >
-              {}
-              <div className='relative aspect-[3600/1178] w-full xsm:aspect-[375/180]'>
-                <Image
-                  src={slide.src}
-                  alt={slide.alt}
-                  fill
-                  priority={index === 0}
-                  draggable={false}
-                  sizes='100vw'
-                  className='object-cover object-center'
-                />
-              </div>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
+        <BannerNavButton
+          direction='prev'
+          onClick={() => swiperRef.current?.slidePrev()}
+        />
 
-        <BannerNavButton direction='prev' />
-        <BannerNavButton direction='next' />
-      </Carousel>
+        <BannerNavButton
+          direction='next'
+          onClick={() => swiperRef.current?.slideNext()}
+        />
+      </Swiper>
     </section>
   )
 }
