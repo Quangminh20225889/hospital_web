@@ -47,7 +47,7 @@ export function NewsSection() {
 
       if (!Number.isFinite(rootFontSize)) return
 
-      setSpaceBetween(rootFontSize)
+      setSpaceBetween(rootFontSize * 1.25)
     }
 
     updateSpaceBetween()
@@ -86,7 +86,7 @@ export function NewsSection() {
   return (
     <section
       id='tin-tuc'
-      className='relative overflow-hidden bg-white py-[4rem] xsm:py-[3rem]'
+      className='relative overflow-hidden bg-white pt-[1.25rem] pb-[6.25rem] xsm:pt-[2.25rem] xsm:pb-[3rem]'
     >
       <div
         aria-hidden='true'
@@ -100,14 +100,14 @@ export function NewsSection() {
       <Container className='relative z-10 max-w-none'>
         <div className='flex flex-row items-end justify-between gap-[1.25rem] xsm:flex-col xsm:items-stretch'>
           <div>
-            <Badge className='mb-[0.75rem] h-auto rounded-full border-0 bg-brand-yellow px-[0.875rem] py-[0.5rem] text-[0.6875rem] font-semibold uppercase leading-none tracking-normal text-white'>
+            <Badge className='mb-[0.75rem] flex h-auto items-center justify-center gap-[0.5rem] rounded-[2.5rem] border-0 bg-brand-yellow px-[0.875rem] py-[0.5rem] text-[1rem] font-medium leading-[150%] tracking-normal text-white uppercase xsm:gap-[0.375rem] xsm:px-[0.625rem] xsm:py-[0.3125rem]'>
               <Image
                 aria-hidden='true'
                 src='/icons/union.svg'
                 alt=''
                 width={16}
                 height={16}
-                className='size-[0.75rem]'
+                className='size-[1rem] xsm:size-[0.875rem]'
               />
               Kiến thức &amp; Tin tức
             </Badge>
@@ -115,7 +115,7 @@ export function NewsSection() {
             <SectionHeading
               title='Thông tin nổi bật'
               className='max-w-none'
-              titleClassName='text-[2.25rem] uppercase text-brand-blue xsm:text-[2rem]'
+              titleClassName='text-[2.5rem] font-bold leading-[130%] tracking-[-0.05rem] text-[#0897D8] uppercase xsm:text-[1.5rem] xsm:tracking-[-0.03rem]'
             />
           </div>
 
@@ -161,7 +161,7 @@ export function NewsSection() {
           <div
             role='region'
             aria-roledescription='carousel'
-            className='relative mt-[2rem]'
+            className='relative mt-[2.5rem]'
             onKeyDownCapture={handleKeyDown}
           >
             <Swiper
@@ -208,7 +208,7 @@ export function NewsSection() {
 
           {pageCount > 1 && (
             <div
-              className='mt-[2rem] flex items-center justify-center gap-[0.25rem]'
+              className='mt-[2.5rem] flex items-center justify-center gap-[0.25rem]'
               role='tablist'
               aria-label='Chọn nhóm tin tức'
             >

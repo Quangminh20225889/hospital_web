@@ -39,10 +39,12 @@ export function SiteHeader() {
       } else if (currentScrollY < lastScrollY) {
         setIsVisible(true)
       }
+
       setLastScrollY(currentScrollY)
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
+
     return () => window.removeEventListener('scroll', handleScroll)
   }, [lastScrollY])
 
@@ -74,11 +76,11 @@ export function SiteHeader() {
             isAtTop ? 'h-[3rem] opacity-100' : 'h-0 opacity-0'
           }`}
         >
-          <div className='flex h-[3rem] items-center justify-end bg-brand-blue pr-[6.25rem] pl-0'>
+          <div className='flex h-[3rem] w-full items-center justify-end bg-brand-blue pr-[6.25rem] pl-0'>
             <div className='flex items-center gap-[0.75rem]'>
               <a
                 href={HOTLINE_TEL}
-                className='inline-flex h-[2rem] items-center justify-center gap-[0.375rem] rounded-full bg-white px-[0.75rem] text-[0.875rem] font-medium text-brand-blue transition hover:bg-white/95'
+                className='inline-flex h-[2rem] w-[13.5rem] shrink-0 items-center justify-center gap-[0.375rem] whitespace-nowrap rounded-full bg-white px-[0.75rem] text-[1rem] font-medium leading-[1.5rem] text-brand-blue transition hover:bg-white/95'
               >
                 <Image
                   src='/icons/vuesax-bold-call1.svg'
@@ -87,12 +89,13 @@ export function SiteHeader() {
                   height={16}
                   className='size-[1rem] shrink-0'
                 />
-                <span>Tổng đài {HOTLINE}</span>
+
+                <span className='whitespace-nowrap'>Tổng đài {HOTLINE}</span>
               </a>
 
               <Link
                 href={'/lien-he' as any}
-                className='inline-flex h-[2rem] items-center justify-center rounded-full border border-white px-[1.25rem] text-[0.875rem] font-medium text-white transition hover:bg-white/10'
+                className='inline-flex h-[2rem] items-center justify-center rounded-full border border-white px-[0.75rem] text-[0.875rem] font-normal leading-[1.3125rem] text-white transition hover:bg-white/10'
               >
                 Liên hệ
               </Link>
@@ -100,7 +103,8 @@ export function SiteHeader() {
           </div>
         </div>
 
-        <div className='flex items-center justify-between px-[6.25rem] py-[0.75rem] xsm:px-[1rem] xsm:py-[0.5rem]'>
+        {/* Desktop header */}
+        <div className='flex h-[4.5625rem] items-center justify-between px-[6.25rem] xsm:hidden'>
           <Link
             href='/'
             className='min-w-0 shrink'
@@ -110,7 +114,7 @@ export function SiteHeader() {
               alt='Bệnh viện Đồng Tâm'
               width={392}
               height={67}
-              className='h-[3rem] w-auto max-w-full xsm:h-[2.125rem]'
+              className='h-[3.875rem] w-auto max-w-full xsm:h-[2.125rem]'
               priority
             />
           </Link>
@@ -120,7 +124,7 @@ export function SiteHeader() {
             alt='Gieo mầm hạnh phúc'
             width={300}
             height={52}
-            className='block h-[2.75rem] w-auto xsm:hidden'
+            className='block h-[3.27425rem] w-[18.75rem] shrink-0 xsm:hidden'
             priority
           />
 
@@ -187,7 +191,7 @@ export function SiteHeader() {
 
             <Link
               href={'/dat-lich' as any}
-              className='inline-flex items-center gap-[0.5rem] rounded-full bg-brand-blue px-[1.25rem] py-[0.625rem] text-[0.9375rem] font-semibold text-white shadow-[0_0_0_0.25rem_rgba(25,145,199,0.18)] transition-[background-color,box-shadow] duration-300 hover:bg-brand-yellow hover:shadow-[0_0_0_0.25rem_rgba(252,202,69,0.3)] xsm:hidden'
+              className='inline-flex items-center gap-[0.5rem] rounded-full bg-brand-blue px-[1.25rem] py-[0.625rem] text-[1rem] font-normal text-white shadow-[0_0_0_0.25rem_rgba(25,145,199,0.18)] transition-[background-color,box-shadow] duration-300 hover:bg-brand-yellow hover:shadow-[0_0_0_0.25rem_rgba(252,202,69,0.3)] xsm:hidden'
             >
               <Image
                 src='/icons/vuesax-bold-calendar-tick.svg'
@@ -211,8 +215,45 @@ export function SiteHeader() {
           </div>
         </div>
 
+        {/* Mobile header */}
+        <div className='hidden w-full items-center justify-between bg-white px-[0.75rem] py-[0.375rem] shadow-[0_3px_8px_0_rgba(0,0,0,0.06)] xsm:flex'>
+          {/* Logo */}
+          <Link
+            href='/'
+            className='shrink-0'
+          >
+            <Image
+              src='/images/logo.png'
+              alt='Bệnh viện Đồng Tâm'
+              width={39}
+              height={42}
+              className='h-[2.625rem] w-[2.4375rem] shrink-0'
+              priority
+            />
+          </Link>
+
+          {/* Text */}
+          <span className="whitespace-nowrap font-['Bitter'] text-[1.26319rem] font-[800] leading-normal text-[#1991C7]">
+            BỆNH VIỆN ĐỒNG TÂM
+          </span>
+
+          {/* Hamburger */}
+          <button
+            type='button'
+            aria-label='Mở menu'
+            aria-expanded={isOpen}
+            onClick={() => setIsOpen(true)}
+            className='inline-flex size-[1.5rem] shrink-0 items-center justify-center text-[#1991C7]'
+          >
+            <Menu
+              aria-hidden='true'
+              className='size-[1.5rem]'
+            />
+          </button>
+        </div>
+
         <nav className='block border-t border-black/5 px-[6.25rem] xsm:hidden'>
-          <ul className='flex items-center justify-between gap-[0.5rem]'>
+          <ul className='flex items-center justify-center gap-[1.1875rem]'>
             {navigationItems.map((item) => (
               <li
                 key={item.href}
@@ -220,9 +261,10 @@ export function SiteHeader() {
               >
                 <Link
                   href={item.href as any}
-                  className='inline-flex h-full items-center gap-[0.25rem] whitespace-nowrap py-[1.25rem] text-[0.9375rem] font-medium text-text-dark-blue transition-colors hover:text-brand-blue'
+                  className='inline-flex items-center gap-[0.375rem] whitespace-nowrap p-[1rem] text-[0.875rem] font-normal leading-[120%] tracking-[-0.0175rem] text-text-dark-blue transition-colors hover:text-brand-blue'
                 >
                   {item.label}
+
                   {item.hasDropdown ? (
                     <ChevronDown
                       className='size-[0.875rem] opacity-60 transition-transform duration-200 group-hover:rotate-180'
@@ -230,6 +272,7 @@ export function SiteHeader() {
                     />
                   ) : null}
                 </Link>
+
                 {item.hasDropdown && <MegaMenu />}
               </li>
             ))}

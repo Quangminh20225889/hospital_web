@@ -11,16 +11,16 @@ export function ServicesSection() {
   return (
     <section
       id='dich-vu'
-      className='py-[6rem] xsm:py-[4rem]'
+      className='pt-[6rem] pb-[7.5rem] xsm:pt-[2.75rem] xsm:pb-[1.25rem]'
     >
       <Container className='max-w-none'>
         {}
-        <div className='hidden text-center xsm:block'>
-          <p className='text-[1.375rem] font-bold uppercase leading-[1.3] text-title-blue'>
+        <div className='hidden w-full flex-col items-center gap-[1.38rem] text-center xsm:flex'>
+          <p className='w-full text-[1.5rem] font-bold uppercase leading-[1.95rem] tracking-[-0.03rem] text-brand-blue'>
             Dịch vụ nổi bật
           </p>
 
-          <p className='text-[1.375rem] font-bold uppercase leading-[1.3] text-title-blue'>
+          <p className='w-full text-[1.5rem] font-bold uppercase leading-[1.95rem] tracking-[-0.03rem] text-brand-blue'>
             Hiệu quả điều trị
           </p>
         </div>
@@ -84,7 +84,7 @@ export function ServicesSection() {
           </div>
         </div>
 
-        <div className='mt-[2rem] w-full'>
+        <div className='mt-[2.5rem] w-full'>
           <ServicesMobileSlider services={services} />
 
           <div className='block xsm:hidden'>
@@ -97,13 +97,18 @@ export function ServicesSection() {
           </div>
         </div>
 
-        <div className='mt-[2rem] flex justify-center'>
+        <div className='mt-[2.5rem] flex justify-center'>
           <Button
             asChild
             variant='outline'
             className={[
-              'group/all h-[3.5rem] rounded-full px-[2rem]',
-              'border-brand-blue bg-transparent text-[1rem] font-normal text-brand-blue',
+              'group/all h-[3rem] rounded-[6.25rem] border-[1.4px] px-[1.75rem]',
+              'border-brand-blue bg-transparent text-[1rem] font-medium leading-[1.5rem] text-brand-blue',
+
+              // Mobile
+              'xsm:h-[2.5rem] xsm:px-[1.75rem] xsm:py-[0.75rem]',
+              'xsm:text-[0.875rem] xsm:leading-[1.3125rem]',
+
               'transition-[border-color,color,background-color] duration-[500ms]',
               'ease-[cubic-bezier(0.22,1,0.36,1)]',
               'hover:border-[#f8b82e] hover:bg-transparent hover:text-[#f8b82e]',

@@ -28,13 +28,14 @@ function BannerNavButton({
       aria-label={direction === 'prev' ? 'Banner trước' : 'Banner tiếp'}
       onClick={onClick}
       className={cn(
-        'group/hero-nav absolute inset-y-0 z-10 my-auto size-[3rem] overflow-hidden rounded-full border border-brand-blue bg-white transition-colors duration-300 ease-in-out',
+        'group/hero-nav absolute inset-y-0 z-10 my-auto size-[3rem] overflow-hidden rounded-full border-[1.2px] border-[#E4E4E4] bg-white transition-colors duration-300 ease-in-out',
         'shadow-[0_0.25rem_1rem_rgba(4,24,33,0.08)]',
-        'xsm:size-[1.75rem] xsm:shadow-none',
-        'min-[639.98px]:hover:bg-brand-blue',
+        'xsm:size-[1.75rem] xsm:rounded-none xsm:border-none xsm:bg-transparent xsm:shadow-none',
+        'min-[639.98px]:hover:border-brand-blue min-[639.98px]:hover:bg-brand-blue',
         isPrevious ? 'left-[1.25rem] xsm:left-[0.5rem]' : 'right-[1.25rem] xsm:right-[0.5rem]',
       )}
     >
+      {/* Icon chính: mobile chỉ hiển thị icon này */}
       <span
         className={cn(
           'absolute inset-0 flex items-center justify-center transition-transform duration-300 ease-in-out',
@@ -44,7 +45,7 @@ function BannerNavButton({
         )}
       >
         <Image
-          src={isPrevious ? '/icons/next (2).svg' : '/icons/next (1).svg'}
+          src={isPrevious ? '/icons/prev_gray.svg' : '/icons/next_gray.svg'}
           alt=''
           width={10}
           height={18}
@@ -52,9 +53,10 @@ function BannerNavButton({
         />
       </span>
 
+      {/* Icon hover: chỉ desktop */}
       <span
         className={cn(
-          'absolute inset-0 flex items-center justify-center transition-transform duration-300 ease-in-out min-[639.98px]:group-hover/hero-nav:translate-x-0',
+          'absolute inset-0 flex items-center justify-center transition-transform duration-300 ease-in-out xsm:hidden min-[639.98px]:group-hover/hero-nav:translate-x-0',
           isPrevious ? 'translate-x-full' : '-translate-x-full',
         )}
       >
@@ -98,7 +100,7 @@ export function HeroSection() {
       >
         {bannerSlides.map((slide, index) => (
           <SwiperSlide key={slide.id}>
-            <div className='relative aspect-[3600/1178] w-full xsm:aspect-[375/180]'>
+            <div className='relative aspect-[400/131] w-full xsm:aspect-[375/180]'>
               <Image
                 src={slide.src}
                 alt={slide.alt}

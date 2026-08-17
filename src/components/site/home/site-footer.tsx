@@ -12,12 +12,14 @@ import {
 
 export function SiteFooter() {
   return (
-    <footer className='mt-[5rem] h-[39.375rem] w-full bg-[#1598c8] p-[1.25rem] xsm:mt-[3rem] xsm:h-auto xsm:p-[0.75rem]'>
-      <Container className='h-full max-w-none px-0'>
+    <footer className='mt-[5rem] h-[39.375rem] w-full bg-[#1598c8] p-[1.25rem] xsm:mt-[3rem] xsm:h-auto xsm:p-[0.5rem]'>
+      {' '}
+      <Container className='h-full !w-full !max-w-none !px-0 xsm:!m-0 xsm:!w-full xsm:!max-w-none xsm:!px-0'>
         <div className='flex h-full flex-col overflow-hidden rounded-[1.375rem] bg-white'>
           <div className='grid min-h-0 flex-1 grid-cols-[31.25rem_minmax(0,1fr)] xsm:block'>
             <div className='grid min-h-0 grid-rows-[15.75rem_1fr] border-r border-[#d9e3e8] xsm:grid-rows-none xsm:border-r-0 xsm:border-b'>
-              <div className='flex items-center justify-center border-b border-[#d9e3e8] px-[1.5rem] py-[1.5rem]'>
+              <div className='flex items-center justify-center border-b border-[#d9e3e8] px-[1.5rem] py-[1.5rem] xsm:border-b-0'>
+                {' '}
                 <Image
                   src={footerContent.logo.src}
                   alt={footerContent.logo.alt}
@@ -29,11 +31,13 @@ export function SiteFooter() {
               </div>
 
               <div className='flex flex-col items-center justify-start px-[3rem] py-[1.5rem] xsm:px-[1.5rem] xsm:py-[1.25rem]'>
-                <p className='max-w-[27rem] text-center font-serif text-[2rem] leading-[1.3] italic text-[#f0b635] xsm:text-[1.5rem]'>
+                <p className='max-w-[27rem] text-center font-serif text-[2rem] leading-[1.3] italic text-[#f0b635] xsm:order-2 xsm:mt-[1.25rem] xsm:text-[1.5rem]'>
+                  {' '}
                   {footerContent.slogan}
                 </p>
 
-                <div className='mt-[2rem] flex flex-wrap justify-center gap-[1.5rem] xsm:mt-[1.25rem] xsm:gap-[1rem]'>
+                <div className='mt-[2rem] flex flex-wrap justify-center gap-[1.5rem] xsm:order-1 xsm:mt-0 xsm:gap-[1rem]'>
+                  {' '}
                   {footerSocialLinks.map((social) => (
                     <Link
                       key={social.label}
@@ -59,7 +63,8 @@ export function SiteFooter() {
             <div className='flex min-h-0 min-w-0 flex-col xsm:min-h-fit'>
               <div className='grid h-[15.75rem] shrink-0 grid-cols-[minmax(0,1fr)_24.5rem] border-b border-[#d9e3e8] xsm:h-auto xsm:grid-cols-1'>
                 <div className='px-[3.5rem] py-[1.75rem] text-left xsm:px-[1.5rem] xsm:py-[1.5rem] xsm:text-center'>
-                  <p className='text-[2rem] font-medium leading-[1.25] text-[#1598c8] xsm:text-[1.5rem]'>
+                  <p className='text-[2rem] font-medium leading-[1.25] text-[#1598c8] xsm:whitespace-nowrap xsm:text-center xsm:text-[2rem] xsm:font-medium xsm:leading-[1.2] xsm:text-[#1991C7]'>
+                    {' '}
                     {footerContent.hotline.label}:{' '}
                     <Link
                       href={footerContent.hotline.href}
@@ -131,10 +136,10 @@ export function SiteFooter() {
               </div>
 
               <div className='min-h-0 flex-1 px-[3.5rem] py-[1.5rem] xsm:px-[1.5rem]'>
-                <div className='grid grid-cols-3 gap-x-[2rem] gap-y-[2rem] xsm:grid-cols-2 xsm:gap-x-[1.5rem] xsm:gap-y-[1.5rem]'>
+                <div className='grid grid-cols-[max-content_max-content_max-content] gap-x-[5rem] gap-y-[2rem] xsm:grid-cols-2 xsm:gap-x-[1.5rem] xsm:gap-y-[1.5rem]'>
                   {footerMenuColumns.map((column) => (
                     <div key={column.title}>
-                      <h3 className='text-[0.9375rem] font-bold uppercase leading-[1.4] text-[#123f55]'>
+                      <h3 className='text-[1rem] font-bold uppercase leading-[1.5rem] text-[#08354A]'>
                         {column.title}
                       </h3>
 

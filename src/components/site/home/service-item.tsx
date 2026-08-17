@@ -59,7 +59,7 @@ export function ServiceItem({ service }: ServiceItemProps) {
             />
           </div>
 
-          <div className='min-w-0'>
+          <div className='min-w-0 w-[21.125rem]'>
             <Badge
               variant='ghost'
               className='h-auto rounded-none px-0 py-0 text-[0.6875rem] font-medium uppercase text-text-dark-blue/70 hover:bg-transparent'
@@ -67,10 +67,10 @@ export function ServiceItem({ service }: ServiceItemProps) {
               Dịch vụ
             </Badge>
 
-            <h3 className='mt-[0.375rem] text-[1.0625rem] font-bold uppercase leading-[1.4] text-brand-blue'>
+            <h3 className='mt-[0.375rem] w-full text-[1.25rem] font-bold uppercase leading-[1.75rem] tracking-[-0.0125rem] text-title-blue'>
               <Link
                 href={service.href}
-                className='transition-opacity duration-300 hover:opacity-75'
+                className='block transition-opacity duration-300 hover:opacity-75'
               >
                 {service.title}
               </Link>
@@ -83,7 +83,7 @@ export function ServiceItem({ service }: ServiceItemProps) {
           href={service.href}
           aria-label={`Xem dịch vụ ${service.title}`}
           className={[
-            'relative block h-[10rem] w-[18.75rem] overflow-hidden rounded-[0.75rem]',
+            'relative block h-[9.75rem] w-[15.625rem] justify-self-center overflow-hidden rounded-[1rem]',
             motionClassName,
             'group-hover/service:-translate-x-[0.5rem]',
           ].join(' ')}
@@ -92,17 +92,16 @@ export function ServiceItem({ service }: ServiceItemProps) {
             src={imageSrc}
             alt={service.title}
             fill
-            sizes='(max-width: 47.9375rem) 100vw, (max-width: 63.9375rem) 45vw, 13rem'
+            sizes='15.625rem'
             className='object-cover'
           />
         </Link>
 
         <p
           className={[
-            'min-w-0 text-[0.9375rem] leading-[1.7] text-text-dark-blue/80',
-            'w-full max-w-[22rem] justify-self-start',
+            'w-[21.625rem] shrink-0 text-justify text-[1rem] font-normal leading-[1.6rem] text-text-dark-blue/80',
             motionClassName,
-            'group-hover/service:-translate-x-[0.5rem]',
+            'group-hover/service:translate-x-[0.5rem]',
           ].join(' ')}
         >
           {service.description}

@@ -314,6 +314,20 @@ export const newsItems: NewsItem[] = [
       monthYear: '07/2026',
     },
   },
+  {
+    id: 'news-10',
+    title: 'Khi người trẻ trên hành trình tìm con',
+    excerpt:
+      'Vô sinh, hiếm muộn đang không chỉ xảy ra ở những cặp vợ chồng lớn tuổi. Số người trẻ tìm đến các cơ sở hỗ trợ sinh sản ngày càng tăng, trong đó nhiều trường hợp chỉ phát hiện bệnh lý sau nhiều năm mong con. Thăm khám sớm được xem là yếu tố quan trọng để giữ lại cơ hội làm cha, làm mẹ.',
+    category: 'Tin tức',
+    image: '/news/new9.jpg',
+    imageAlt: 'Người trẻ trên hành trình tìm con',
+    href: '/tin-tuc/khi-nguoi-tre-tren-hanh-trinh-tim-con',
+    publishedAt: {
+      day: '23',
+      monthYear: '07/2026',
+    },
+  },
 ]
 
 export type FooterLink = {

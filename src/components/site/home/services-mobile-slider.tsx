@@ -103,7 +103,7 @@ export function ServicesMobileSlider({ services }: ServicesMobileSliderProps) {
             aria-label='Xem dịch vụ trước'
             disabled={!canScrollPrevious}
             onClick={() => swiper?.slidePrev()}
-            className='group relative inline-flex size-[2.25rem] items-center justify-center overflow-hidden rounded-full border border-brand-blue bg-white transition-colors duration-300 ease-in-out enabled:hover:bg-brand-blue disabled:cursor-default disabled:opacity-30'
+            className='relative inline-flex size-[2.25rem] items-center justify-center overflow-hidden rounded-full border border-brand-blue bg-white disabled:cursor-default disabled:opacity-30'
           >
             <NavChevron direction='left' />
           </button>
@@ -113,7 +113,7 @@ export function ServicesMobileSlider({ services }: ServicesMobileSliderProps) {
             aria-label='Xem dịch vụ tiếp theo'
             disabled={!canScrollNext}
             onClick={() => swiper?.slideNext()}
-            className='group relative inline-flex size-[2.25rem] items-center justify-center overflow-hidden rounded-full border border-brand-blue bg-white transition-colors duration-300 ease-in-out enabled:hover:bg-brand-blue disabled:cursor-default disabled:opacity-30'
+            className='relative inline-flex size-[2.25rem] items-center justify-center overflow-hidden rounded-full border border-brand-blue bg-white disabled:cursor-default disabled:opacity-30'
           >
             <NavChevron direction='right' />
           </button>

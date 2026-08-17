@@ -60,9 +60,10 @@ export function ServiceCard({ service }: ServiceCardProps) {
 
       <Link
         href={service.href}
-        className='mt-[0.75rem] self-end text-[0.8125rem] font-medium text-brand-blue transition-opacity duration-300 hover:opacity-75'
+        className='mt-[1.25rem] ml-auto inline-flex items-center text-[0.75rem] font-normal leading-[1.125rem] text-text-dark-blue/80'
       >
-        Xem chi tiết&#8594;
+        Xem chi tiết
+        <span aria-hidden='true'>→</span>
       </Link>
     </article>
   )
